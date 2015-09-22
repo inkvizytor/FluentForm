@@ -1,0 +1,22 @@
+{
+    "name": "inkvizytor/fluentform",
+    "description": "Form builder for Laravel 5",
+    "keywords" : ["laravel5","laravel","form","builder","form builder","bootstrap"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jacek Tobiasz",
+            "email": "j.t.tobiasz@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.9.0",
+        "illuminate/support": "~5.0",
+        "laravelcollective/html": "~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "inkvizytor\\FluentForm\\": "src/"
+        }
+    }
+}

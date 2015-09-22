@@ -1,2 +1,2 @@
 # FluentForm
-Form fuilder for Laravel 5
+Form builder for Laravel 5
