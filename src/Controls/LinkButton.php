@@ -5,16 +5,16 @@ use inkvizytor\FluentForm\Traits\DataContainer;
 
 class LinkButton extends BaseControl
 {
-	use CssContainer, DataContainer;
-	
-	/** @var array */
-	protected $guarded = ['url', 'label', 'icon'];
+    use CssContainer, DataContainer;
+    
+    /** @var array */
+    protected $guarded = ['url', 'label', 'icon'];
 
-	/** @var string */
-	protected $url;
+    /** @var string */
+    protected $url;
 
-	/** @var string */
-	protected $label;
+    /** @var string */
+    protected $label;
 
     /** @var string */
     protected $icon;
@@ -22,27 +22,27 @@ class LinkButton extends BaseControl
     /** @var string */
     protected $title;
 
-	/**
-	 * @param string $url
-	 * @return $this
-	 */
-	public function url($url)
-	{
-		$this->url = $url;
+    /**
+     * @param string $url
+     * @return $this
+     */
+    public function url($url)
+    {
+        $this->url = $url;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $label
-	 * @return $this
-	 */
-	public function label($label)
-	{
-		$this->label = $label;
+    /**
+     * @param string $label
+     * @return $this
+     */
+    public function label($label)
+    {
+        $this->label = $label;
 
-		return $this;
-	}
+        return $this;
+    }
 
     /**
      * @param string $icon
@@ -66,11 +66,11 @@ class LinkButton extends BaseControl
         return $this;
     }
 
-	/**
-	 * @return string
-	 */
-	public function render()
-	{
+    /**
+     * @return string
+     */
+    public function render()
+    {
         return '<a href="'.$this->url.'"'.$this->getHtml()->attributes($this->getOptions()).'>'.$this->icon.$this->getHtml()->entities($this->label).'</a>';
-	}
+    }
 } 

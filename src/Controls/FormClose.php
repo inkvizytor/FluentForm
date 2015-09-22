@@ -7,11 +7,11 @@
  */
 class FormClose extends BaseControl
 {
-	/**
-	 * @return string
-	 */
-	public function render()
-	{
-		return $this->getForm()->close();
-	}
+    /**
+     * @return string
+     */
+    public function render()
+    {
+        return $this->getForm()->close();
+    }
 } 

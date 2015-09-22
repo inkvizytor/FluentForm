@@ -4,11 +4,11 @@ use Illuminate\Support\Facades\Facade;
 
 class FluentForm extends Facade
 {
-	/**
-	 * @return string
-	 */
-	protected static function getFacadeAccessor()
-	{
-		return 'FluentForm';
-	}
+    /**
+     * @return string
+     */
+    protected static function getFacadeAccessor()
+    {
+        return 'FluentForm';
+    }
 } 
