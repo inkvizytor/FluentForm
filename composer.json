@@ -18,5 +18,8 @@
         "psr-4": {
             "inkvizytor\\FluentForm\\": "src/"
         }
+    },
+    "suggest": {
+        "barryvdh/laravel-ide-helper": "Required to provide autocompletion for FluentForm facade (~2.0)."
     }
 }
