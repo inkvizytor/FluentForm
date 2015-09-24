@@ -260,6 +260,6 @@ abstract class Control extends BaseControl
      */
     protected function getGuarded()
     {
-        return array_merge(['label', 'help', 'required', 'width'], parent::getGuarded());
+        return array_merge(['name', 'label', 'help', 'required', 'width'], parent::getGuarded());
     }
 } 
