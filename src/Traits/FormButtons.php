@@ -57,7 +57,7 @@ trait FormButtons
 
     /**
      * @param string $url
-     * @param $label
+     * @param string $label
      * @return \inkvizytor\FluentForm\Controls\LinkButton
      */
     public function link($url, $label)
@@ -67,11 +67,11 @@ trait FormButtons
 
     /**
      * @param $icon
-     * @param $label
      * @param string $url
+     * @param string $label
      * @return \inkvizytor\FluentForm\Controls\LinkButton
      */
-    public function icon($icon, $label, $url)
+    public function icon($icon, $url, $label)
     {
         return (new LinkButton($this->getRenderer()))->icon($icon)->title($label)->url($url);
     }

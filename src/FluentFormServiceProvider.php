@@ -25,7 +25,7 @@ class FluentFormServiceProvider extends HtmlServiceProvider
     {
         $this->publishes([
             __DIR__.'/config.php' => config_path('fluentform.php'),
-        ]);
+        ], 'config');
     }
     
     /**
