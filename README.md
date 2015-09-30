@@ -86,6 +86,14 @@ edit.blade.php
 @endsection
 ```
 
+### Form layouts
+```php
+Form::open($model = null, $formName = 'default', $layout = 'standard')
+Form::standard($model = null, $formName = 'default');
+Form::horizontal($model = null, $formName = 'default');
+Form::inline($model = null, $formName = 'default');
+```
+
 ### Controls
 ```php
 Form:: or Form::group()->
@@ -122,24 +130,24 @@ Form::buttons([
 ### Tabs
 ```php
 @section('content')
-    {!! FluentForm::tabs()
+    {!! Form::tabs()
         ->add('details', 'User details', true)
         ->add('security', 'Account security')
         ->add('permissions', 'Roles and permissions')
         ->open()
     !!}
-        {!! FluentForm::tabs()->panel('details', true) !!}
+        {!! Form::tabs()->panel('details', true) !!}
             ...
-        {!! FluentForm::tabs()->end() !!}
+        {!! Form::tabs()->end() !!}
 
-        {!! FluentForm::tabs()->panel('security') !!}
+        {!! Form::tabs()->panel('security') !!}
             ...
-        {!! FluentForm::tabs()->end() !!}
+        {!! Form::tabs()->end() !!}
 
-        {!! FluentForm::tabs()->panel('permissions') !!}
+        {!! Form::tabs()->panel('permissions') !!}
             ...
-        {!! FluentForm::tabs()->end() !!}
-    {!! FluentForm::tabs()->close() !!}
+        {!! Form::tabs()->end() !!}
+    {!! Form::tabs()->close() !!}
 @endsection
 ```
 
