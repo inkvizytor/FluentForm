@@ -68,7 +68,10 @@ class Bootstrap extends BaseRenderer
     {
         $this->extendControl($control);
 
-        $control->placeholder($control->getLabel());
+        if (!empty($control->getLabel()))
+        {
+            $control->placeholder($control->getLabel());
+        }
     }
     
     /**
