@@ -4,11 +4,11 @@ use inkvizytor\FluentForm\Controls\Button;
 use inkvizytor\FluentForm\Controls\LinkButton;
 
 /**
- * Class FormButtons
+ * Class ButtonsContract
  *
  * @package inkvizytor\FluentForm\Traits
  */
-trait FormButtons
+trait ButtonsContract
 {
     /**
      * @param string $type

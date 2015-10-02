@@ -1,10 +1,11 @@
-<?php namespace inkvizytor\FluentForm\Controls;
+<?php namespace inkvizytor\FluentForm\Containers;
 
-use inkvizytor\FluentForm\Traits\CssContainer;
+use inkvizytor\FluentForm\Controls\BaseControl;
+use inkvizytor\FluentForm\Traits\CssContract;
 
-class ButtonGroup extends BaseControl
+class FormFooter extends BaseControl
 {
-    use CssContainer;
+    use CssContract;
     
     /** @var array */
     protected $buttons;
@@ -22,11 +23,15 @@ class ButtonGroup extends BaseControl
 
     /**
      * @param BaseControl $button
+     * @param bool $enabled
      * @return $this
      */
-    public function add(BaseControl $button)
+    public function add(BaseControl $button, $enabled = true)
     {
-        $this->buttons[] = $button;
+        if ($enabled == true)
+        {
+            $this->buttons[] = $button;
+        }
 
         return $this;
     }

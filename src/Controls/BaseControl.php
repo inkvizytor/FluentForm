@@ -1,11 +1,11 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
 use inkvizytor\FluentForm\Renderers\BaseRenderer;
-use inkvizytor\FluentForm\Traits\AttrContainer;
+use inkvizytor\FluentForm\Traits\AttrContract;
 
 abstract class BaseControl
 {
-    use AttrContainer;
+    use AttrContract;
     
     /** @var \inkvizytor\FluentForm\Renderers\BaseRenderer */
     private $renderer;
@@ -33,14 +33,14 @@ abstract class BaseControl
             $this->appendAttributes($options);
         }
         
-        if (method_exists($this, 'appendDataAttributes'))
+        if (method_exists($this, 'appendData'))
         {
-            $this->appendDataAttributes($options);
+            $this->appendData($options);
         }
 
-        if (method_exists($this, 'appendCssAttribute'))
+        if (method_exists($this, 'appendCss'))
         {
-            $this->appendCssAttribute($options);
+            $this->appendCss($options);
         }
 
         return array_filter($options, function($item)

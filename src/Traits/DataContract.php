@@ -1,11 +1,11 @@
 <?php namespace inkvizytor\FluentForm\Traits;
 
 /**
- * Class DataContainer
+ * Class DataContract
  *
  * @package inkvizytor\FluentForm\Traits
  */
-trait DataContainer
+trait DataContract
 {
     /** @var array */
     protected $data = [];
@@ -49,7 +49,7 @@ trait DataContainer
     /**
      * @param array $options
      */
-    protected function appendDataAttributes(&$options)
+    protected function appendData(&$options)
     {
         foreach ($this->data as $key => $value)
         {

@@ -1,4 +1,6 @@
-<?php namespace inkvizytor\FluentForm\Controls;
+<?php namespace inkvizytor\FluentForm\Containers;
+
+use inkvizytor\FluentForm\Controls\BaseControl;
 
 /**
  * Class FormClose

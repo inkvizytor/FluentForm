@@ -1,7 +1,8 @@
-<?php namespace inkvizytor\FluentForm\Controls;
+<?php namespace inkvizytor\FluentForm\Containers;
 
-use inkvizytor\FluentForm\Traits\CssContainer;
-use inkvizytor\FluentForm\Traits\DataContainer;
+use inkvizytor\FluentForm\Controls\BaseControl;
+use inkvizytor\FluentForm\Traits\CssContract;
+use inkvizytor\FluentForm\Traits\DataContract;
 
 /**
  * Class FormOpen
@@ -10,7 +11,7 @@ use inkvizytor\FluentForm\Traits\DataContainer;
  */
 class FormOpen extends BaseControl
 {
-    use CssContainer, DataContainer;
+    use CssContract, DataContract;
 
     /** @var array */
     protected $guarded = ['model'];

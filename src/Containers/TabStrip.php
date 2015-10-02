@@ -1,10 +1,11 @@
-<?php namespace inkvizytor\FluentForm\Controls;
+<?php namespace inkvizytor\FluentForm\Containers;
 
-use inkvizytor\FluentForm\Traits\CssContainer;
+use inkvizytor\FluentForm\Controls\BaseControl;
+use inkvizytor\FluentForm\Traits\CssContract;
 
-class FormTabs extends BaseControl
+class TabStrip extends BaseControl
 {
-    use CssContainer;
+    use CssContract;
     
     /** @var array */
     protected $guarded = ['mode', 'tabs', 'name', 'active'];

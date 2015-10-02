@@ -10,11 +10,11 @@ use inkvizytor\FluentForm\Controls\Select;
 use inkvizytor\FluentForm\Controls\Textarea;
 
 /**
- * Class HasFormControls
+ * Class ControlsContract
  *
  * @package inkvizytor\FluentForm\Traits
  */
-trait FormControls
+trait ControlsContract
 {
     /**
      * @param string $type

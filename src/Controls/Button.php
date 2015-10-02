@@ -1,11 +1,11 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
-use inkvizytor\FluentForm\Traits\CssContainer;
-use inkvizytor\FluentForm\Traits\DataContainer;
+use inkvizytor\FluentForm\Traits\CssContract;
+use inkvizytor\FluentForm\Traits\DataContract;
 
 class Button extends BaseControl
 {
-    use CssContainer, DataContainer;
+    use CssContract, DataContract;
     
     /** @var array */
     protected $guarded = ['label', 'icon'];

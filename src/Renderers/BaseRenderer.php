@@ -1,8 +1,8 @@
 <?php namespace inkvizytor\FluentForm\Renderers;
 
+use inkvizytor\FluentForm\Containers\FormGroup;
 use inkvizytor\FluentForm\Controls\BaseControl;
 use inkvizytor\FluentForm\Controls\Control;
-use inkvizytor\FluentForm\Controls\FormGroup;
 use inkvizytor\FluentForm\FormValidation;
 use Collective\Html\FormBuilder;
 use Collective\Html\HtmlBuilder;
@@ -21,7 +21,7 @@ abstract class BaseRenderer
     /** @var \inkvizytor\FluentForm\Controls\BaseControl */
     protected $control;
 
-    /** @var \inkvizytor\FluentForm\Controls\FormGroup */
+    /** @var \inkvizytor\FluentForm\Containers\FormGroup */
     protected $group;
     
     /** @var \inkvizytor\FluentForm\FormValidation */
@@ -115,7 +115,7 @@ abstract class BaseRenderer
     }
 
     /**
-     * @param \inkvizytor\FluentForm\Controls\FormGroup $group
+     * @param \inkvizytor\FluentForm\Containers\FormGroup $group
      * @return $this
      */
     public function bindGroup(FormGroup $group)

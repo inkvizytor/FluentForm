@@ -1,12 +1,13 @@
-<?php namespace inkvizytor\FluentForm\Controls;
+<?php namespace inkvizytor\FluentForm\Containers;
 
+use inkvizytor\FluentForm\Controls\BaseControl;
 use inkvizytor\FluentForm\Renderers\BaseRenderer;
-use inkvizytor\FluentForm\Traits\CssContainer;
-use inkvizytor\FluentForm\Traits\FormControls;
+use inkvizytor\FluentForm\Traits\CssContract;
+use inkvizytor\FluentForm\Traits\ControlsContract;
 
 class FormGroup
 {
-    use FormControls, CssContainer;
+    use ControlsContract, CssContract;
     
     /** @var \inkvizytor\FluentForm\Renderers\BaseRenderer */
     private $renderer;

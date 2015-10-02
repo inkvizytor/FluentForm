@@ -1,11 +1,11 @@
 <?php namespace inkvizytor\FluentForm\Traits;
 
 /**
- * Class AttrContainer
+ * Class AttrContract
  *
  * @package inkvizytor\FluentForm\Traits
  */
-trait AttrContainer
+trait AttrContract
 {
     /** @var array */
     protected $attr = [];

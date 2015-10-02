@@ -1,11 +1,11 @@
 <?php namespace inkvizytor\FluentForm\Traits;
 
 /**
- * Class CssContainer
+ * Class CssContract
  *
  * @package inkvizytor\FluentForm\Traits
  */
-trait CssContainer
+trait CssContract
 {
     /** @var array */
     protected $css = [];
@@ -82,7 +82,7 @@ trait CssContainer
     /**
      * @param array $options
      */
-    protected function appendCssAttribute(&$options)
+    protected function appendCss(&$options)
     {
         if (!empty($this->css))
         {

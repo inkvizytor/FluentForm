@@ -1,16 +1,16 @@
 <?php namespace inkvizytor\FluentForm\Renderers;
 
+use inkvizytor\FluentForm\Containers\ButtonGroup;
+use inkvizytor\FluentForm\Containers\FormFooter;
+use inkvizytor\FluentForm\Containers\FormOpen;
+use inkvizytor\FluentForm\Containers\FormGroup;
+use inkvizytor\FluentForm\Containers\TabStrip;
 use inkvizytor\FluentForm\Controls\Button;
-use inkvizytor\FluentForm\Controls\ButtonGroup;
 use inkvizytor\FluentForm\Controls\Checkable;
 use inkvizytor\FluentForm\Controls\CheckableList;
 use inkvizytor\FluentForm\Controls\Control;
 use inkvizytor\FluentForm\Controls\DateTime;
 use inkvizytor\FluentForm\Controls\Editor;
-use inkvizytor\FluentForm\Controls\FormFooter;
-use inkvizytor\FluentForm\Controls\FormOpen;
-use inkvizytor\FluentForm\Controls\FormGroup;
-use inkvizytor\FluentForm\Controls\FormTabs;
 use inkvizytor\FluentForm\Controls\Html;
 use inkvizytor\FluentForm\Controls\Input;
 use inkvizytor\FluentForm\Controls\LinkButton;
@@ -449,10 +449,10 @@ class Bootstrap extends BaseRenderer
     // --------------------------------------------------
 
     /**
-     * @param FormTabs $control
+     * @param TabStrip $control
      * @param FormGroup $group
      */
-    protected function extendFormTabs(FormTabs $control, FormGroup $group = null)
+    protected function extendFormTabs(TabStrip $control, FormGroup $group = null)
     {
         $control->attr('active', 'active');
         
