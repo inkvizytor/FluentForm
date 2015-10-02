@@ -22,6 +22,50 @@ class TabStrip extends BaseControl
     /** @var string */
     protected $active = null;
 
+    /** @var bool */
+    protected $pills = null;
+
+    /** @var bool */
+    protected $justified = null;
+
+    /**
+     * @param bool $pills
+     * @return $this
+     */
+    public function pills($pills = true)
+    {
+        $this->pills = $pills;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPills()
+    {
+        return $this->pills;
+    }
+
+    /**
+     * @param bool $justified
+     * @return $this
+     */
+    public function justified($justified = true)
+    {
+        $this->justified = $justified;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isJustified()
+    {
+        return $this->justified;
+    }
+    
     /**
      * @return string
      */

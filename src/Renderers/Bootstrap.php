@@ -452,15 +452,19 @@ class Bootstrap extends BaseRenderer
      * @param TabStrip $control
      * @param FormGroup $group
      */
-    protected function extendFormTabs(TabStrip $control, FormGroup $group = null)
+    protected function extendTabStrip(TabStrip $control, FormGroup $group = null)
     {
         $control->attr('active', 'active');
         
         if ($control->getMode() == 'tabs:begin')
         {
             $control->addClass('nav');
-            $control->addClass('nav-tabs');
-            $control->addClass('form-tabs');
+            $control->addClass($control->isPills() ? 'nav-pills' : 'nav-tabs');
+            
+            if ($control->isJustified())
+            {
+                $control->addClass('nav-justified');
+            }
             
             $control->attr('tabs', ['role' => 'tablist']);
             $control->attr('tab', ['role' => 'presentation']);
