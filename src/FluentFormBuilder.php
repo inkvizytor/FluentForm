@@ -8,6 +8,7 @@ use inkvizytor\FluentForm\Renderers\BaseRenderer;
 use inkvizytor\FluentForm\Traits\ButtonsContract;
 use inkvizytor\FluentForm\Traits\ContainersContract;
 use inkvizytor\FluentForm\Traits\ControlsContract;
+use inkvizytor\FluentForm\Traits\SpecialsContract;
 use Collective\Html\FormBuilder;
 use Collective\Html\HtmlBuilder;
 
@@ -18,7 +19,7 @@ use Collective\Html\HtmlBuilder;
  */
 class FluentFormBuilder
 {
-    use ContainersContract, ControlsContract, ButtonsContract;
+    use ContainersContract, ControlsContract, SpecialsContract, ButtonsContract;
     
     /** @var \inkvizytor\FluentForm\Renderers\BaseRenderer */
     protected $renderer;

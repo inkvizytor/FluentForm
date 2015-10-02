@@ -9,14 +9,14 @@ use inkvizytor\FluentForm\Controls\Button;
 use inkvizytor\FluentForm\Controls\Checkable;
 use inkvizytor\FluentForm\Controls\CheckableList;
 use inkvizytor\FluentForm\Controls\Control;
-use inkvizytor\FluentForm\Controls\DateTime;
-use inkvizytor\FluentForm\Controls\Editor;
 use inkvizytor\FluentForm\Controls\Html;
 use inkvizytor\FluentForm\Controls\Input;
 use inkvizytor\FluentForm\Controls\LinkButton;
+use inkvizytor\FluentForm\Specials\DateTime;
+use inkvizytor\FluentForm\Specials\Editor;
 use Illuminate\Support\Str;
 
-class Bootstrap extends BaseRenderer
+class Bootstrap3 extends BaseRenderer
 {
     /**
      * @param FormOpen $control
@@ -46,6 +46,7 @@ class Bootstrap extends BaseRenderer
     }
 
     // --------------------------------------------------
+    
     /**
      * @param Control $control
      * @param FormGroup $group
@@ -192,6 +193,7 @@ class Bootstrap extends BaseRenderer
     }
 
     // --------------------------------------------------
+    
     /**
      * @param Input $control
      * @param FormGroup $group
@@ -580,7 +582,7 @@ class Bootstrap extends BaseRenderer
             $label = $control->getLabel() ? $control->getLabel() : $control->getPlaceholder();
             $message = str_replace($name, $label, $message);
             
-            // Pokazujemy tylko pierwszy błąd
+            // Return only first error
             return sprintf('<label class="error" for="%s">%s</label>', $control->getName(), $message);
         }
         
@@ -645,10 +647,10 @@ class Bootstrap extends BaseRenderer
     {
         $class = [
             'control-label',
-            'col-lg-'.($group->getLabelSize('lg') ?: $this->labelSize['lg']),
-            'col-md-'.($group->getLabelSize('md') ?: $this->labelSize['md']),
-            'col-sm-'.($group->getLabelSize('sm') ?: $this->labelSize['sm']),
-            'col-xs-'.($group->getLabelSize('xs') ?: $this->labelSize['xs'])
+            'col-lg-'.($group->getLabelSize('lg') ?: $this->getLabelSize('lg')),
+            'col-md-'.($group->getLabelSize('md') ?: $this->getLabelSize('md')),
+            'col-sm-'.($group->getLabelSize('sm') ?: $this->getLabelSize('sm')),
+            'col-xs-'.($group->getLabelSize('xs') ?: $this->getLabelSize('xs'))
         ];
 
         return implode(' ', $class);
@@ -662,19 +664,19 @@ class Bootstrap extends BaseRenderer
     private function getFieldColumnClass(FormGroup $group, $offset = false)
     {
         $class = [
-            'col-lg-'.($group->getFieldSize('lg') ?: $this->fieldSize['lg']),
-            'col-md-'.($group->getFieldSize('md') ?: $this->fieldSize['md']),
-            'col-sm-'.($group->getFieldSize('sm') ?: $this->fieldSize['sm']),
-            'col-xs-'.($group->getFieldSize('xs') ?: $this->fieldSize['xs'])
+            'col-lg-'.($group->getFieldSize('lg') ?: $this->getFieldSize('lg')),
+            'col-md-'.($group->getFieldSize('md') ?: $this->getFieldSize('md')),
+            'col-sm-'.($group->getFieldSize('sm') ?: $this->getFieldSize('sm')),
+            'col-xs-'.($group->getFieldSize('xs') ?: $this->getFieldSize('xs'))
         ];
 
         if ($offset)
         {
             $class = array_merge($class, [
-                'col-lg-offset-'.($group->getLabelSize('lg') ?: $this->labelSize['lg']),
-                'col-md-offset-'.($group->getLabelSize('md') ?: $this->labelSize['md']),
-                'col-sm-offset-'.($group->getLabelSize('sm') ?: $this->labelSize['sm']),
-                'col-xs-offset-'.($group->getLabelSize('xs') ?: $this->labelSize['xs'])
+                'col-lg-offset-'.($group->getLabelSize('lg') ?: $this->getLabelSize('lg')),
+                'col-md-offset-'.($group->getLabelSize('md') ?: $this->getLabelSize('md')),
+                'col-sm-offset-'.($group->getLabelSize('sm') ?: $this->getLabelSize('sm')),
+                'col-xs-offset-'.($group->getLabelSize('xs') ?: $this->getLabelSize('xs'))
             ]);
         }
 

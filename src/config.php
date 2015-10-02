@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'renderer' => inkvizytor\FluentForm\Renderers\Bootstrap::class,
+    'renderer' => inkvizytor\FluentForm\Renderers\Bootstrap3::class,
     
     'size' => [
         'label' => ['lg' => 4, 'md' => 4, 'sm' => 0, 'xs' => 0],

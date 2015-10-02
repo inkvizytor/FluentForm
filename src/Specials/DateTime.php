@@ -1,4 +1,6 @@
-<?php namespace inkvizytor\FluentForm\Controls;
+<?php namespace inkvizytor\FluentForm\Specials;
+
+use inkvizytor\FluentForm\Controls\Control;
 
 class DateTime extends Control
 {

@@ -6,9 +6,12 @@ use inkvizytor\FluentForm\Controls\Control;
 use inkvizytor\FluentForm\FormValidation;
 use Collective\Html\FormBuilder;
 use Collective\Html\HtmlBuilder;
+use inkvizytor\FluentForm\Traits\SizeContract;
 
 abstract class BaseRenderer
 {
+    use SizeContract;
+    
     const RENDER_FORM = 'form';
     const RENDER_GROUP = 'group';
     
@@ -44,26 +47,6 @@ abstract class BaseRenderer
 
     /** @var string */
     protected $formName;
-
-    /**
-     * @var array
-     */
-    protected $fieldSize = [
-        'lg' => 8,
-        'md' => 8,
-        'sm' => 12,
-        'xs' => 12
-    ];
-    
-    /**
-     * @var array
-     */
-    protected $labelSize = [
-        'lg' => 4,
-        'md' => 4,
-        'sm' => 0,
-        'xs' => 0
-    ];
 
     /**
      * @param \Collective\Html\HtmlBuilder $html
@@ -344,96 +327,6 @@ abstract class BaseRenderer
         {
             return $control->render();
         }
-    }
-
-    /**
-     * Set size of the controls in horizontal form
-     * 
-     * @param int $lg
-     * @param int $md
-     * @param int $sm
-     * @param int $xs
-     * @return $this
-     */
-    public function setFieldSize($lg = null, $md = null, $sm = null, $xs = null)
-    {
-        if (!empty($lg)) $this->fieldSize['lg'] = $lg;
-        if (!empty($md)) $this->fieldSize['md'] = $md;
-        if (!empty($sm)) $this->fieldSize['sm'] = $sm;
-        if (!empty($xs)) $this->fieldSize['xs'] = $xs;
-        
-        return $this;
-    }
-
-    /**
-     * Set size of the label in horizontal form
-     * 
-     * @param int $lg
-     * @param int $md
-     * @param int $sm
-     * @param int $xs
-     * @return $this
-     */
-    public function setLabelSize($lg = null, $md = null, $sm = null, $xs = null)
-    {
-        if (!empty($lg)) $this->labelSize['lg'] = $lg;
-        if (!empty($md)) $this->labelSize['md'] = $md;
-        if (!empty($sm)) $this->labelSize['sm'] = $sm;
-        if (!empty($xs)) $this->labelSize['xs'] = $xs;
-
-        return $this;
-    }
-
-    /**
-     * @param int $fieldSize
-     * @param int $labelSize
-     * @return $this
-     */
-    public function large($fieldSize, $labelSize)
-    {
-        $this->fieldSize['lg'] = $fieldSize;
-        $this->labelSize['lg'] = $labelSize;
-
-        return $this;
-    }
-
-    /**
-     * @param int $fieldSize
-     * @param int $labelSize
-     * @return $this
-     */
-    public function medium($fieldSize, $labelSize)
-    {
-        $this->fieldSize['md'] = $fieldSize;
-        $this->labelSize['md'] = $labelSize;
-
-        return $this;
-    }
-
-    /**
-     * @param int $fieldSize
-     * @param int $labelSize
-     * @return $this
-     */
-    public function small($fieldSize, $labelSize)
-    {
-        $this->fieldSize['sm'] = $fieldSize;
-        $this->labelSize['sm'] = $labelSize;
-
-        return $this;
-    }
-
-    /**
-     * @param int $fieldSize
-     * @param int $labelSize
-     * @return $this
-     */
-    public function tiny($fieldSize, $labelSize)
-    {
-        $this->fieldSize['xs'] = $fieldSize;
-        $this->labelSize['xs'] = $labelSize;
-
-        return $this;
     }
 
     /**

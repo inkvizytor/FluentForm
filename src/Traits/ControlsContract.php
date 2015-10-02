@@ -2,8 +2,6 @@
 
 use inkvizytor\FluentForm\Controls\Checkable;
 use inkvizytor\FluentForm\Controls\CheckableList;
-use inkvizytor\FluentForm\Controls\DateTime;
-use inkvizytor\FluentForm\Controls\Editor;
 use inkvizytor\FluentForm\Controls\Html;
 use inkvizytor\FluentForm\Controls\Input;
 use inkvizytor\FluentForm\Controls\Select;
@@ -116,25 +114,5 @@ trait ControlsContract
     public function html($html)
     {
         return (new Html($this->getRenderer()))->html($html);
-    }
-
-    /**
-     * @param string $name
-     * @param string $value
-     * @return \inkvizytor\FluentForm\Controls\DateTime
-     */
-    public function datetime($name, $value = null)
-    {
-        return (new DateTime($this->getRenderer()))->name($name)->value($value)->time(false);
-    }
-
-    /**
-     * @param string $name
-     * @param string $value
-     * @return \inkvizytor\FluentForm\Controls\Editor
-     */
-    public function editor($name, $value = null)
-    {
-        return (new Editor($this->getRenderer()))->name($name)->value($value);
     }
 }

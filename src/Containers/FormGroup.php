@@ -4,10 +4,12 @@ use inkvizytor\FluentForm\Controls\BaseControl;
 use inkvizytor\FluentForm\Renderers\BaseRenderer;
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\ControlsContract;
+use inkvizytor\FluentForm\Traits\SizeContract;
+use inkvizytor\FluentForm\Traits\SpecialsContract;
 
 class FormGroup
 {
-    use ControlsContract, CssContract;
+    use ControlsContract, SpecialsContract, CssContract, SizeContract;
     
     /** @var \inkvizytor\FluentForm\Renderers\BaseRenderer */
     private $renderer;
@@ -15,26 +17,6 @@ class FormGroup
     /** @var array */
     private $content = [];
 
-    /**
-     * @var array
-     */
-    private $fieldSize = [
-        'lg' => null,
-        'md' => null,
-        'sm' => null,
-        'xs' => null
-    ];
-
-    /**
-     * @var array
-     */
-    private $labelSize = [
-        'lg' => null,
-        'md' => null,
-        'sm' => null,
-        'xs' => null
-    ];
-    
     /**
      * @param \inkvizytor\FluentForm\Renderers\BaseRenderer $renderer
      */
@@ -102,23 +84,9 @@ class FormGroup
      */
     public function size($lg = null, $md = null, $sm = null, $xs = null)
     {
-        if (!empty($lg)) $this->fieldSize['lg'] = $lg;
-        if (!empty($md)) $this->fieldSize['md'] = $md;
-        if (!empty($sm)) $this->fieldSize['sm'] = $sm;
-        if (!empty($xs)) $this->fieldSize['xs'] = $xs;
-
+        $this->setFieldSize($lg, $md, $sm, $xs);
+        
         return $this;
-    }
-
-    /**
-     * Get size of the controls in horizontal form
-     *
-     * @param string $screen
-     * @return array
-     */
-    public function getFieldSize($screen)
-    {
-        return array_get($this->fieldSize, $screen);
     }
 
     /**
@@ -132,73 +100,7 @@ class FormGroup
      */
     public function label($lg = null, $md = null, $sm = null, $xs = null)
     {
-        if (!empty($lg)) $this->labelSize['lg'] = $lg;
-        if (!empty($md)) $this->labelSize['md'] = $md;
-        if (!empty($sm)) $this->labelSize['sm'] = $sm;
-        if (!empty($xs)) $this->labelSize['xs'] = $xs;
-
-        return $this;
-    }
-
-    /**
-     * Get size of the label in horizontal form
-     *
-     * @param string $screen
-     * @return array
-     */
-    public function getLabelSize($screen)
-    {
-        return array_get($this->labelSize, $screen);
-    }
-
-    /**
-     * @param int $fieldSize
-     * @param int $labelSize
-     * @return $this
-     */
-    public function large($fieldSize, $labelSize)
-    {
-        $this->size($fieldSize);
-        $this->label($labelSize);
-
-        return $this;
-    }
-
-    /**
-     * @param int $fieldSize
-     * @param int $labelSize
-     * @return $this
-     */
-    public function medium($fieldSize, $labelSize)
-    {
-        $this->size(null, $fieldSize);
-        $this->label(null, $labelSize);
-
-        return $this;
-    }
-
-    /**
-     * @param int $fieldSize
-     * @param int $labelSize
-     * @return $this
-     */
-    public function small($fieldSize, $labelSize)
-    {
-        $this->size(null, null, $fieldSize);
-        $this->label(null, null, $labelSize);
-
-        return $this;
-    }
-
-    /**
-     * @param int $fieldSize
-     * @param int $labelSize
-     * @return $this
-     */
-    public function tiny($fieldSize, $labelSize)
-    {
-        $this->size(null, null, null, $fieldSize);
-        $this->label(null, null, null, $labelSize);
+        $this->setLabelSize($lg, $md, $sm, $xs);
 
         return $this;
     }
