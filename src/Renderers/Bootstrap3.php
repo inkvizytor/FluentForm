@@ -1,5 +1,6 @@
 <?php namespace inkvizytor\FluentForm\Renderers;
 
+use inkvizytor\FluentForm\Base\Fluent;
 use inkvizytor\FluentForm\Containers\ButtonGroup;
 use inkvizytor\FluentForm\Containers\FormFooter;
 use inkvizytor\FluentForm\Containers\FormOpen;
@@ -8,7 +9,6 @@ use inkvizytor\FluentForm\Containers\TabStrip;
 use inkvizytor\FluentForm\Controls\Button;
 use inkvizytor\FluentForm\Controls\Checkable;
 use inkvizytor\FluentForm\Controls\CheckableList;
-use inkvizytor\FluentForm\Controls\Control;
 use inkvizytor\FluentForm\Controls\Html;
 use inkvizytor\FluentForm\Controls\Input;
 use inkvizytor\FluentForm\Controls\LinkButton;
@@ -48,10 +48,10 @@ class Bootstrap3 extends BaseRenderer
     // --------------------------------------------------
     
     /**
-     * @param Control $control
+     * @param Fluent $control
      * @param FormGroup $group
      */
-    protected function extendControl(Control $control, FormGroup $group = null)
+    protected function extendControl(Fluent $control, FormGroup $group = null)
     {
         $control->addClass('form-control');
         
@@ -62,10 +62,10 @@ class Bootstrap3 extends BaseRenderer
     }
 
     /**
-     * @param Control $control
+     * @param Fluent $control
      * @param FormGroup $group
      */
-    protected function extendControlInline(Control $control, FormGroup $group = null)
+    protected function extendControlInline(Fluent $control, FormGroup $group = null)
     {
         $this->extendControl($control);
 
@@ -76,11 +76,11 @@ class Bootstrap3 extends BaseRenderer
     }
     
     /**
-     * @param Control $control
+     * @param Fluent $control
      * @param FormGroup $group
      * @return string
      */
-    protected function renderControlStandard(Control $control, FormGroup $group)
+    protected function renderControlStandard(Fluent $control, FormGroup $group)
     {
         $label = $this->label($control, 'control-label');
         $groupCss = array_merge(['form-group'], $group->getCss());
@@ -97,11 +97,11 @@ class Bootstrap3 extends BaseRenderer
     }
 
     /**
-     * @param Control $control
+     * @param Fluent $control
      * @param FormGroup $group
      * @return string
      */
-    protected function renderControlHorizontal(Control $control, FormGroup $group)
+    protected function renderControlHorizontal(Fluent $control, FormGroup $group)
     {
         $label = $this->label($control, $this->getLabelColumnClass($group));
         $groupCss = array_merge(['form-group'], $group->getCss());
@@ -120,13 +120,13 @@ class Bootstrap3 extends BaseRenderer
     }
 
     /**
-     * @param Control $control
+     * @param Fluent $control
      * @param FormGroup $group
      * @return string
      */
-    protected function renderControlInline(Control $control, FormGroup $group)
+    protected function renderControlInline(Fluent $control, FormGroup $group)
     {
-        $label = $this->label($control, 'sr-only');
+        $label = $this->label($control);
         $groupCss = array_merge(['form-group'], $group->getCss());
         $render = $this->decorate($control);
         
@@ -143,11 +143,11 @@ class Bootstrap3 extends BaseRenderer
     // --------------------------------------------------
 
     /**
-     * @param Control $control
+     * @param Fluent $control
      * @param FormGroup $group
      * @return string
      */
-    protected function renderGroupStandard(Control $control = null, FormGroup $group)
+    protected function renderGroupStandard(Fluent $control = null, FormGroup $group)
     {
         $groupCss = array_merge(['form-group'], $group->getCss());
 
@@ -159,11 +159,11 @@ class Bootstrap3 extends BaseRenderer
     }
 
     /**
-     * @param Control $control
+     * @param Fluent $control
      * @param FormGroup $group
      * @return string
      */
-    protected function renderGroupHorizontal(Control $control = null, FormGroup $group)
+    protected function renderGroupHorizontal(Fluent $control = null, FormGroup $group)
     {
         $groupCss = array_merge(['form-group'], $group->getCss());
 
@@ -177,11 +177,11 @@ class Bootstrap3 extends BaseRenderer
     }
 
     /**
-     * @param Control $control
+     * @param Fluent $control
      * @param FormGroup $group
      * @return string
      */
-    protected function renderGroupInline(Control $control = null, FormGroup $group)
+    protected function renderGroupInline(Fluent $control = null, FormGroup $group)
     {
         $groupCss = array_merge(['form-group'], $group->getCss());
 
@@ -204,6 +204,7 @@ class Bootstrap3 extends BaseRenderer
         
         if ($control->getType() == 'file')
         {
+            $control->removeClass('form-control');
             $control->addClass('filestyle');
             $control->data('icon', 'true');
             $control->data('buttonText', ' ');
@@ -349,7 +350,7 @@ class Bootstrap3 extends BaseRenderer
      */
     protected function renderCheckableListInline(CheckableList $control, FormGroup $group)
     {
-        $label = $this->label($control, 'sr-only');
+        $label = $this->label($control);
         $groupCss = array_merge(['form-group'], $group->getCss());
 
         return '
@@ -518,6 +519,21 @@ class Bootstrap3 extends BaseRenderer
      */
     protected function extendEditor(Editor $control, FormGroup $group = null)
     {
+        $this->extendControl($control, $group);
+        
+        $control->attr('id', $control->getName());
+        $control->attr('rows', 20);
+        $control->data('editor', $control->getName());
+    }
+
+    /**
+     * @param Editor $control
+     * @param FormGroup $group
+     */
+    protected function extendEditorInline(Editor $control, FormGroup $group = null)
+    {
+        $this->extendControlInline($control, $group);
+        
         $control->attr('id', $control->getName());
         $control->attr('rows', 20);
         $control->data('editor', $control->getName());
@@ -526,16 +542,21 @@ class Bootstrap3 extends BaseRenderer
     // --------------------------------------------------
 
     /**
-     * @param Control $control
+     * @param Fluent $control
      * @param string $class
      * @return string
      */
-    private function label(Control $control, $class = null)
+    private function label(Fluent $control, $class = null)
     {
         $attributes = [
             'for' => $control->getName()
         ];
 
+        if ($control->isSrOnly())
+        {
+            $class = trim($class.' sr-only');
+        }
+        
         if (!empty($class))
         {
             $attributes['class'] = $class;
@@ -557,10 +578,10 @@ class Bootstrap3 extends BaseRenderer
     }
 
     /**
-     * @param Control $control
+     * @param Fluent $control
      * @return string
      */
-    private function hasErrors(Control $control)
+    private function hasErrors(Fluent $control)
     {
         foreach ($this->getErrorMessages($control->getName()) as $message)
         {
@@ -571,10 +592,10 @@ class Bootstrap3 extends BaseRenderer
     }
 
     /**
-     * @param Control $control
+     * @param Fluent $control
      * @return string
      */
-    private function renderErrors(Control $control)
+    private function renderErrors(Fluent $control)
     {
         foreach ($this->getErrorMessages($control->getName()) as $message)
         {
@@ -590,10 +611,10 @@ class Bootstrap3 extends BaseRenderer
     }
 
     /**
-     * @param Control $control
+     * @param Fluent $control
      * @return string
      */
-    private function renderHelp(Control $control)
+    private function renderHelp(Fluent $control)
     {
         if (!empty($control->getHelp()))
         {

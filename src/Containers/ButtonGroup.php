@@ -1,9 +1,9 @@
 <?php namespace inkvizytor\FluentForm\Containers;
 
-use inkvizytor\FluentForm\Controls\BaseControl;
+use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
 
-class ButtonGroup extends BaseControl
+class ButtonGroup extends Control
 {
     use CssContract;
     
@@ -22,10 +22,10 @@ class ButtonGroup extends BaseControl
     }
 
     /**
-     * @param BaseControl $button
+     * @param Control $button
      * @return $this
      */
-    public function add(BaseControl $button)
+    public function add(Control $button)
     {
         $this->buttons[] = $button;
 

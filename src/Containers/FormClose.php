@@ -1,13 +1,13 @@
 <?php namespace inkvizytor\FluentForm\Containers;
 
-use inkvizytor\FluentForm\Controls\BaseControl;
+use inkvizytor\FluentForm\Base\Control;
 
 /**
  * Class FormClose
  *
  * @package inkvizytor\FluentForm\Controls
  */
-class FormClose extends BaseControl
+class FormClose extends Control
 {
     /**
      * @return string

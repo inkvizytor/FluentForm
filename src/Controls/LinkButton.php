@@ -1,9 +1,15 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
+use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\DataContract;
 
-class LinkButton extends BaseControl
+/**
+ * Class LinkButton
+ *
+ * @package inkvizytor\FluentForm\Controls
+ */
+class LinkButton extends Control
 {
     use CssContract, DataContract;
     
@@ -21,6 +27,9 @@ class LinkButton extends BaseControl
 
     /** @var string */
     protected $title;
+
+    /** @var string */
+    protected $disabled;
 
     /**
      * @param string $url
@@ -67,10 +76,26 @@ class LinkButton extends BaseControl
     }
 
     /**
+     * @param bool $value
+     * @return $this
+     */
+    public function disabled($value = true)
+    {
+        $this->disabled = $value ? 'disabled' : null;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function render()
     {
+        if ($this->disabled)
+        {
+            $this->url = '#';
+        }
+        
         return '<a href="'.$this->url.'"'.$this->getHtml()->attributes($this->getOptions()).'>'.$this->icon.$this->getHtml()->entities($this->label).'</a>';
     }
 } 

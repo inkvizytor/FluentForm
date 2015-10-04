@@ -1,9 +1,9 @@
 <?php namespace inkvizytor\FluentForm\Containers;
 
-use inkvizytor\FluentForm\Controls\BaseControl;
+use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
 
-class FormFooter extends BaseControl
+class FormFooter extends Control
 {
     use CssContract;
     
@@ -22,11 +22,11 @@ class FormFooter extends BaseControl
     }
 
     /**
-     * @param BaseControl $button
+     * @param Control $button
      * @param bool $enabled
      * @return $this
      */
-    public function add(BaseControl $button, $enabled = true)
+    public function add(Control $button, $enabled = true)
     {
         if ($enabled == true)
         {

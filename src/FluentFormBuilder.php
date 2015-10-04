@@ -49,7 +49,9 @@ class FluentFormBuilder
             ->layout($layout)
             ->formName($formName)
             ->setFieldSize($field['lg'], $field['md'], $field['sm'], $field['xs'])
-            ->setLabelSize($label['lg'], $label['md'], $label['sm'], $label['xs']);
+            ->setLabelSize($label['lg'], $label['md'], $label['sm'], $label['xs'])
+            ->errors(null)
+            ->rules([]);
         
         return (new FormOpen($renderer))->model($model)->files(true);
     }
@@ -103,6 +105,22 @@ class FluentFormBuilder
     public function radio($name, $value = true, $checked = null)
     {
         return (new Checkable($this->getRenderer(), 'radio'))->name($name)->value($value)->checked($checked);
+    }
+
+    /**
+     * @return \Collective\Html\FormBuilder
+     */
+    public function helper()
+    {
+        return $this->getRenderer()->getForm();
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function preview()
+    {
+        return view('fluentform::preview');
     }
     
     /**

@@ -1,6 +1,6 @@
 <?php namespace inkvizytor\FluentForm\Containers;
 
-use inkvizytor\FluentForm\Controls\BaseControl;
+use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\DataContract;
 
@@ -9,7 +9,7 @@ use inkvizytor\FluentForm\Traits\DataContract;
  *
  * @package inkvizytor\FluentForm\Controls
  */
-class FormOpen extends BaseControl
+class FormOpen extends Control
 {
     use CssContract, DataContract;
 

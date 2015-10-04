@@ -1,9 +1,9 @@
 <?php namespace inkvizytor\FluentForm\Containers;
 
-use inkvizytor\FluentForm\Controls\BaseControl;
+use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
 
-class TabStrip extends BaseControl
+class TabStrip extends Control
 {
     use CssContract;
     

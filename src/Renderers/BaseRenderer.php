@@ -1,8 +1,8 @@
 <?php namespace inkvizytor\FluentForm\Renderers;
 
+use inkvizytor\FluentForm\Base\Control;
+use inkvizytor\FluentForm\Base\Fluent;
 use inkvizytor\FluentForm\Containers\FormGroup;
-use inkvizytor\FluentForm\Controls\BaseControl;
-use inkvizytor\FluentForm\Controls\Control;
 use inkvizytor\FluentForm\FormValidation;
 use Collective\Html\FormBuilder;
 use Collective\Html\HtmlBuilder;
@@ -21,7 +21,7 @@ abstract class BaseRenderer
     /** @var \Collective\Html\FormBuilder */
     protected $form;
 
-    /** @var \inkvizytor\FluentForm\Controls\BaseControl */
+    /** @var \inkvizytor\FluentForm\Base\Control */
     protected $control;
 
     /** @var \inkvizytor\FluentForm\Containers\FormGroup */
@@ -87,10 +87,10 @@ abstract class BaseRenderer
     }
 
     /**
-     * @param \inkvizytor\FluentForm\Controls\BaseControl $control
+     * @param \inkvizytor\FluentForm\Base\Control $control
      * @return $this
      */
-    public function bindControl(BaseControl $control)
+    public function bindControl(Control $control)
     {
         $this->control = $control;
         
@@ -186,10 +186,10 @@ abstract class BaseRenderer
     }
 
     /**
-     * @param \inkvizytor\FluentForm\Controls\Control $control
+     * @param \inkvizytor\FluentForm\Base\Fluent $control
      * @return bool
      */
-    public function isRequired(Control $control)
+    public function isRequired(Fluent $control)
     {
         $rules = array_get($this->rules, $control->getName(), []);
         
@@ -235,10 +235,10 @@ abstract class BaseRenderer
     /**
      * @param string $type
      * @param string $layout
-     * @param BaseControl $control
+     * @param Control $control
      * @param FormGroup $group
      */
-    public function extend($type, $layout, BaseControl $control = null, FormGroup $group = null)
+    public function extend($type, $layout, Control $control = null, FormGroup $group = null)
     {
         $settings = [
             'extend' . class_basename($type) . $layout => 'type',
@@ -254,7 +254,7 @@ abstract class BaseRenderer
             if (method_exists($this, $method))
             {
                 $fire = ($mode == 'type' && $control != null) ||
-                        ($mode == 'base' && $control != null && is_subclass_of($control, Control::class)) ||
+                        ($mode == 'base' && $control != null && is_subclass_of($control, Fluent::class)) ||
                         ($mode == 'group' && $group != null);
                 
                 if ($fire == true)
@@ -269,11 +269,11 @@ abstract class BaseRenderer
     /**
      * @param string $type
      * @param string $layout
-     * @param BaseControl $control
+     * @param Control $control
      * @param FormGroup $group
      * @return string
      */
-    public function render($type, $layout, BaseControl $control = null, FormGroup $group = null)
+    public function render($type, $layout, Control $control = null, FormGroup $group = null)
     {
         if ($this->mode == self::RENDER_GROUP)
         {
@@ -291,7 +291,7 @@ abstract class BaseRenderer
                 if (method_exists($this, $method))
                 {
                     $fire = ($mode == 'type' && $control != null) ||
-                            ($mode == 'base' && $control != null && is_subclass_of($control, Control::class)) ||
+                            ($mode == 'base' && $control != null && is_subclass_of($control, Fluent::class)) ||
                             ($mode == 'group' && $group != null);
 
                     if ($fire == true)
@@ -312,10 +312,10 @@ abstract class BaseRenderer
     }
 
     /**
-     * @param BaseControl $control
+     * @param Control $control
      * @return mixed
      */
-    public function decorate(BaseControl $control)
+    public function decorate(Control $control)
     {
         $method = 'decorate'.class_basename(get_class($control));
 

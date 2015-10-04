@@ -1,8 +1,14 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
+use inkvizytor\FluentForm\Base\Fluent;
 use inkvizytor\FluentForm\Renderers\BaseRenderer;
 
-class Checkable extends Control
+/**
+ * Class Checkable
+ *
+ * @package inkvizytor\FluentForm\Controls
+ */
+class Checkable extends Fluent
 {
     /** @var array */
     protected $guarded = ['type', 'value', 'checked', 'placeholder', 'always'];

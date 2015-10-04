@@ -1,9 +1,9 @@
-<?php namespace inkvizytor\FluentForm\Controls;
+<?php namespace inkvizytor\FluentForm\Base;
 
 use inkvizytor\FluentForm\Renderers\BaseRenderer;
 use inkvizytor\FluentForm\Traits\AttrContract;
 
-abstract class BaseControl
+abstract class Control
 {
     use AttrContract;
     

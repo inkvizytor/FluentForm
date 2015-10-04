@@ -1,9 +1,9 @@
-<?php namespace inkvizytor\FluentForm\Controls;
+<?php namespace inkvizytor\FluentForm\Base;
 
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\DataContract;
 
-abstract class Control extends BaseControl
+abstract class Fluent extends Control
 {
     use CssContract, DataContract;
     
@@ -12,6 +12,9 @@ abstract class Control extends BaseControl
 
     /** @var string */
     protected $label;
+    
+    /** @var  bool */
+    protected $sronly;
 
     /** @var string */
     protected $help;
@@ -59,11 +62,13 @@ abstract class Control extends BaseControl
 
     /**
      * @param string $label
+     * @param bool $sronly
      * @return $this
      */
-    public function label($label)
+    public function label($label, $sronly = false)
     {
         $this->label = $label;
+        $this->sronly = $sronly;
 
         return $this;
     }
@@ -114,6 +119,25 @@ abstract class Control extends BaseControl
         return $this->required;
     }
 
+    /**
+     * @param bool $sronly
+     * @return $this
+     */
+    public function sronly($sronly)
+    {
+        $this->sronly = $sronly;
+
+        return $this;
+    }
+    
+    /**
+     * @return bool
+     */
+    public function isSrOnly()
+    {
+        return $this->sronly;
+    }
+    
     /**
      * @param int $lg
      * @param int $md

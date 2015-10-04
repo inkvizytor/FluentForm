@@ -1,61 +1,39 @@
 <?php namespace inkvizytor\FluentForm\Containers;
 
-use inkvizytor\FluentForm\Controls\BaseControl;
+use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Renderers\BaseRenderer;
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\ControlsContract;
 use inkvizytor\FluentForm\Traits\SizeContract;
 use inkvizytor\FluentForm\Traits\SpecialsContract;
 
-class FormGroup
+class FormGroup extends Control
 {
     use ControlsContract, SpecialsContract, CssContract, SizeContract;
-    
-    /** @var \inkvizytor\FluentForm\Renderers\BaseRenderer */
-    private $renderer;
+
+    /** @var array */
+    protected $guarded = ['content'];
     
     /** @var array */
-    private $content = [];
+    protected $content = [];
 
     /**
      * @param \inkvizytor\FluentForm\Renderers\BaseRenderer $renderer
      */
     public function __construct(BaseRenderer $renderer)
     {
-        $this->renderer = $renderer
+        parent::__construct($renderer);
+        
+        $this->getRenderer()
             ->mode(BaseRenderer::RENDER_GROUP)
             ->bindGroup($this);
     }
     
     /**
-     * @return \inkvizytor\FluentForm\Renderers\BaseRenderer
-     */
-    protected function getRenderer()
-    {
-        return $this->renderer;
-    }
-
-    /**
-     * @return \Collective\Html\HtmlBuilder
-     */
-    protected function getHtml()
-    {
-        return $this->getRenderer()->getHtml();
-    }
-
-    /**
-     * @return \Collective\Html\FormBuilder
-     */
-    protected function getForm()
-    {
-        return $this->getRenderer()->getForm();
-    }
-
-    /**
-     * @param BaseControl $control
+     * @param Control $control
      * @return $this
      */
-    public function add(BaseControl $control)
+    public function add(Control $control)
     {
         $this->content[] = $control->display();
         
@@ -122,13 +100,5 @@ class FormGroup
             ->mode(BaseRenderer::RENDER_GROUP)
             ->bindGroup($this)
             ->display();
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->display();
     }
 }

@@ -1,9 +1,15 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
+use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\DataContract;
 
-class Button extends BaseControl
+/**
+ * Class Button
+ *
+ * @package inkvizytor\FluentForm\Controls
+ */
+class Button extends Control
 {
     use CssContract, DataContract;
     
@@ -27,6 +33,9 @@ class Button extends BaseControl
 
     /** @var string */
     protected $title;
+
+    /** @var string */
+    protected $disabled;
 
     /**
      * @param string $label
@@ -98,6 +107,17 @@ class Button extends BaseControl
     public function title($title)
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $value
+     * @return $this
+     */
+    public function disabled($value = true)
+    {
+        $this->disabled = $value ? 'disabled' : null;
 
         return $this;
     }

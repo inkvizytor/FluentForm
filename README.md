@@ -207,9 +207,9 @@ Form::group()->editor($name, $value = null);
 ```javascript
 $(function()
 {
-	tinymce.init([
+	tinymce.init({
     	selector:'textarea[data-editor]'
-    ]);
+    });
 });
 
 ```
