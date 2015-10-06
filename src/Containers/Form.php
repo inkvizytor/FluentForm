@@ -5,27 +5,30 @@ use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\DataContract;
 
 /**
- * Class FormOpen
+ * Class Form
  *
  * @package inkvizytor\FluentForm\Controls
  */
-class FormOpen extends Control
+class Form extends Control
 {
     use CssContract, DataContract;
 
     /** @var array */
-    protected $guarded = ['model'];
+    protected $guarded = ['mode', 'url', 'route', 'action', 'files', 'model'];
+
+    /** @var string */
+    protected $mode;
     
     /** @var string */
     protected $method = 'POST';
     
-    /** @var string */
+    /** @var array */
     protected $url;
 
-    /** @var string */
+    /** @var array */
     protected $route;
     
-    /** @var string */
+    /** @var array */
     protected $action;
     
     /** @var bool */
@@ -35,34 +38,62 @@ class FormOpen extends Control
     protected $model;
 
     /**
-     * @param string $url
+     * @return $this
+     */
+    public function open()
+    {
+        $this->mode = 'form:open';
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function close()
+    {
+        $this->mode = 'form:close';
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMode()
+    {
+        return $this->mode;
+    }
+    
+    /**
+     * @param string|array $url
      * @return $this
      */
     public function url($url)
     {
-        $this->url = $url;
+        $this->url = is_array($url) ? $url : [$url];
 
         return $this;
     }
 
     /**
-     * @param string $route
+     * @param string|array $route
      * @return $this
      */
     public function route($route)
     {
-        $this->route = $route;
-
+        $this->route = is_array($route) ? $route : [$route];
+        
         return $this;
     }
     
     /**
-     * @param string $action
+     * @param string|array $action
      * @return $this
      */
     public function action($action)
     {
-        $this->action = $action;
+        $this->action = is_array($action) ? $action : [$action];
         
         return $this;
     }
@@ -95,7 +126,7 @@ class FormOpen extends Control
      */
     public function errors($errors)
     {
-        $this->getRenderer()->errors($errors);
+        $this->renderer()->errors($errors);
 
         return $this;
     }
@@ -106,7 +137,7 @@ class FormOpen extends Control
      */
     public function rules(array $rules)
     {
-        $this->getRenderer()->rules($rules);
+        $this->renderer()->rules($rules);
 
         return $this;
     }
@@ -117,8 +148,6 @@ class FormOpen extends Control
      */
     public function model($model)
     {
-        $this->getRenderer()->model($model);
-
         $this->model = $model;
         
         return $this;
@@ -135,7 +164,7 @@ class FormOpen extends Control
      */
     public function size($lg = null, $md = null, $sm = null, $xs = null)
     {
-        $this->getRenderer()->setFieldSize($lg, $md, $sm, $xs);
+        $this->renderer()->setFieldSize($lg, $md, $sm, $xs);
 
         return $this;
     }
@@ -151,7 +180,7 @@ class FormOpen extends Control
      */
     public function label($lg = null, $md = null, $sm = null, $xs = null)
     {
-        $this->getRenderer()->setLabelSize($lg, $md, $sm, $xs);
+        $this->renderer()->setLabelSize($lg, $md, $sm, $xs);
 
         return $this;
     }
@@ -163,7 +192,7 @@ class FormOpen extends Control
      */
     public function large($formSize, $labelSize)
     {
-        $this->getRenderer()->large($formSize, $labelSize);
+        $this->renderer()->large($formSize, $labelSize);
 
         return $this;
     }
@@ -175,7 +204,7 @@ class FormOpen extends Control
      */
     public function medium($formSize, $labelSize)
     {
-        $this->getRenderer()->medium($formSize, $labelSize);
+        $this->renderer()->medium($formSize, $labelSize);
 
         return $this;
     }
@@ -187,7 +216,7 @@ class FormOpen extends Control
      */
     public function small($formSize, $labelSize)
     {
-        $this->getRenderer()->small($formSize, $labelSize);
+        $this->renderer()->small($formSize, $labelSize);
 
         return $this;
     }
@@ -199,7 +228,7 @@ class FormOpen extends Control
      */
     public function tiny($formSize, $labelSize)
     {
-        $this->getRenderer()->tiny($formSize, $labelSize);
+        $this->renderer()->tiny($formSize, $labelSize);
 
         return $this;
     }
@@ -209,6 +238,62 @@ class FormOpen extends Control
      */
     public function render()
     {
-        return $this->getForm()->model($this->model, $this->getOptions());
+        if ($this->getMode() == 'form:open')
+        {
+            $options = $this->getOptions();
+            $method = strtoupper(array_get($options, 'method', 'POST'));
+            
+            $options['method'] = $method != 'GET' ? 'POST' : $method;
+            $options['action'] = $this->getFormAction();
+            
+            if (isset($options['files']) && $options['files'] !== null)
+            {
+                $options['enctype'] = 'multipart/form-data';
+            }
+
+            $html = '<form'.$this->html()->attributes($options).'>'."\n";
+
+            if (in_array($method, ['DELETE', 'PATCH', 'PUT']))
+            {
+                $html .= sprintf('<input type="hidden" name="_method" value="%s"/>', $method)."\n";
+            }
+
+            if ($method != 'GET')
+            {
+                $html .= sprintf('<input type="hidden" name="_token" value="%s"/>', $this->session()->token())."\n";
+            }
+            
+            return $html;
+        }
+
+        if ($this->getMode() == 'form:close')
+        {
+            $this->binder()->model([]);
+            
+            return '</form>';
+        }
+        
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    private function getFormAction()
+    {
+        if (!empty($this->url))
+        {
+            return $this->locator()->to(head($this->url), array_slice($this->url, 1));
+        }
+        if (!empty($this->route))
+        {
+            return $this->locator()->route(head($this->route), array_slice($this->route, 1));
+        }
+        if (!empty($this->action))
+        {
+            return $this->locator()->action(head($this->url), array_slice($this->url, 1));
+        }
+
+        return $this->locator()->current();
     }
 }

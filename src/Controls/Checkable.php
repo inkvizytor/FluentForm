@@ -1,7 +1,9 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
 use inkvizytor\FluentForm\Base\Fluent;
-use inkvizytor\FluentForm\Renderers\BaseRenderer;
+use inkvizytor\FluentForm\Base\Handler;
+use inkvizytor\FluentForm\Model\Binder;
+use inkvizytor\FluentForm\Renderers\Base;
 
 /**
  * Class Checkable
@@ -26,14 +28,14 @@ class Checkable extends Fluent
     protected $always = false;
 
     /**
-     * @param \inkvizytor\FluentForm\Renderers\BaseRenderer $renderer
+     * @param \inkvizytor\FluentForm\Base\Handler $handler
      * @param string $type
      */
-    public function __construct(BaseRenderer $renderer, $type = 'checkbox')
+    public function __construct(Handler $handler, $type = 'checkbox')
     {
-        $this->type = $type;
+        parent::__construct($handler);
 
-        parent::__construct($renderer);
+        $this->type = $type;
     }
     
     /**
@@ -88,14 +90,14 @@ class Checkable extends Fluent
         
         if ($this->getType() == 'checkbox')
         {
-            $content  = $this->always ? $this->getForm()->hidden($this->name, false) : '';
-            $content .= $this->getForm()->checkbox($this->name, $this->value, $this->checked, array_except($options, 'class'));
+            $content  = $this->always ? $this->form()->hidden($this->name, false) : '';
+            $content .= $this->form()->checkbox($this->name, $this->value, $this->checked, array_except($options, 'class'));
         }
         else
         {
-            $content = $this->getForm()->radio($this->name, $this->value, $this->checked, array_except($options, 'class'));
+            $content = $this->form()->radio($this->name, $this->value, $this->checked, array_except($options, 'class'));
         }
         
-        return '<label'.$this->getHtml()->attributes($attributes).'>'.$content.' '.$this->getLabel().'</label>';
+        return '<label'.$this->html()->attributes($attributes).'>'.$content.' '.$this->getLabel().'</label>';
     }
 } 

@@ -48,6 +48,6 @@ class Select extends Fluent
         $options = $this->getOptions();
         $options['placeholder'] = $this->placeholder;
         
-        return $this->getForm()->select($this->name, $this->items, $this->selected, $options);
+        return $this->form()->select($this->name, $this->items, $this->selected, $options);
     }
 } 

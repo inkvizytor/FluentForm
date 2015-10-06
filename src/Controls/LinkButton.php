@@ -14,10 +14,10 @@ class LinkButton extends Control
     use CssContract, DataContract;
     
     /** @var array */
-    protected $guarded = ['url', 'label', 'icon'];
+    protected $guarded = ['href', 'label', 'icon'];
 
     /** @var string */
-    protected $url;
+    protected $href;
 
     /** @var string */
     protected $label;
@@ -32,12 +32,12 @@ class LinkButton extends Control
     protected $disabled;
 
     /**
-     * @param string $url
+     * @param string $href
      * @return $this
      */
-    public function url($url)
+    public function href($href)
     {
-        $this->url = $url;
+        $this->href = $href;
 
         return $this;
     }
@@ -93,9 +93,9 @@ class LinkButton extends Control
     {
         if ($this->disabled)
         {
-            $this->url = '#';
+            $this->href = '#';
         }
         
-        return '<a href="'.$this->url.'"'.$this->getHtml()->attributes($this->getOptions()).'>'.$this->icon.$this->getHtml()->entities($this->label).'</a>';
+        return '<a href="'.$this->href.'"'.$this->html()->attributes($this->getOptions()).'>'.$this->icon.$this->html()->encode($this->label).'</a>';
     }
 } 

@@ -68,7 +68,7 @@ edit.blade.php
         <div class="col-lg-4 col-md-6">
             {!! Form::group()->text('username')->label('User name') !!}
             {!! Form::group()->text('email')->label('Email address') !!}
-            {!! Form::group()->html('<a href="#change-password" data-toggle="collapse">Change password</a>') !!}
+            {!! Form::group()->field('<a href="#change-password" data-toggle="collapse">Change password</a>') !!}
             <div id="change-password" class="{!! $errors->getBag('default')->has('password') ? '' : 'collapse' !!}">
                 {!! Form::group()->password('password')->label('Password') !!}
                 {!! Form::group()->password('password_confirmation')->label('Password confirmation') !!}
@@ -107,7 +107,7 @@ Form::group()->select($name, array $items, $selected = null);
 Form::group()->checkbox($name, $value = true, $checked = null);
 Form::group()->checkboxes($name, array $items, array $checked = []);
 Form::group()->radios($name, array $items, $checked = null);
-Form::group()->html($html);
+Form::group()->field($html);
 ```
 
 ### Buttons

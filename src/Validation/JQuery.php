@@ -1,11 +1,11 @@
-<?php namespace inkvizytor\FluentForm;
+<?php namespace inkvizytor\FluentForm\Validation;
 
 /**
- * Class Validation
+ * Class Base
  *
- * @package inkvizytor\FluentForm
+ * @package inkvizytor\FluentForm\Validation
  */
-class FormValidation
+class JQuery extends Base
 {
     /** @var array */
     public $rules = [];
@@ -19,26 +19,6 @@ class FormValidation
     public function setRules($rules)
     {
         $this->rules = $rules;
-    }
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    protected function ruleExist($name)
-    {
-        return isset($this->rules[$name]);
-    }
-
-    /**
-     * @param string $inputName
-     * @return array
-     */
-    protected function getRule($inputName)
-    {
-        $rule = $this->rules[$inputName];
-        
-        return is_array($rule) ? $rule : explode('|', $rule);
     }
 
     /**
@@ -64,6 +44,26 @@ class FormValidation
         }
 
         return $options;
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    protected function ruleExist($name)
+    {
+        return isset($this->rules[$name]);
+    }
+
+    /**
+     * @param string $inputName
+     * @return array
+     */
+    protected function getRule($inputName)
+    {
+        $rule = $this->rules[$inputName];
+        
+        return is_array($rule) ? $rule : explode('|', $rule);
     }
 
     /**

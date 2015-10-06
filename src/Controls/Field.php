@@ -7,21 +7,21 @@ use inkvizytor\FluentForm\Base\Fluent;
  *
  * @package inkvizytor\FluentForm\Controls
  */
-class Html extends Fluent
+class Field extends Fluent
 {
     /** @var array */
-    protected $guarded = ['html'];
+    protected $guarded = ['content'];
 
     /** @var string */
-    protected $html;
+    protected $content;
     
     /**
-     * @param string $html
+     * @param string $content
      * @return $this
      */
-    public function html($html)
+    public function content($content)
     {
-        $this->html = $html;
+        $this->content = $content;
 
         return $this;
     }
@@ -31,6 +31,6 @@ class Html extends Fluent
      */
     public function render()
     {
-        return '<p'.$this->getHtml()->attributes($this->getOptions()).'>'.$this->html.'</p>';
+        return '<p'.$this->html()->attributes($this->getOptions()).'>'.$this->content.'</p>';
     }
 } 

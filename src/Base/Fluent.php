@@ -274,7 +274,7 @@ abstract class Fluent extends Control
         $options = parent::getOptions();
         
         $label = $this->getLabel() ? $this->getLabel() : $this->getPlaceholder();
-        $live = $this->getRenderer()->getValidation()->getOptions($this->getName(), $label);
+        $live = $this->renderer()->validation()->getOptions($this->getName(), $label);
         
         return array_merge($live, $options);
     }

@@ -1,7 +1,8 @@
 <?php namespace inkvizytor\FluentForm\Containers;
 
 use inkvizytor\FluentForm\Base\Control;
-use inkvizytor\FluentForm\Renderers\BaseRenderer;
+use inkvizytor\FluentForm\Base\Handler;
+use inkvizytor\FluentForm\Renderers\Base;
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\ControlsContract;
 use inkvizytor\FluentForm\Traits\SizeContract;
@@ -18,14 +19,14 @@ class FormGroup extends Control
     protected $content = [];
 
     /**
-     * @param \inkvizytor\FluentForm\Renderers\BaseRenderer $renderer
+     * @param \inkvizytor\FluentForm\Base\Handler $handler
      */
-    public function __construct(BaseRenderer $renderer)
+    public function __construct(Handler $handler)
     {
-        parent::__construct($renderer);
+        parent::__construct($handler);
         
-        $this->getRenderer()
-            ->mode(BaseRenderer::RENDER_GROUP)
+        $this->renderer()
+            ->mode(Base::RENDER_GROUP)
             ->bindGroup($this);
     }
     
@@ -96,8 +97,8 @@ class FormGroup extends Control
      */
     public function display()
     {
-        return $this->getRenderer()
-            ->mode(BaseRenderer::RENDER_GROUP)
+        return $this->renderer()
+            ->mode(Base::RENDER_GROUP)
             ->bindGroup($this)
             ->display();
     }

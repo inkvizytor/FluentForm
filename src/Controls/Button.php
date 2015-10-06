@@ -132,6 +132,6 @@ class Button extends Control
             $this->attr('value', true);
         }
         
-        return $this->getForm()->button($this->icon.$this->label, $this->getOptions());
+        return $this->form()->button($this->icon.$this->label, $this->getOptions());
     }
 } 

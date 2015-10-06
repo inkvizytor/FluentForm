@@ -1,24 +1,21 @@
 <?php namespace inkvizytor\FluentForm\Base;
 
-use inkvizytor\FluentForm\Renderers\BaseRenderer;
 use inkvizytor\FluentForm\Traits\AttrContract;
+use inkvizytor\FluentForm\Traits\HandlerContract;
 
 abstract class Control
 {
-    use AttrContract;
-    
-    /** @var \inkvizytor\FluentForm\Renderers\BaseRenderer */
-    private $renderer;
+    use HandlerContract, AttrContract;
     
     /** @var array */
     protected $guarded = [];
-    
+
     /**
-     * @param \inkvizytor\FluentForm\Renderers\BaseRenderer $renderer
+     * @param \inkvizytor\FluentForm\Base\Handler $handler
      */
-    public function __construct(BaseRenderer $renderer)
+    public function __construct(Handler $handler)
     {
-        $this->renderer = $renderer;
+        $this->setHandler($handler);
     }
 
     /**
@@ -54,33 +51,9 @@ abstract class Control
      */
     protected function getGuarded()
     {
-        return array_merge(['renderer', 'attr', 'css', 'data', 'guarded'], $this->guarded);
+        return array_merge(['handler', 'attr', 'css', 'data', 'guarded'], $this->guarded);
     }
 
-    /**
-     * @return \inkvizytor\FluentForm\Renderers\BaseRenderer
-     */
-    protected function getRenderer()
-    {
-        return $this->renderer;
-    }
-
-    /**
-     * @return \Collective\Html\HtmlBuilder
-     */
-    protected function getHtml()
-    {
-        return $this->getRenderer()->getHtml();
-    }
-
-    /**
-     * @return \Collective\Html\FormBuilder
-     */
-    protected function getForm()
-    {
-        return $this->getRenderer()->getForm();
-    }
-    
     /**
      * @return string
      */
@@ -91,7 +64,7 @@ abstract class Control
      */
     public function display()
     {
-        return $this->getRenderer()
+        return $this->renderer()
             ->bindControl($this)
             ->display();
     }

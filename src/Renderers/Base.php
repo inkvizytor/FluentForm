@@ -3,32 +3,28 @@
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Base\Fluent;
 use inkvizytor\FluentForm\Containers\FormGroup;
-use inkvizytor\FluentForm\FormValidation;
-use Collective\Html\FormBuilder;
-use Collective\Html\HtmlBuilder;
+use inkvizytor\FluentForm\Validation\Base as BaseValidation;
+use inkvizytor\FluentForm\Base\HtmlBuilder;
 use inkvizytor\FluentForm\Traits\SizeContract;
 
-abstract class BaseRenderer
+abstract class Base
 {
     use SizeContract;
     
     const RENDER_FORM = 'form';
     const RENDER_GROUP = 'group';
     
-    /** @var \Collective\Html\HtmlBuilder */
+    /** @var \inkvizytor\FluentForm\Base\HtmlBuilder */
     protected $html;
 
-    /** @var \Collective\Html\FormBuilder */
-    protected $form;
-
+    /** @var \inkvizytor\FluentForm\Validation\Base */
+    protected $validation;
+    
     /** @var \inkvizytor\FluentForm\Base\Control */
     protected $control;
 
     /** @var \inkvizytor\FluentForm\Containers\FormGroup */
     protected $group;
-    
-    /** @var \inkvizytor\FluentForm\FormValidation */
-    protected $validation;
     
     /** @var string */
     protected $mode;
@@ -39,9 +35,6 @@ abstract class BaseRenderer
     /** @var mixed */
     protected $rules;
     
-    /** @var mixed */
-    protected $model;
-
     /** @var string */
     protected $layout;
 
@@ -49,15 +42,13 @@ abstract class BaseRenderer
     protected $formName;
 
     /**
-     * @param \Collective\Html\HtmlBuilder $html
-     * @param \Collective\Html\FormBuilder $form
+     * @param \inkvizytor\FluentForm\Base\HtmlBuilder $html
+     * @param \inkvizytor\FluentForm\Validation\Base $validation
      */
-    public function __construct(HtmlBuilder $html, FormBuilder $form)
+    public function __construct(HtmlBuilder $html, BaseValidation $validation)
     {
         $this->html = $html;
-        $this->form = $form;
-        
-        $this->validation = new FormValidation();
+        $this->validation = $validation;
         
         $this->reset();
     }
@@ -65,23 +56,15 @@ abstract class BaseRenderer
     /**
      * @return \Collective\Html\HtmlBuilder
      */
-    public function getHtml()
+    public function html()
     {
         return $this->html;
     }
 
     /**
-     * @return \Collective\Html\FormBuilder
+     * @return \inkvizytor\FluentForm\Validation\Base
      */
-    public function getForm()
-    {
-        return $this->form;
-    }
-
-    /**
-     * @return \inkvizytor\FluentForm\FormValidation
-     */
-    public function getValidation()
+    public function validation()
     {
         return $this->validation;
     }
@@ -163,17 +146,6 @@ abstract class BaseRenderer
         return $this;
     }
     
-    /**
-     * @param mixed $model
-     * @return $this
-     */
-    public function model($model)
-    {
-        $this->model = $model;
-
-        return $this;
-    }
-
     /**
      * @param string $formName
      * @return $this

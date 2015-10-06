@@ -45,6 +45,6 @@ class Textarea extends Fluent
      */
     public function render()
     {
-        return $this->getForm()->textarea($this->name, $this->value, $this->getOptions());
+        return $this->form()->textarea($this->name, $this->value, $this->getOptions());
     }
 } 

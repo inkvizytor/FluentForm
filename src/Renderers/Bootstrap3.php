@@ -1,48 +1,58 @@
 <?php namespace inkvizytor\FluentForm\Renderers;
 
+use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Base\Fluent;
 use inkvizytor\FluentForm\Containers\ButtonGroup;
 use inkvizytor\FluentForm\Containers\FormFooter;
-use inkvizytor\FluentForm\Containers\FormOpen;
+use inkvizytor\FluentForm\Containers\Form;
 use inkvizytor\FluentForm\Containers\FormGroup;
 use inkvizytor\FluentForm\Containers\TabStrip;
 use inkvizytor\FluentForm\Controls\Button;
 use inkvizytor\FluentForm\Controls\Checkable;
 use inkvizytor\FluentForm\Controls\CheckableList;
-use inkvizytor\FluentForm\Controls\Html;
+use inkvizytor\FluentForm\Controls\Field;
 use inkvizytor\FluentForm\Controls\Input;
 use inkvizytor\FluentForm\Controls\LinkButton;
-use inkvizytor\FluentForm\Specials\DateTime;
-use inkvizytor\FluentForm\Specials\Editor;
+use inkvizytor\FluentForm\Controls\Special\DateTime;
+use inkvizytor\FluentForm\Controls\Special\Editor;
 use Illuminate\Support\Str;
 
-class Bootstrap3 extends BaseRenderer
+class Bootstrap3 extends Base
 {
     /**
-     * @param FormOpen $control
+     * @param Form $control
      * @return string
      */
-    protected function extendFormOpenStandard(FormOpen $control)
+    protected function extendFormStandard(Form $control)
     {
-        $control->addClass('form-standard');
+        if ($control->getMode() == 'form:open')
+        {
+            $control->addClass('form-standard');
+        }
     }
 
     /**
-     * @param FormOpen $control
+     * @param Form $control
      * @return string
      */
-    protected function extendFormOpenHorizontal(FormOpen $control)
+    protected function extendFormHorizontal(Form $control)
     {
-        $control->addClass('form-horizontal');
+        if ($control->getMode() == 'form:open')
+        {
+            $control->addClass('form-horizontal');
+        }
     }
 
     /**
-     * @param FormOpen $control
+     * @param Form $control
      * @return string
      */
-    protected function extendFormOpenInline(FormOpen $control)
+    protected function extendFormInline(Form $control)
     {
-        $control->addClass('form-inline');
+        if ($control->getMode() == 'form:open')
+        {
+            $control->addClass('form-inline');
+        }
     }
 
     // --------------------------------------------------
@@ -143,11 +153,11 @@ class Bootstrap3 extends BaseRenderer
     // --------------------------------------------------
 
     /**
-     * @param Fluent $control
+     * @param Control $control
      * @param FormGroup $group
      * @return string
      */
-    protected function renderGroupStandard(Fluent $control = null, FormGroup $group)
+    protected function renderGroupStandard(Control $control = null, FormGroup $group)
     {
         $groupCss = array_merge(['form-group'], $group->getCss());
 
@@ -159,11 +169,11 @@ class Bootstrap3 extends BaseRenderer
     }
 
     /**
-     * @param Fluent $control
+     * @param Control $control
      * @param FormGroup $group
      * @return string
      */
-    protected function renderGroupHorizontal(Fluent $control = null, FormGroup $group)
+    protected function renderGroupHorizontal(Control $control = null, FormGroup $group)
     {
         $groupCss = array_merge(['form-group'], $group->getCss());
 
@@ -177,11 +187,11 @@ class Bootstrap3 extends BaseRenderer
     }
 
     /**
-     * @param Fluent $control
+     * @param Control $control
      * @param FormGroup $group
      * @return string
      */
-    protected function renderGroupInline(Fluent $control = null, FormGroup $group)
+    protected function renderGroupInline(Control $control = null, FormGroup $group)
     {
         $groupCss = array_merge(['form-group'], $group->getCss());
 
@@ -382,10 +392,10 @@ class Bootstrap3 extends BaseRenderer
     // --------------------------------------------------
 
     /**
-     * @param Html $control
+     * @param Field $control
      * @param FormGroup $group
      */
-    protected function extendHtml(Html $control, FormGroup $group = null)
+    protected function extendField(Field $control, FormGroup $group = null)
     {
         if (!$control->hasClass('form-control-static'))
         {
@@ -484,7 +494,7 @@ class Bootstrap3 extends BaseRenderer
     // --------------------------------------------------
 
     /**
-     * @param DateTime $control
+     * @param \inkvizytor\FluentForm\Controls\Specials\\inkvizytor\FluentForm\Controls\Special\DateTime $control
      * @param FormGroup $group
      */
     protected function extendDateTime(DateTime $control, FormGroup $group = null)
@@ -495,7 +505,7 @@ class Bootstrap3 extends BaseRenderer
     }
     
     /**
-     * @param DateTime $control
+     * @param \inkvizytor\FluentForm\Controls\Specials\\inkvizytor\FluentForm\Controls\Special\DateTime $control
      * @return string
      */
     protected function decorateDateTime(DateTime $control)
@@ -571,7 +581,7 @@ class Bootstrap3 extends BaseRenderer
                 $label .= ' <var class="required">*</var>';
             }
             
-            return '<label'.$this->getHtml()->attributes($attributes).'>'.$label.'</label>';
+            return '<label'.$this->html()->attributes($attributes).'>'.$label.'</label>';
         }
         
         return null;

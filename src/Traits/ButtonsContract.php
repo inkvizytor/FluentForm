@@ -19,7 +19,7 @@ trait ButtonsContract
      */
     private function pushable($type, $name, $label, $value = null)
     {
-        return (new Button($this->getRenderer()))->type($type)->name($name)->label($label)->value($value);
+        return (new Button($this->handler()))->type($type)->name($name)->label($label)->value($value);
     }
     
     /**
@@ -62,7 +62,7 @@ trait ButtonsContract
      */
     public function link($url, $label)
     {
-        return (new LinkButton($this->getRenderer()))->url($url)->label($label);
+        return (new LinkButton($this->handler()))->href($url)->label($label);
     }
 
     /**
@@ -73,6 +73,6 @@ trait ButtonsContract
      */
     public function icon($icon, $url, $label)
     {
-        return (new LinkButton($this->getRenderer()))->icon($icon)->title($label)->url($url);
+        return $this->link($url, '')->icon($icon)->title($label);
     }
 }

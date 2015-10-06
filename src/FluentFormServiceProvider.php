@@ -1,6 +1,8 @@
 <?php namespace inkvizytor\FluentForm;
 
 use Collective\Html\HtmlServiceProvider;
+use inkvizytor\FluentForm\Renderers\Base as BaseRenderer;
+use inkvizytor\FluentForm\Validation\Base as BaseValidation;
 
 /**
  * Class FluentFormServiceProvider
@@ -42,13 +44,13 @@ class FluentFormServiceProvider extends HtmlServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/config.php', 'fluentform'
         );
+
+        $this->app->bind(BaseRenderer::class, config('fluentform.renderer'));
+        $this->app->bind(BaseValidation::class, config('fluentform.validation'));
         
         $this->app->bind('FluentForm', function ($app)
         {
-            return new FluentFormBuilder(
-                $app['html'],
-                $app['form']
-            );
+            return app()->make(FluentFormBuilder::class);
         });
     }
 

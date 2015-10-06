@@ -1,4 +1,4 @@
-<?php namespace inkvizytor\FluentForm\Specials;
+<?php namespace inkvizytor\FluentForm\Controls\Special;
 
 use inkvizytor\FluentForm\Base\Fluent;
 
@@ -53,6 +53,6 @@ class DateTime extends Fluent
      */
     public function render()
     {
-        return $this->getForm()->input('text', $this->name, $this->value, $this->getOptions());
+        return $this->form()->input('text', $this->name, $this->value, $this->getOptions());
     }
 } 

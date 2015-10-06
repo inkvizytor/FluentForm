@@ -18,7 +18,7 @@ trait ContainersContract
      */
     public function buttons(array $buttons)
     {
-        return (new ButtonGroup($this->getRenderer()))->buttons($buttons);
+        return (new ButtonGroup($this->handler()))->buttons($buttons);
     }
 
     /**
@@ -26,7 +26,7 @@ trait ContainersContract
      */
     public function group()
     {
-        return (new FormGroup($this->getRenderer()));
+        return (new FormGroup($this->handler()));
     }
 
     /**
@@ -35,7 +35,7 @@ trait ContainersContract
      */
     public function footer(array $buttons = [])
     {
-        return (new FormFooter($this->getRenderer()))->buttons($buttons);
+        return (new FormFooter($this->handler()))->buttons($buttons);
     }
 
     /**
@@ -43,6 +43,6 @@ trait ContainersContract
      */
     public function tabs()
     {
-        return (new TabStrip($this->getRenderer()));
+        return (new TabStrip($this->handler()));
     }
 }

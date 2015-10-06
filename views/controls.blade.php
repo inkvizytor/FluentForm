@@ -1,6 +1,6 @@
 {!! Form::password('dummy')->css('hide') !!}
-{!! Form::group()->html('Some text...')->label('Info')->css(['text-success']) !!}
-{!! Form::group()->html('Some text without label...')->css(['text-info']) !!}
+{!! Form::group()->field('Some text...')->label('Info')->css(['text-success']) !!}
+{!! Form::group()->field('Some text without label...')->css(['text-info']) !!}
 {!! Form::group()->text('text')->label('Text')->data('custom', 'value') !!}
 {!! Form::group()->password('password')->label('Password') !!}
 {!! Form::group()->file('file')->label('File')->sronly($inline) !!}
