@@ -1,13 +1,13 @@
 <?php namespace inkvizytor\FluentForm\Controls\Special;
 
-use inkvizytor\FluentForm\Base\Fluent;
+use inkvizytor\FluentForm\Base\Field;
 
 /**
  * Class DateTime
  *
  * @package inkvizytor\FluentForm\Specials
  */
-class DateTime extends Fluent
+class DateTime extends Field
 {
     /** @var array */
     protected $guarded = ['time', 'value'];

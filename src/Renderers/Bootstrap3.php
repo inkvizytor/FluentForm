@@ -1,7 +1,7 @@
 <?php namespace inkvizytor\FluentForm\Renderers;
 
 use inkvizytor\FluentForm\Base\Control;
-use inkvizytor\FluentForm\Base\Fluent;
+use inkvizytor\FluentForm\Base\Field;
 use inkvizytor\FluentForm\Containers\ButtonGroup;
 use inkvizytor\FluentForm\Containers\FormFooter;
 use inkvizytor\FluentForm\Containers\Form;
@@ -10,7 +10,7 @@ use inkvizytor\FluentForm\Containers\TabStrip;
 use inkvizytor\FluentForm\Controls\Button;
 use inkvizytor\FluentForm\Controls\Checkable;
 use inkvizytor\FluentForm\Controls\CheckableList;
-use inkvizytor\FluentForm\Controls\Field;
+use inkvizytor\FluentForm\Controls\Content;
 use inkvizytor\FluentForm\Controls\Input;
 use inkvizytor\FluentForm\Controls\LinkButton;
 use inkvizytor\FluentForm\Controls\Special\DateTime;
@@ -58,10 +58,10 @@ class Bootstrap3 extends Base
     // --------------------------------------------------
     
     /**
-     * @param Fluent $control
+     * @param Field $control
      * @param FormGroup $group
      */
-    protected function extendControl(Fluent $control, FormGroup $group = null)
+    protected function extendControl(Field $control, FormGroup $group = null)
     {
         $control->addClass('form-control');
         
@@ -72,10 +72,10 @@ class Bootstrap3 extends Base
     }
 
     /**
-     * @param Fluent $control
+     * @param Field $control
      * @param FormGroup $group
      */
-    protected function extendControlInline(Fluent $control, FormGroup $group = null)
+    protected function extendControlInline(Field $control, FormGroup $group = null)
     {
         $this->extendControl($control);
 
@@ -86,11 +86,11 @@ class Bootstrap3 extends Base
     }
     
     /**
-     * @param Fluent $control
+     * @param Field $control
      * @param FormGroup $group
      * @return string
      */
-    protected function renderControlStandard(Fluent $control, FormGroup $group)
+    protected function renderControlStandard(Field $control, FormGroup $group)
     {
         $label = $this->label($control, 'control-label');
         $groupCss = array_merge(['form-group'], $group->getCss());
@@ -107,11 +107,11 @@ class Bootstrap3 extends Base
     }
 
     /**
-     * @param Fluent $control
+     * @param Field $control
      * @param FormGroup $group
      * @return string
      */
-    protected function renderControlHorizontal(Fluent $control, FormGroup $group)
+    protected function renderControlHorizontal(Field $control, FormGroup $group)
     {
         $label = $this->label($control, $this->getLabelColumnClass($group));
         $groupCss = array_merge(['form-group'], $group->getCss());
@@ -130,11 +130,11 @@ class Bootstrap3 extends Base
     }
 
     /**
-     * @param Fluent $control
+     * @param Field $control
      * @param FormGroup $group
      * @return string
      */
-    protected function renderControlInline(Fluent $control, FormGroup $group)
+    protected function renderControlInline(Field $control, FormGroup $group)
     {
         $label = $this->label($control);
         $groupCss = array_merge(['form-group'], $group->getCss());
@@ -392,10 +392,10 @@ class Bootstrap3 extends Base
     // --------------------------------------------------
 
     /**
-     * @param Field $control
+     * @param Content $control
      * @param FormGroup $group
      */
-    protected function extendField(Field $control, FormGroup $group = null)
+    protected function extendContent(Content $control, FormGroup $group = null)
     {
         if (!$control->hasClass('form-control-static'))
         {
@@ -552,11 +552,11 @@ class Bootstrap3 extends Base
     // --------------------------------------------------
 
     /**
-     * @param Fluent $control
+     * @param Field $control
      * @param string $class
      * @return string
      */
-    private function label(Fluent $control, $class = null)
+    private function label(Field $control, $class = null)
     {
         $attributes = [
             'for' => $control->getName()
@@ -588,10 +588,10 @@ class Bootstrap3 extends Base
     }
 
     /**
-     * @param Fluent $control
+     * @param Field $control
      * @return string
      */
-    private function hasErrors(Fluent $control)
+    private function hasErrors(Field $control)
     {
         foreach ($this->getErrorMessages($control->getName()) as $message)
         {
@@ -602,10 +602,10 @@ class Bootstrap3 extends Base
     }
 
     /**
-     * @param Fluent $control
+     * @param Field $control
      * @return string
      */
-    private function renderErrors(Fluent $control)
+    private function renderErrors(Field $control)
     {
         foreach ($this->getErrorMessages($control->getName()) as $message)
         {
@@ -621,10 +621,10 @@ class Bootstrap3 extends Base
     }
 
     /**
-     * @param Fluent $control
+     * @param Field $control
      * @return string
      */
-    private function renderHelp(Fluent $control)
+    private function renderHelp(Field $control)
     {
         if (!empty($control->getHelp()))
         {

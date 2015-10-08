@@ -1,13 +1,13 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
-use inkvizytor\FluentForm\Base\Fluent;
+use inkvizytor\FluentForm\Base\Field;
 
 /**
  * Class Select
  *
  * @package inkvizytor\FluentForm\Controls
  */
-class Select extends Fluent
+class Select extends Field
 {
     /** @var array */
     protected $guarded = ['items', 'selected', 'placeholder'];

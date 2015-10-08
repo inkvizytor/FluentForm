@@ -1,7 +1,7 @@
 <?php namespace inkvizytor\FluentForm\Renderers;
 
 use inkvizytor\FluentForm\Base\Control;
-use inkvizytor\FluentForm\Base\Fluent;
+use inkvizytor\FluentForm\Base\Field;
 use inkvizytor\FluentForm\Containers\FormGroup;
 use inkvizytor\FluentForm\Validation\Base as BaseValidation;
 use inkvizytor\FluentForm\Html\Builder;
@@ -158,10 +158,10 @@ abstract class Base
     }
 
     /**
-     * @param \inkvizytor\FluentForm\Base\Fluent $control
+     * @param \inkvizytor\FluentForm\Base\Field $control
      * @return bool
      */
-    public function isRequired(Fluent $control)
+    public function isRequired(Field $control)
     {
         $rules = array_get($this->rules, $control->getName(), []);
         
@@ -226,7 +226,7 @@ abstract class Base
             if (method_exists($this, $method))
             {
                 $fire = ($mode == 'type' && $control != null) ||
-                        ($mode == 'base' && $control != null && is_subclass_of($control, Fluent::class)) ||
+                        ($mode == 'base' && $control != null && is_subclass_of($control, Field::class)) ||
                         ($mode == 'group' && $group != null);
                 
                 if ($fire == true)
@@ -263,7 +263,7 @@ abstract class Base
                 if (method_exists($this, $method))
                 {
                     $fire = ($mode == 'type' && $control != null) ||
-                            ($mode == 'base' && $control != null && is_subclass_of($control, Fluent::class)) ||
+                            ($mode == 'base' && $control != null && is_subclass_of($control, Field::class)) ||
                             ($mode == 'group' && $group != null);
 
                     if ($fire == true)

@@ -3,7 +3,7 @@
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\DataContract;
 
-abstract class Fluent extends Control
+abstract class Field extends Control
 {
     use CssContract, DataContract;
     

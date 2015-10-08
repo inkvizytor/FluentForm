@@ -2,7 +2,7 @@
 
 use inkvizytor\FluentForm\Controls\Checkable;
 use inkvizytor\FluentForm\Controls\CheckableList;
-use inkvizytor\FluentForm\Controls\Field;
+use inkvizytor\FluentForm\Controls\Content;
 use inkvizytor\FluentForm\Controls\Input;
 use inkvizytor\FluentForm\Controls\Select;
 use inkvizytor\FluentForm\Controls\Textarea;
@@ -109,10 +109,10 @@ trait ControlsContract
 
     /**
      * @param string $content
-     * @return \inkvizytor\FluentForm\Controls\Field
+     * @return \inkvizytor\FluentForm\Controls\Content
      */
-    public function field($content)
+    public function content($content)
     {
-        return (new Field($this->handler()))->content($content);
+        return (new Content($this->handler()))->content($content);
     }
 }

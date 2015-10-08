@@ -1,13 +1,13 @@
 <?php namespace inkvizytor\FluentForm\Controls\Special;
 
-use inkvizytor\FluentForm\Base\Fluent;
+use inkvizytor\FluentForm\Base\Field;
 
 /**
  * Class Editor
  *
  * @package inkvizytor\FluentForm\Specials
  */
-class Editor extends Fluent
+class Editor extends Field
 {
     /** @var array */
     protected $guarded = ['value'];

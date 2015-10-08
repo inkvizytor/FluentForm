@@ -1,6 +1,6 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
-use inkvizytor\FluentForm\Base\Fluent;
+use inkvizytor\FluentForm\Base\Field;
 use inkvizytor\FluentForm\Base\Handler;
 use inkvizytor\FluentForm\Model\Binder;
 use inkvizytor\FluentForm\Renderers\Base;
@@ -10,7 +10,7 @@ use inkvizytor\FluentForm\Renderers\Base;
  *
  * @package inkvizytor\FluentForm\Controls
  */
-class CheckableList extends Fluent
+class CheckableList extends Field
 {
     /** @var array */
     protected $guarded = ['items', 'selected', 'inline', 'placeholder'];

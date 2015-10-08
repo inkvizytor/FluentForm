@@ -1,13 +1,13 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
-use inkvizytor\FluentForm\Base\Fluent;
+use inkvizytor\FluentForm\Base\Field;
 
 /**
  * Class Textarea
  *
  * @package inkvizytor\FluentForm\Controls
  */
-class Textarea extends Fluent
+class Textarea extends Field
 {
     /** @var array */
     protected $guarded = ['value'];
