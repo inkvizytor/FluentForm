@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <h2>Standard form</h2>
-                {!! Form::standard(['select' => 2], 'standard')->errors($errors)->rules(['text' => 'required']) !!}
+                {!! Form::standard(['text' => 'some text...', 'select' => 2], 'standard')->errors($errors)->rules(['text' => 'required'])->method("put") !!}
                 @include('fluentform::controls', ['standard' => true, 'horizontal' => false, 'inline' => false])
                 {!! Form::close() !!}
             </div>

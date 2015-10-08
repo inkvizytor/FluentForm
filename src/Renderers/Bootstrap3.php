@@ -494,7 +494,7 @@ class Bootstrap3 extends Base
     // --------------------------------------------------
 
     /**
-     * @param \inkvizytor\FluentForm\Controls\Specials\\inkvizytor\FluentForm\Controls\Special\DateTime $control
+     * @param DateTime $control
      * @param FormGroup $group
      */
     protected function extendDateTime(DateTime $control, FormGroup $group = null)
@@ -503,9 +503,9 @@ class Bootstrap3 extends Base
         
         $control->data('toggle', $control->withTime() ? 'datetime' : 'date');
     }
-    
+
     /**
-     * @param \inkvizytor\FluentForm\Controls\Specials\\inkvizytor\FluentForm\Controls\Special\DateTime $control
+     * @param DateTime $control
      * @return string
      */
     protected function decorateDateTime(DateTime $control)
@@ -581,7 +581,7 @@ class Bootstrap3 extends Base
                 $label .= ' <var class="required">*</var>';
             }
             
-            return '<label'.$this->html()->attributes($attributes).'>'.$label.'</label>';
+            return '<label'.$this->html()->attr($attributes).'>'.$label.'</label>';
         }
         
         return null;

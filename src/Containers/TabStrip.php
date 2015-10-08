@@ -194,7 +194,7 @@ class TabStrip extends Control
         if (empty($ul['class'])) unset($ul['class']);
 
         $html  = '<div>'."\n";
-        $html .= '    <ul'.$this->html()->attributes($ul).'>'."\n";
+        $html .= '    <ul'.$this->html()->attr($ul).'>'."\n";
 
         foreach ($this->tabs as $key => $value)
         {
@@ -204,13 +204,13 @@ class TabStrip extends Control
 
             if (empty($li['class'])) unset($li['class']);
 
-            $html .= '        <li'.$this->html()->attributes($li).'>'."\n";
-            $html .= '            <a href="#'.$key.'"'.$this->html()->attributes($this->getAttr('link')).'>'.e($value).'</a>'."\n";
+            $html .= '        <li'.$this->html()->attr($li).'>'."\n";
+            $html .= '            <a href="#'.$key.'"'.$this->html()->attr($this->getAttr('link')).'>'.e($value).'</a>'."\n";
             $html .= '        </li>'."\n";
         }
 
         $html .= '    </ul>'."\n";
-        $html .= '    <div'.$this->html()->attributes($this->getAttr('panels')).'>';
+        $html .= '    <div'.$this->html()->attr($this->getAttr('panels')).'>';
 
         return $html;
     }
@@ -237,7 +237,7 @@ class TabStrip extends Control
 
         if (empty($div['class'])) unset($div['class']);
         
-        return '<div id="'.$this->name.'"'.$this->html()->attributes($div).'>'."\n";
+        return '<div id="'.$this->name.'"'.$this->html()->attr($div).'>'."\n";
     }
 
     /**

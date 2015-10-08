@@ -8,9 +8,9 @@
 <div class="clearfix"></div>
 {!! Form::group()->checkbox('checkbox')->label('Checkbox') !!}
 {!! Form::group()->checkboxes('checkboxes', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->checked([2])->label('Checkbox list') !!}
-{!! Form::group()->checkboxes('checkbox-inline', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->checked([2])->label('Checkbox list inline')->inline(true) !!}
+{!! Form::group()->checkboxes('checkboxes-inline', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->checked([2])->label('Checkbox list inline')->inline(true) !!}
 {!! Form::group()->radios('radios', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->checked(3)->label('Radio list') !!}
-{!! Form::group()->radios('radios-inline', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->checked(3)->label('Radio list inline')->inline(true) !!}
+{!! Form::group()->radios('radios-inline', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->label('Radio list inline')->inline(true) !!}
 @if($inline == false)
 <div class="clearfix"></div>
 {!! Form::group()->datetime('date')->label('Date') !!}

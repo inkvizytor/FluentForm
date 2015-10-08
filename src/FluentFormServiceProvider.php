@@ -1,6 +1,6 @@
 <?php namespace inkvizytor\FluentForm;
 
-use Collective\Html\HtmlServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use inkvizytor\FluentForm\Renderers\Base as BaseRenderer;
 use inkvizytor\FluentForm\Validation\Base as BaseValidation;
 
@@ -9,7 +9,7 @@ use inkvizytor\FluentForm\Validation\Base as BaseValidation;
  *
  * @package inkvizytor\FluentForm
  */
-class FluentFormServiceProvider extends HtmlServiceProvider
+class FluentFormServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -39,8 +39,6 @@ class FluentFormServiceProvider extends HtmlServiceProvider
      */
     public function register()
     {
-        parent::register();
-
         $this->mergeConfigFrom(
             __DIR__.'/config.php', 'fluentform'
         );
@@ -53,21 +51,6 @@ class FluentFormServiceProvider extends HtmlServiceProvider
             return app()->make(FluentFormBuilder::class);
         });
     }
-
-    /**
-     * Register the form builder instance.
-     *
-     * @return void
-     */
-    protected function registerFormBuilder()
-    {
-        $this->app->singleton('form', function($app)
-        {
-            $form = new FormBuilderWrapper($app['html'], $app['url'], $app['session.store']->getToken());
-
-            return $form->setSessionStore($app['session.store']);
-        });
-    }
     
     /**
      * Get the services provided by the provider.
@@ -76,6 +59,6 @@ class FluentFormServiceProvider extends HtmlServiceProvider
      */
     public function provides()
     {
-        return array_merge(parent::provides(), ['FluentForm']);
+        return ['FluentForm'];
     }
 } 

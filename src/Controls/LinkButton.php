@@ -95,7 +95,9 @@ class LinkButton extends Control
         {
             $this->href = '#';
         }
+
+        $attributes = array_merge($this->getOptions(), ['href' => $this->href]);
         
-        return '<a href="'.$this->href.'"'.$this->html()->attributes($this->getOptions()).'>'.$this->icon.$this->html()->encode($this->label).'</a>';
+        return $this->html()->tag('a', $attributes, $this->icon.$this->html()->encode($this->label));
     }
 } 

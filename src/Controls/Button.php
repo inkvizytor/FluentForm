@@ -20,7 +20,7 @@ class Button extends Control
     protected $label;
     
     /** @var string */
-    protected $type;
+    protected $type = 'button';
 
     /** @var string */
     protected $name;
@@ -54,7 +54,7 @@ class Button extends Control
      */
     public function type($type)
     {
-        $this->type = $type;
+        $this->type = in_array($type, ['button', 'submit', 'reset']) ? $type : 'button';
 
         return $this;
     }
@@ -131,7 +131,7 @@ class Button extends Control
         {
             $this->attr('value', true);
         }
-        
-        return $this->form()->button($this->icon.$this->label, $this->getOptions());
+
+        return $this->html()->tag('button', $this->getOptions(), $this->icon.$this->html()->encode($this->label));
     }
 } 

@@ -53,6 +53,10 @@ class Input extends Fluent
      */
     public function render()
     {
-        return $this->form()->input($this->type, $this->name, $this->value, $this->getOptions());
+        return $this->html()->tag('input', array_merge($this->getOptions(), [
+            'type' => $this->type,
+            'name' => $this->name,
+            'value' => $this->binder()->value($this->key($this->name), $this->value)
+        ]));
     }
 } 

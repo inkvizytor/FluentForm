@@ -245,22 +245,31 @@ class Form extends Control
             
             $options['method'] = $method != 'GET' ? 'POST' : $method;
             $options['action'] = $this->getFormAction();
+            $options['accept-charset'] = 'UTF-8';
             
             if (isset($options['files']) && $options['files'] !== null)
             {
                 $options['enctype'] = 'multipart/form-data';
             }
 
-            $html = '<form'.$this->html()->attributes($options).'>'."\n";
+            $html = $this->html()->tag('form', $options);
 
             if (in_array($method, ['DELETE', 'PATCH', 'PUT']))
             {
-                $html .= sprintf('<input type="hidden" name="_method" value="%s"/>', $method)."\n";
+                $html .= $this->html()->tag('input', [
+                    'type' => 'hidden', 
+                    'name' => '_method', 
+                    'value' => $method
+                ]);
             }
 
             if ($method != 'GET')
             {
-                $html .= sprintf('<input type="hidden" name="_token" value="%s"/>', $this->session()->token())."\n";
+                $html .= $this->html()->tag('input', [
+                    'type' => 'hidden', 
+                    'name' => '_token', 
+                    'value' => $this->session()->token()
+                ]);
             }
             
             return $html;
@@ -270,7 +279,7 @@ class Form extends Control
         {
             $this->binder()->model([]);
             
-            return '</form>';
+            return $this->html()->close('form');
         }
         
         return '';

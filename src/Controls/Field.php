@@ -31,6 +31,6 @@ class Field extends Fluent
      */
     public function render()
     {
-        return '<p'.$this->html()->attributes($this->getOptions()).'>'.$this->content.'</p>';
+        return $this->html()->tag('p', $this->getOptions(), $this->content);
     }
 } 

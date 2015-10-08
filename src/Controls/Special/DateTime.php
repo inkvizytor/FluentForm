@@ -53,6 +53,10 @@ class DateTime extends Fluent
      */
     public function render()
     {
-        return $this->form()->input('text', $this->name, $this->value, $this->getOptions());
+        return $this->html()->tag('input', array_merge($this->getOptions(), [
+            'type' => 'text',
+            'name' => $this->name,
+            'value' => $this->binder()->value($this->key($this->name), $this->value)
+        ]));
     }
 } 

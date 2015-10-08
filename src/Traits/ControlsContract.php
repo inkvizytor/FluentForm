@@ -80,7 +80,7 @@ trait ControlsContract
      * @param bool $checked
      * @return \inkvizytor\FluentForm\Controls\Checkable
      */
-    public function checkbox($name, $value = true, $checked = null)
+    public function checkbox($name, $value = 1, $checked = null)
     {
         return (new Checkable($this->handler(), 'checkbox'))->name($name)->value($value)->checked($checked)->always(true);
     }

@@ -55,6 +55,15 @@ abstract class Control
     }
 
     /**
+     * @param string $name
+     * @return string
+     */
+    protected function key($name)
+    {
+        return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $name);
+    }
+
+    /**
      * @return string
      */
     public abstract function render();

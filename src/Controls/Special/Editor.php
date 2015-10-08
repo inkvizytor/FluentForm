@@ -31,6 +31,9 @@ class Editor extends Fluent
      */
     public function render()
     {
-        return $this->form()->textarea($this->name, $this->value, $this->getOptions());
+        $attributes = array_merge($this->getOptions(), ['name' => $this->name]);
+        $value = $this->binder()->value($this->key($this->name), $this->value);
+
+        return $this->html()->tag('textarea', $attributes, $this->html()->encode($value));
     }
 } 

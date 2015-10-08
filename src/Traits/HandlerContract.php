@@ -28,15 +28,7 @@ trait HandlerContract
     }
     
     /**
-     * @return \Collective\Html\FormBuilder
-     */
-    protected function form()
-    {
-        return $this->handler->form();
-    }
-
-    /**
-     * @return \inkvizytor\FluentForm\Base\HtmlBuilder
+     * @return \inkvizytor\FluentForm\Html\Html
      */
     protected function html()
     {
@@ -81,5 +73,13 @@ trait HandlerContract
     protected function locator()
     {
         return $this->handler->locator();
+    }
+
+    /**
+     * @return \Illuminate\Http\Request
+     */
+    protected function request()
+    {
+        return $this->handler->request();
     }
 }

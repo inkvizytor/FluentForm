@@ -37,6 +37,6 @@ class ButtonGroup extends Control
      */
     public function render()
     {
-        return '<div'.$this->html()->attributes($this->getOptions()).'>'.implode(' ', $this->buttons).'</div>';
+        return '<div'.$this->html()->attr($this->getOptions()).'>'.implode(' ', $this->buttons).'</div>';
     }
 }

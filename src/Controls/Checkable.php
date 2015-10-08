@@ -90,14 +90,29 @@ class Checkable extends Fluent
         
         if ($this->getType() == 'checkbox')
         {
-            $content  = $this->always ? $this->form()->hidden($this->name, false) : '';
-            $content .= $this->form()->checkbox($this->name, $this->value, $this->checked, array_except($options, 'class'));
+            $content  = $this->always ? $this->html()->tag('input', [
+                'type' => 'hidden', 
+                'name' => $this->name, 
+                'value' => false
+            ]) : '';
+            
+            $content .= $this->html()->tag('input', array_merge(array_except($options, 'class'), [
+                'type' => 'checkbox', 
+                'name' => $this->name, 
+                'value' => $this->value !== null ? $this->value : 1, 
+                'checked' => $this->binder()->checked($this->key($this->name), $this->value, $this->checked)
+            ]));
         }
         else
         {
-            $content = $this->form()->radio($this->name, $this->value, $this->checked, array_except($options, 'class'));
+            $content = $this->html()->tag('input', array_merge(array_except($options, 'class'), [
+                'type' => 'radio',
+                'name' => $this->name,
+                'value' => $this->value !== null ? $this->value : $this->name,
+                'checked' => $this->binder()->checked($this->key($this->name), $this->value, $this->checked)
+            ]));
         }
         
-        return '<label'.$this->html()->attributes($attributes).'>'.$content.' '.$this->getLabel().'</label>';
+        return $this->html()->tag('label', $attributes, $content.' '.$this->getLabel());
     }
 } 
