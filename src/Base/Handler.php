@@ -3,14 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store as Session;
-use inkvizytor\FluentForm\Html\Html;
+use inkvizytor\FluentForm\Html\Builder;
 use inkvizytor\FluentForm\Model\Binder as ModelBinder;
 use inkvizytor\FluentForm\Renderers\Base as BaseRenderer;
 use inkvizytor\FluentForm\Validation\Base as BaseValidation;
 
 class Handler
 {
-    /** @var \inkvizytor\FluentForm\Html\Html */
+    /** @var \inkvizytor\FluentForm\Html\Builder */
     protected $html;
 
     /** @var \inkvizytor\FluentForm\Renderers\Base */
@@ -32,14 +32,14 @@ class Handler
     protected $request;
     
     /**
-     * @param \inkvizytor\FluentForm\Html\Html $html
+     * @param \inkvizytor\FluentForm\Html\Builder $html
      * @param \inkvizytor\FluentForm\Renderers\Base $renderer
      * @param \inkvizytor\FluentForm\Model\Binder $binder
      * @param \inkvizytor\FluentForm\Validation\Base $validation
      * @param \Illuminate\Session\Store $session
      * @param \Illuminate\Routing\UrlGenerator $locator
      */
-    public function __construct(Html $html, BaseRenderer $renderer, ModelBinder $binder, BaseValidation $validation, Session $session, UrlGenerator $locator, Request $request)
+    public function __construct(Builder $html, BaseRenderer $renderer, ModelBinder $binder, BaseValidation $validation, Session $session, UrlGenerator $locator, Request $request)
     {
         $this->html = $html;
         $this->renderer = $renderer;
@@ -51,7 +51,7 @@ class Handler
     }
 
     /**
-     * @return \inkvizytor\FluentForm\Html\Html
+     * @return \inkvizytor\FluentForm\Html\Builder
      */
     public function html()
     {

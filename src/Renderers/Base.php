@@ -4,7 +4,7 @@ use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Base\Fluent;
 use inkvizytor\FluentForm\Containers\FormGroup;
 use inkvizytor\FluentForm\Validation\Base as BaseValidation;
-use inkvizytor\FluentForm\Html\Html;
+use inkvizytor\FluentForm\Html\Builder;
 use inkvizytor\FluentForm\Traits\SizeContract;
 
 abstract class Base
@@ -14,7 +14,7 @@ abstract class Base
     const RENDER_FORM = 'form';
     const RENDER_GROUP = 'group';
     
-    /** @var \inkvizytor\FluentForm\Html\Html */
+    /** @var \inkvizytor\FluentForm\Html\Builder */
     protected $html;
 
     /** @var \inkvizytor\FluentForm\Validation\Base */
@@ -42,10 +42,10 @@ abstract class Base
     protected $formName;
 
     /**
-     * @param \inkvizytor\FluentForm\Html\Html $html
+     * @param \inkvizytor\FluentForm\Html\Builder $html
      * @param \inkvizytor\FluentForm\Validation\Base $validation
      */
-    public function __construct(Html $html, BaseValidation $validation)
+    public function __construct(Builder $html, BaseValidation $validation)
     {
         $this->html = $html;
         $this->validation = $validation;
@@ -54,7 +54,7 @@ abstract class Base
     }
 
     /**
-     * @return \inkvizytor\FluentForm\Html\Html
+     * @return \inkvizytor\FluentForm\Html\Builder
      */
     public function html()
     {

@@ -28,7 +28,7 @@ trait HandlerContract
     }
     
     /**
-     * @return \inkvizytor\FluentForm\Html\Html
+     * @return \inkvizytor\FluentForm\Html\Builder
      */
     protected function html()
     {

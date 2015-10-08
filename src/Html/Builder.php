@@ -1,11 +1,11 @@
 <?php namespace inkvizytor\FluentForm\Html;
 
 /**
- * Class Html
+ * Class Builder
  *
- * @package inkvizytor\FluentForm\Html
+ * @package inkvizytor\FluentForm\Builder
  */
-class Html
+class Builder
 {
     private $selfClosing = [
         'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
