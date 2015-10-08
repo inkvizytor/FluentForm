@@ -18,7 +18,7 @@
 {!! Form::group()->textarea('textarea')->label('Textarea')->rows(2)->help('Some help..') !!}
 {!! Form::group()->editor('editor')->label('Editor')->sronly($standard) !!}
 @else
-{!! Form::buttons([
+{!! Fluent::buttons([
     Form::icon('fa fa-pencil', url('/edit'), 'Edit')
         ->css(['btn-sm', 'btn-primary']),
     Form::icon('fa fa-search', url('/details'), 'Edit')

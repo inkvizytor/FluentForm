@@ -1,4 +1,4 @@
-<?php namespace inkvizytor\FluentForm\Containers;
+<?php namespace inkvizytor\FluentForm\Controls\Elements;
 
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Base\Handler;
@@ -6,11 +6,16 @@ use inkvizytor\FluentForm\Renderers\Base;
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\ControlsContract;
 use inkvizytor\FluentForm\Traits\SizeContract;
-use inkvizytor\FluentForm\Traits\SpecialsContract;
+use inkvizytor\FluentForm\Traits\ExclusiveContract;
 
-class FormGroup extends Control
+/**
+ * Class Group
+ *
+ * @package inkvizytor\FluentForm\Controls\Elements
+ */
+class Group extends Control
 {
-    use ControlsContract, SpecialsContract, CssContract, SizeContract;
+    use ControlsContract, ExclusiveContract, CssContract, SizeContract;
 
     /** @var array */
     protected $guarded = ['content'];

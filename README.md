@@ -116,9 +116,9 @@ Form::button($name, $label, $value = null);
 Form::submit($name, $label, $value = null);
 Form::reset($name, $label, $value = null);
 Form::link($url, $label);
-Form::icon($icon, $url, $label);
+
 /* Buttons group */
-Form::buttons([
+Fluent::buttons([
     \Form::icon('fa fa-pencil', action('Admin\UsersController@edit', $user->id), 'Edit')
         ->css('btn-sm btn-primary'),
     \Form::icon('fa fa-remove', action('Admin\UsersController@delete', $user->id), 'Delete')
@@ -130,23 +130,23 @@ Form::buttons([
 ### Tabs
 ```php
 @section('content')
-    {!! Form::tabs()
+    {!! Fluent::tabs()
         ->add('details', 'User details', true)
         ->add('security', 'Account security')
         ->add('permissions', 'Roles and permissions')
         ->open()
     !!}
-        {!! Form::tabs()->panel('details', true) !!}
+        {!! Fluent::tabs()->panel('details', true) !!}
             ...
-        {!! Form::tabs()->end() !!}
+        {!! Fluent::tabs()->end() !!}
 
         {!! Form::tabs()->panel('security') !!}
             ...
-        {!! Form::tabs()->end() !!}
+        {!! Fluent::tabs()->end() !!}
 
-        {!! Form::tabs()->panel('permissions') !!}
+        {!! Fluent::tabs()->panel('permissions') !!}
             ...
-        {!! Form::tabs()->end() !!}
+        {!! Fluent::tabs()->end() !!}
     {!! Form::tabs()->close() !!}
 @endsection
 ```
@@ -155,8 +155,10 @@ Form::buttons([
 ```php
 Form::hidden($name, $value = null)
 Form::radio($name, $value = true, $checked = null)
+
 /* Form control group */
 Form::group();
+
 /* Form footer */
 Form::footer([
     Form::link(action('Admin\UsersController@create'), 'Add user')
@@ -176,21 +178,11 @@ $(function()
 {
     $(document).on('datetimepicker', function ()
     {
-        $('.datetime, input[data-toggle="datetime"]').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm',
-            showClear: true,
-            showClose: true
-        });
-        $('.date, input[data-toggle="date"]').datetimepicker({
-            format: 'YYYY-MM-DD',
-            showClear: true,
-            showClose: true
-        });
-        $('input[data-toggle="date"] + .input-group-addon').click(function ()
+        $('input[data-toggle^="date"]').each(function ()
         {
-            $(this).prev().focus();
-        });
-        $('input[data-toggle="datetime"] + .input-group-addon').click(function ()
+            $(this).datetimepicker($(this).data('config'))
+        })
+        .next('.input-group-addon').click(function ()
         {
             $(this).prev().focus();
         });

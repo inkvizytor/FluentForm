@@ -48,30 +48,6 @@
 <script type="text/javascript">
     $(function()
     {
-        $(document).on('datetimepicker', function ()
-        {
-            $('.datetime, input[data-toggle="datetime"]').datetimepicker({
-                format: 'YYYY-MM-DD HH:mm:ss',
-                showClear: true,
-                showClose: true
-            });
-            $('.date, input[data-toggle="date"]').datetimepicker({
-                format: 'YYYY-MM-DD',
-                showClear: true,
-                showClose: true
-            });
-            $('input[data-toggle^="date"] + .input-group-addon').click(function ()
-            {
-                $(this).prev().focus();
-            });
-        });
-
-        $(document).trigger("datetimepicker");
-
-        tinymce.init({
-            selector: 'textarea[data-editor]'
-        });
-
         if ($.validator)
         {
             $('form').each(function ()
@@ -105,6 +81,24 @@
                 });
             });
         }
+
+        $(document).on('datetimepicker', function ()
+        {
+            $('input[data-toggle^="date"]').each(function ()
+            {
+                $(this).datetimepicker($(this).data('config'))
+            })
+                .next('.input-group-addon').click(function ()
+                {
+                    $(this).prev().focus();
+                });
+        });
+
+        $(document).trigger("datetimepicker");
+
+        tinymce.init({
+            selector: 'textarea[data-editor]'
+        });
     });
 </script>
 </body>

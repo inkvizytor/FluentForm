@@ -5,11 +5,11 @@ use inkvizytor\FluentForm\Renderers\Base as BaseRenderer;
 use inkvizytor\FluentForm\Validation\Base as BaseValidation;
 
 /**
- * Class FluentFormServiceProvider
+ * Class FluentServiceProvider
  *
  * @package inkvizytor\FluentForm
  */
-class FluentFormServiceProvider extends ServiceProvider
+class FluentServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -49,6 +49,11 @@ class FluentFormServiceProvider extends ServiceProvider
         $this->app->bind('FluentForm', function ($app)
         {
             return app()->make(FluentFormBuilder::class);
+        });
+
+        $this->app->bind('FluentHtml', function ($app)
+        {
+            return app()->make(FluentHtmlBuilder::class);
         });
     }
     

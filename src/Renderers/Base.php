@@ -2,7 +2,7 @@
 
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Base\Field;
-use inkvizytor\FluentForm\Containers\FormGroup;
+use inkvizytor\FluentForm\Controls\Elements\Group;
 use inkvizytor\FluentForm\Validation\Base as BaseValidation;
 use inkvizytor\FluentForm\Html\Builder;
 use inkvizytor\FluentForm\Traits\SizeContract;
@@ -11,7 +11,7 @@ abstract class Base
 {
     use SizeContract;
     
-    const RENDER_FORM = 'form';
+    const RENDER_STANDARD = 'standard';
     const RENDER_GROUP = 'group';
     
     /** @var \inkvizytor\FluentForm\Html\Builder */
@@ -23,7 +23,7 @@ abstract class Base
     /** @var \inkvizytor\FluentForm\Base\Control */
     protected $control;
 
-    /** @var \inkvizytor\FluentForm\Containers\FormGroup */
+    /** @var \inkvizytor\FluentForm\Controls\Elements\Group */
     protected $group;
     
     /** @var string */
@@ -81,10 +81,10 @@ abstract class Base
     }
 
     /**
-     * @param \inkvizytor\FluentForm\Containers\FormGroup $group
+     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
      * @return $this
      */
-    public function bindGroup(FormGroup $group)
+    public function bindGroup(Group $group)
     {
         $this->group = $group;
 
@@ -178,7 +178,7 @@ abstract class Base
     {
         $this->control = null;
         $this->group = null;
-        $this->mode = self::RENDER_FORM;
+        $this->mode = self::RENDER_STANDARD;
     }
 
     /**
@@ -208,9 +208,9 @@ abstract class Base
      * @param string $type
      * @param string $layout
      * @param Control $control
-     * @param FormGroup $group
+     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
      */
-    public function extend($type, $layout, Control $control = null, FormGroup $group = null)
+    public function extend($type, $layout, Control $control = null, Group $group = null)
     {
         $settings = [
             'extend' . class_basename($type) . $layout => 'type',
@@ -242,10 +242,10 @@ abstract class Base
      * @param string $type
      * @param string $layout
      * @param Control $control
-     * @param FormGroup $group
+     * @param Group $group
      * @return string
      */
-    public function render($type, $layout, Control $control = null, FormGroup $group = null)
+    public function render($type, $layout, Control $control = null, Group $group = null)
     {
         if ($this->mode == self::RENDER_GROUP)
         {

@@ -1,50 +1,28 @@
 <?php namespace inkvizytor\FluentForm;
 
-use inkvizytor\FluentForm\Base\Handler;
-use inkvizytor\FluentForm\Containers\Form;
+use inkvizytor\FluentForm\Controls\Elements\Form;
+use inkvizytor\FluentForm\Controls\Elements\Footer;
+use inkvizytor\FluentForm\Controls\Elements\Group;
 use inkvizytor\FluentForm\Controls\Checkable;
 use inkvizytor\FluentForm\Controls\Input;
-use inkvizytor\FluentForm\Renderers\Base as BaseRenderer;
 use inkvizytor\FluentForm\Traits\ButtonsContract;
-use inkvizytor\FluentForm\Traits\ContainersContract;
 use inkvizytor\FluentForm\Traits\ControlsContract;
-use inkvizytor\FluentForm\Traits\SpecialsContract;
+use inkvizytor\FluentForm\Traits\ExclusiveContract;
 
 /**
  * Class FluentFormBuilder
  *
  * @package inkvizytor\FluentForm
  */
-class FluentFormBuilder
+class FluentFormBuilder extends FluentBuilder
 {
-    use ContainersContract, ControlsContract, SpecialsContract, ButtonsContract;
-
-    /** @var \inkvizytor\FluentForm\Base\Handler */
-    private $handler;
-
-    /**
-     * @param \inkvizytor\FluentForm\Base\Handler $handler
-     */
-    public function __construct(Handler $handler)
-    {
-        $this->handler = $handler;
-    }
-
-    /**
-     * @return \inkvizytor\FluentForm\Base\Handler
-     */
-    protected function handler()
-    {
-        $this->handler->renderer()->mode(BaseRenderer::RENDER_FORM);
-        
-        return $this->handler;
-    }
+    use ControlsContract, ExclusiveContract, ButtonsContract;
 
     /**
      * @param mixed $model
      * @param string $formName
      * @param string $layout
-     * @return \inkvizytor\FluentForm\Containers\Form
+     * @return \inkvizytor\FluentForm\Controls\Elements\Form
      */
     public function open($model = null, $formName = 'default', $layout = 'standard')
     {
@@ -70,7 +48,7 @@ class FluentFormBuilder
     /**
      * @param mixed $model
      * @param string $formName
-     * @return \inkvizytor\FluentForm\Containers\Form
+     * @return \inkvizytor\FluentForm\Controls\Elements\Form
      */
     public function standard($model = null, $formName = 'default')
     {
@@ -80,7 +58,7 @@ class FluentFormBuilder
     /**
      * @param mixed $model
      * @param string $formName
-     * @return \inkvizytor\FluentForm\Containers\Form
+     * @return \inkvizytor\FluentForm\Controls\Elements\Form
      */
     public function horizontal($model = null, $formName = 'default')
     {
@@ -90,7 +68,7 @@ class FluentFormBuilder
     /**
      * @param mixed $model
      * @param string $formName
-     * @return \inkvizytor\FluentForm\Containers\Form
+     * @return \inkvizytor\FluentForm\Controls\Elements\Form
      */
     public function inline($model = null, $formName = 'default')
     {
@@ -119,7 +97,24 @@ class FluentFormBuilder
     }
 
     /**
-     * @return \inkvizytor\FluentForm\Containers\Form
+     * @return \inkvizytor\FluentForm\Controls\Elements\Group
+     */
+    public function group()
+    {
+        return (new Group($this->handler()));
+    }
+
+    /**
+     * @param array $buttons
+     * @return \inkvizytor\FluentForm\Controls\Elements\Footer
+     */
+    public function footer(array $buttons = [])
+    {
+        return (new Footer($this->handler()))->buttons($buttons);
+    }
+
+    /**
+     * @return \inkvizytor\FluentForm\Controls\Elements\Form
      */
     public function close()
     {

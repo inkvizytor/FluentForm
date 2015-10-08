@@ -2,25 +2,25 @@
 
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Base\Field;
-use inkvizytor\FluentForm\Containers\ButtonGroup;
-use inkvizytor\FluentForm\Containers\FormFooter;
-use inkvizytor\FluentForm\Containers\Form;
-use inkvizytor\FluentForm\Containers\FormGroup;
-use inkvizytor\FluentForm\Containers\TabStrip;
+use inkvizytor\FluentForm\Components\ButtonGroup;
+use inkvizytor\FluentForm\Controls\Elements\Footer;
+use inkvizytor\FluentForm\Controls\Elements\Form;
+use inkvizytor\FluentForm\Controls\Elements\Group;
+use inkvizytor\FluentForm\Components\TabStrip;
 use inkvizytor\FluentForm\Controls\Button;
 use inkvizytor\FluentForm\Controls\Checkable;
 use inkvizytor\FluentForm\Controls\CheckableList;
 use inkvizytor\FluentForm\Controls\Content;
 use inkvizytor\FluentForm\Controls\Input;
 use inkvizytor\FluentForm\Controls\LinkButton;
-use inkvizytor\FluentForm\Controls\Special\DateTime;
-use inkvizytor\FluentForm\Controls\Special\Editor;
+use inkvizytor\FluentForm\Controls\Exclusive\DateTime;
+use inkvizytor\FluentForm\Controls\Exclusive\Editor;
 use Illuminate\Support\Str;
 
 class Bootstrap3 extends Base
 {
     /**
-     * @param Form $control
+     * @param \inkvizytor\FluentForm\Controls\Elements\Form $control
      * @return string
      */
     protected function extendFormStandard(Form $control)
@@ -32,7 +32,7 @@ class Bootstrap3 extends Base
     }
 
     /**
-     * @param Form $control
+     * @param \inkvizytor\FluentForm\Controls\Elements\Form $control
      * @return string
      */
     protected function extendFormHorizontal(Form $control)
@@ -44,7 +44,7 @@ class Bootstrap3 extends Base
     }
 
     /**
-     * @param Form $control
+     * @param \inkvizytor\FluentForm\Controls\Elements\Form $control
      * @return string
      */
     protected function extendFormInline(Form $control)
@@ -59,9 +59,9 @@ class Bootstrap3 extends Base
     
     /**
      * @param Field $control
-     * @param FormGroup $group
+     * @param Group $group
      */
-    protected function extendControl(Field $control, FormGroup $group = null)
+    protected function extendControl(Field $control, Group $group = null)
     {
         $control->addClass('form-control');
         
@@ -73,9 +73,9 @@ class Bootstrap3 extends Base
 
     /**
      * @param Field $control
-     * @param FormGroup $group
+     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
      */
-    protected function extendControlInline(Field $control, FormGroup $group = null)
+    protected function extendControlInline(Field $control, Group $group = null)
     {
         $this->extendControl($control);
 
@@ -87,10 +87,10 @@ class Bootstrap3 extends Base
     
     /**
      * @param Field $control
-     * @param FormGroup $group
+     * @param Group $group
      * @return string
      */
-    protected function renderControlStandard(Field $control, FormGroup $group)
+    protected function renderControlStandard(Field $control, Group $group)
     {
         $label = $this->label($control, 'control-label');
         $groupCss = array_merge(['form-group'], $group->getCss());
@@ -108,10 +108,10 @@ class Bootstrap3 extends Base
 
     /**
      * @param Field $control
-     * @param FormGroup $group
+     * @param Group $group
      * @return string
      */
-    protected function renderControlHorizontal(Field $control, FormGroup $group)
+    protected function renderControlHorizontal(Field $control, Group $group)
     {
         $label = $this->label($control, $this->getLabelColumnClass($group));
         $groupCss = array_merge(['form-group'], $group->getCss());
@@ -131,10 +131,10 @@ class Bootstrap3 extends Base
 
     /**
      * @param Field $control
-     * @param FormGroup $group
+     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
      * @return string
      */
-    protected function renderControlInline(Field $control, FormGroup $group)
+    protected function renderControlInline(Field $control, Group $group)
     {
         $label = $this->label($control);
         $groupCss = array_merge(['form-group'], $group->getCss());
@@ -154,10 +154,10 @@ class Bootstrap3 extends Base
 
     /**
      * @param Control $control
-     * @param FormGroup $group
+     * @param Group $group
      * @return string
      */
-    protected function renderGroupStandard(Control $control = null, FormGroup $group)
+    protected function renderGroupStandard(Control $control = null, Group $group)
     {
         $groupCss = array_merge(['form-group'], $group->getCss());
 
@@ -170,10 +170,10 @@ class Bootstrap3 extends Base
 
     /**
      * @param Control $control
-     * @param FormGroup $group
+     * @param Group $group
      * @return string
      */
-    protected function renderGroupHorizontal(Control $control = null, FormGroup $group)
+    protected function renderGroupHorizontal(Control $control = null, Group $group)
     {
         $groupCss = array_merge(['form-group'], $group->getCss());
 
@@ -188,10 +188,10 @@ class Bootstrap3 extends Base
 
     /**
      * @param Control $control
-     * @param FormGroup $group
+     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
      * @return string
      */
-    protected function renderGroupInline(Control $control = null, FormGroup $group)
+    protected function renderGroupInline(Control $control = null, Group $group)
     {
         $groupCss = array_merge(['form-group'], $group->getCss());
 
@@ -206,9 +206,9 @@ class Bootstrap3 extends Base
     
     /**
      * @param Input $control
-     * @param FormGroup $group
+     * @param Group $group
      */
-    protected function extendInput(Input $control, FormGroup $group = null)
+    protected function extendInput(Input $control, Group $group = null)
     {
         $this->extendControl($control, $group);
         
@@ -225,9 +225,9 @@ class Bootstrap3 extends Base
     
     /**
      * @param Checkable $control
-     * @param FormGroup $group
+     * @param Group $group
      */
-    protected function extendCheckable(Checkable $control, FormGroup $group = null)
+    protected function extendCheckable(Checkable $control, Group $group = null)
     {
         if ($control->isDisabled() || $control->isReadonly())
         {
@@ -238,10 +238,10 @@ class Bootstrap3 extends Base
     
     /**
      * @param Checkable $control
-     * @param FormGroup $group
+     * @param Group $group
      * @return string
      */
-    protected function renderCheckableStandard(Checkable $control, FormGroup $group)
+    protected function renderCheckableStandard(Checkable $control, Group $group)
     {
         $labelCss = $this->getCheckableCss($control);
         $groupCss = array_merge([$labelCss], $group->getCss());
@@ -257,10 +257,10 @@ class Bootstrap3 extends Base
     
     /**
      * @param Checkable $control
-     * @param FormGroup $group
+     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
      * @return string
      */
-    protected function renderCheckableHorizontal(Checkable $control, FormGroup $group)
+    protected function renderCheckableHorizontal(Checkable $control, Group $group)
     {
         $label = $this->decorate($control);
         $labelCss = $this->getCheckableCss($control);
@@ -279,10 +279,10 @@ class Bootstrap3 extends Base
 
     /**
      * @param Checkable $control
-     * @param FormGroup $group
+     * @param Group $group
      * @return string
      */
-    protected function renderCheckableInline(Checkable $control, FormGroup $group)
+    protected function renderCheckableInline(Checkable $control, Group $group)
     {
         $labelCss = $this->getCheckableCss($control);
         $groupCss = array_merge([$labelCss], $group->getCss());
@@ -300,19 +300,19 @@ class Bootstrap3 extends Base
 
     /**
      * @param CheckableList $control
-     * @param FormGroup $group
+     * @param Group $group
      */
-    protected function extendCheckableListInline(CheckableList $control, FormGroup $group = null)
+    protected function extendCheckableListInline(CheckableList $control, Group $group = null)
     {
         $control->inline(true);
     }
     
     /**
      * @param CheckableList $control
-     * @param FormGroup $group
+     * @param Group $group
      * @return string
      */
-    protected function renderCheckableListStandard(CheckableList $control, FormGroup $group)
+    protected function renderCheckableListStandard(CheckableList $control, Group $group)
     {
         $label = $this->label($control, 'control-label');
         $groupCss = array_merge(['form-group'], $group->getCss());
@@ -331,10 +331,10 @@ class Bootstrap3 extends Base
     
     /**
      * @param CheckableList $control
-     * @param FormGroup $group
+     * @param Group $group
      * @return string
      */
-    protected function renderCheckableListHorizontal(CheckableList $control, FormGroup $group)
+    protected function renderCheckableListHorizontal(CheckableList $control, Group $group)
     {
         $label = $this->label($control, $this->getLabelColumnClass($group));
         $groupCss = array_merge(['form-group'], $group->getCss());
@@ -355,10 +355,10 @@ class Bootstrap3 extends Base
 
     /**
      * @param CheckableList $control
-     * @param FormGroup $group
+     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
      * @return string
      */
-    protected function renderCheckableListInline(CheckableList $control, FormGroup $group)
+    protected function renderCheckableListInline(CheckableList $control, Group $group)
     {
         $label = $this->label($control);
         $groupCss = array_merge(['form-group'], $group->getCss());
@@ -378,10 +378,10 @@ class Bootstrap3 extends Base
     // --------------------------------------------------
 
     /**
-     * @param ButtonGroup $control
-     * @param FormGroup $group
+     * @param \inkvizytor\FluentForm\Controls\Special\ButtonGroup $control
+     * @param Group $group
      */
-    protected function extendButtonGroup(ButtonGroup $control, FormGroup $group = null)
+    protected function extendButtonGroup(ButtonGroup $control, Group $group = null)
     {
         if (!$control->hasClass('btn-group'))
         {
@@ -393,9 +393,9 @@ class Bootstrap3 extends Base
 
     /**
      * @param Content $control
-     * @param FormGroup $group
+     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
      */
-    protected function extendContent(Content $control, FormGroup $group = null)
+    protected function extendContent(Content $control, Group $group = null)
     {
         if (!$control->hasClass('form-control-static'))
         {
@@ -409,9 +409,9 @@ class Bootstrap3 extends Base
 
     /**
      * @param Button $control
-     * @param FormGroup $group
+     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
      */
-    protected function extendButton(Button $control, FormGroup $group = null)
+    protected function extendButton(Button $control, Group $group = null)
     {
         if (!$control->hasClass('btn'))
         {
@@ -433,9 +433,9 @@ class Bootstrap3 extends Base
 
     /**
      * @param LinkButton $control
-     * @param FormGroup $group
+     * @param Group $group
      */
-    protected function extendLinkButton(LinkButton $control, FormGroup $group = null)
+    protected function extendLinkButton(LinkButton $control, Group $group = null)
     {
         if (!$control->hasClass('btn'))
         {
@@ -451,10 +451,10 @@ class Bootstrap3 extends Base
     // --------------------------------------------------
 
     /**
-     * @param FormFooter $control
-     * @param FormGroup $group
+     * @param Footer $control
+     * @param Group $group
      */
-    protected function extendFormFooter(FormFooter $control, FormGroup $group = null)
+    protected function extendFormFooter(Footer $control, Group $group = null)
     {
         $control->css(['panel-footer', 'form-footer']);
     }
@@ -463,9 +463,9 @@ class Bootstrap3 extends Base
 
     /**
      * @param TabStrip $control
-     * @param FormGroup $group
+     * @param Group $group
      */
-    protected function extendTabStrip(TabStrip $control, FormGroup $group = null)
+    protected function extendTabStrip(TabStrip $control, Group $group = null)
     {
         $control->attr('active', 'active');
         
@@ -495,13 +495,30 @@ class Bootstrap3 extends Base
 
     /**
      * @param DateTime $control
-     * @param FormGroup $group
+     * @param Group $group
      */
-    protected function extendDateTime(DateTime $control, FormGroup $group = null)
+    protected function extendDateTime(DateTime $control, Group $group = null)
     {
         $this->extendControl($control);
         
-        $control->data('toggle', $control->withTime() ? 'datetime' : 'date');
+        if ($control->withTime())
+        {
+            $control->data('toggle', 'datetime');
+            $control->data('config', [
+                'format' => 'YYYY-MM-DD HH:mm:ss',
+                'showClear' => true,
+                'showClose' => true
+            ]);
+        }
+        else
+        {
+            $control->data('toggle', 'date');
+            $control->data('config', [
+                'format' => 'YYYY-MM-DD',
+                'showClear' => true,
+                'showClose' => true
+            ]);
+        }
     }
 
     /**
@@ -524,10 +541,10 @@ class Bootstrap3 extends Base
     // --------------------------------------------------
 
     /**
-     * @param Editor $control
-     * @param FormGroup $group
+     * @param \inkvizytor\FluentForm\Controls\Exclusive\Editor $control
+     * @param Group $group
      */
-    protected function extendEditor(Editor $control, FormGroup $group = null)
+    protected function extendEditor(Editor $control, Group $group = null)
     {
         $this->extendControl($control, $group);
         
@@ -538,9 +555,9 @@ class Bootstrap3 extends Base
 
     /**
      * @param Editor $control
-     * @param FormGroup $group
+     * @param Group $group
      */
-    protected function extendEditorInline(Editor $control, FormGroup $group = null)
+    protected function extendEditorInline(Editor $control, Group $group = null)
     {
         $this->extendControlInline($control, $group);
         
@@ -671,10 +688,10 @@ class Bootstrap3 extends Base
     }
 
     /**
-     * @param FormGroup $group
+     * @param Group $group
      * @return string
      */
-    private function getLabelColumnClass(FormGroup $group)
+    private function getLabelColumnClass(Group $group)
     {
         $class = [
             'control-label',
@@ -688,11 +705,11 @@ class Bootstrap3 extends Base
     }
 
     /**
-     * @param FormGroup $group
+     * @param Group $group
      * @param bool $offset
      * @return string
      */
-    private function getFieldColumnClass(FormGroup $group, $offset = false)
+    private function getFieldColumnClass(Group $group, $offset = false)
     {
         $class = [
             'col-lg-'.($group->getFieldSize('lg') ?: $this->getFieldSize('lg')),

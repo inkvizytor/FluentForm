@@ -1,9 +1,14 @@
-<?php namespace inkvizytor\FluentForm\Containers;
+<?php namespace inkvizytor\FluentForm\Controls\Elements;
 
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
 
-class FormFooter extends Control
+/**
+ * Class Footer
+ *
+ * @package inkvizytor\FluentForm\Controls\Elements
+ */
+class Footer extends Control
 {
     use CssContract;
     

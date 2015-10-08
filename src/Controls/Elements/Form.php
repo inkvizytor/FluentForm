@@ -1,4 +1,4 @@
-<?php namespace inkvizytor\FluentForm\Containers;
+<?php namespace inkvizytor\FluentForm\Controls\Elements;
 
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
@@ -7,7 +7,7 @@ use inkvizytor\FluentForm\Traits\DataContract;
 /**
  * Class Form
  *
- * @package inkvizytor\FluentForm\Controls
+ * @package inkvizytor\FluentForm\Controls\Elements
  */
 class Form extends Control
 {

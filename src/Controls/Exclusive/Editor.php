@@ -1,4 +1,4 @@
-<?php namespace inkvizytor\FluentForm\Controls\Special;
+<?php namespace inkvizytor\FluentForm\Controls\Exclusive;
 
 use inkvizytor\FluentForm\Base\Field;
 

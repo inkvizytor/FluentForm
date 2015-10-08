@@ -1,19 +1,19 @@
 <?php namespace inkvizytor\FluentForm\Traits;
 
-use inkvizytor\FluentForm\Controls\Special\DateTime;
-use inkvizytor\FluentForm\Controls\Special\Editor;
+use inkvizytor\FluentForm\Controls\Exclusive\DateTime;
+use inkvizytor\FluentForm\Controls\Exclusive\Editor;
 
 /**
- * Class SpecialsContract
+ * Class ExclusiveContract
  *
  * @package inkvizytor\FluentForm\Traits
  */
-trait SpecialsContract
+trait ExclusiveContract
 {
     /**
      * @param string $name
      * @param string $value
-     * @return \inkvizytor\FluentForm\Controls\Special\DateTime
+     * @return \inkvizytor\FluentForm\Controls\Exclusive\DateTime
      */
     public function datetime($name, $value = null)
     {
@@ -23,7 +23,7 @@ trait SpecialsContract
     /**
      * @param string $name
      * @param string $value
-     * @return \inkvizytor\FluentForm\Controls\Special\Editor
+     * @return \inkvizytor\FluentForm\Controls\Exclusive\Editor
      */
     public function editor($name, $value = null)
     {
