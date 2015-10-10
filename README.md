@@ -141,14 +141,14 @@ Fluent::buttons([
             ...
         {!! Fluent::tabs()->end() !!}
 
-        {!! Form::tabs()->panel('security') !!}
+        {!! Fluent::tabs()->panel('security') !!}
             ...
         {!! Fluent::tabs()->end() !!}
 
         {!! Fluent::tabs()->panel('permissions') !!}
             ...
         {!! Fluent::tabs()->end() !!}
-    {!! Form::tabs()->close() !!}
+    {!! Fluent::tabs()->close() !!}
 @endsection
 ```
 
@@ -201,7 +201,7 @@ In `fluentform.php` config file you can enable or disable CDN support for Bootst
         ]
     ],
 ```
-Next modify your `layout.php` file:
+Then modify your `layout.php` file to include all required styles and scripts.
 ```php
 <!DOCTYPE html>
 <html>
@@ -217,7 +217,7 @@ Next modify your `layout.php` file:
 </body>
 </html>
 ```
-All required styles and scripts will be included in html. If you don't like the idea of CDN you can link to your local styles/scripts. Then you need to include in `layout.php` only `Fluent::scripts(false)` to initialize javascript controls like Date/Time Picker or TinyMCE.
+If you don't like the idea of CDN you can link to your local style/script files. Then you only need to initialize javascript controls like Date/Time Picker or TinyMCE by including `Fluent::scripts(false)` in the bottom of your `layout.php` file.
 ```php
 <!DOCTYPE html>
 <html>
