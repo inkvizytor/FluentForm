@@ -14,7 +14,6 @@ use inkvizytor\FluentForm\Controls\Content;
 use inkvizytor\FluentForm\Controls\Input;
 use inkvizytor\FluentForm\Controls\LinkButton;
 use inkvizytor\FluentForm\Controls\Exclusive\DateTime;
-use inkvizytor\FluentForm\Controls\Exclusive\Editor;
 use Illuminate\Support\Str;
 
 class Bootstrap3 extends Base
@@ -454,7 +453,7 @@ class Bootstrap3 extends Base
      * @param Footer $control
      * @param Group $group
      */
-    protected function extendFormFooter(Footer $control, Group $group = null)
+    protected function extendFooter(Footer $control, Group $group = null)
     {
         $control->css(['panel-footer', 'form-footer']);
     }
@@ -495,34 +494,6 @@ class Bootstrap3 extends Base
 
     /**
      * @param DateTime $control
-     * @param Group $group
-     */
-    protected function extendDateTime(DateTime $control, Group $group = null)
-    {
-        $this->extendControl($control);
-        
-        if ($control->withTime())
-        {
-            $control->data('toggle', 'datetime');
-            $control->data('config', [
-                'format' => 'YYYY-MM-DD HH:mm:ss',
-                'showClear' => true,
-                'showClose' => true
-            ]);
-        }
-        else
-        {
-            $control->data('toggle', 'date');
-            $control->data('config', [
-                'format' => 'YYYY-MM-DD',
-                'showClear' => true,
-                'showClose' => true
-            ]);
-        }
-    }
-
-    /**
-     * @param DateTime $control
      * @return string
      */
     protected function decorateDateTime(DateTime $control)
@@ -538,34 +509,6 @@ class Bootstrap3 extends Base
         return sprintf($decorator, $control->render());
     }
 
-    // --------------------------------------------------
-
-    /**
-     * @param \inkvizytor\FluentForm\Controls\Exclusive\Editor $control
-     * @param Group $group
-     */
-    protected function extendEditor(Editor $control, Group $group = null)
-    {
-        $this->extendControl($control, $group);
-        
-        $control->attr('id', $control->getName());
-        $control->attr('rows', 20);
-        $control->data('editor', $control->getName());
-    }
-
-    /**
-     * @param Editor $control
-     * @param Group $group
-     */
-    protected function extendEditorInline(Editor $control, Group $group = null)
-    {
-        $this->extendControlInline($control, $group);
-        
-        $control->attr('id', $control->getName());
-        $control->attr('rows', 20);
-        $control->data('editor', $control->getName());
-    }
-    
     // --------------------------------------------------
 
     /**

@@ -12,19 +12,19 @@ class Textarea extends Field
     /** @var array */
     protected $guarded = ['value'];
 
-    /** @var string */
+    /** @var int */
     protected $rows = 10;
     
     /** @var string */
     protected $value;
 
     /**
-     * @param string $value
+     * @param string $config
      * @return $this
      */
-    public function value($value)
+    public function value($config)
     {
-        $this->value = $value;
+        $this->value = $config;
 
         return $this;
     }

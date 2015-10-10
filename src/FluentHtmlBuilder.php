@@ -11,6 +11,23 @@ use inkvizytor\FluentForm\Components\TabStrip;
 class FluentHtmlBuilder extends FluentBuilder
 {
     /**
+     * @return string
+     */
+    public function styles()
+    {
+        return view('fluentform::styles')->render();
+    }
+
+    /**
+     * @param bool|null $cdn
+     * @return string
+     */
+    public function scripts($cdn = null)
+    {
+        return view('fluentform::scripts', ['cdn' => $cdn])->render();
+    }
+    
+    /**
      * @return \inkvizytor\FluentForm\Components\TabStrip
      */
     public function tabs()

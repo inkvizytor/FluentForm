@@ -10,14 +10,17 @@ use inkvizytor\FluentForm\Base\Field;
 class DateTime extends Field
 {
     /** @var array */
-    protected $guarded = ['time', 'value'];
+    protected $guarded = ['time', 'value', 'config'];
 
     /** @var bool */
     protected $time;
 
     /** @var string */
     protected $value;
-    
+
+    /** @var array */
+    protected $config = [];
+
     /**
      * @param bool $time
      * @return $this
@@ -49,10 +52,29 @@ class DateTime extends Field
     }
 
     /**
+     * @param string $config
+     * @return $this
+     */
+    public function config($config)
+    {
+        $this->config = $config;
+
+        return $this;
+    }
+    
+    /**
      * @return string
      */
     public function render()
     {
+        $format = $this->withTime() ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD';
+        
+        $this->data('toggle', 'datetimepicker');
+        $this->data('config', array_merge(config('fluentform.datetimepicker'), $this->config, [
+            'format' => $format,
+            'locale' => app()->getLocale()
+        ]));
+        
         return $this->html()->tag('input', array_merge($this->getOptions(), [
             'type' => 'text',
             'name' => $this->name,
