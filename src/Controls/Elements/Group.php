@@ -11,7 +11,7 @@ use inkvizytor\FluentForm\Traits\ExclusiveContract;
 /**
  * Class Group
  *
- * @package inkvizytor\FluentForm\Controls\Elements
+ * @package inkvizytor\FluentForm
  */
 class Group extends Control
 {

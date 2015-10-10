@@ -6,7 +6,7 @@ use inkvizytor\FluentForm\Controls\Exclusive\Editor;
 /**
  * Class ExclusiveContract
  *
- * @package inkvizytor\FluentForm\Traits
+ * @package inkvizytor\FluentForm
  */
 trait ExclusiveContract
 {

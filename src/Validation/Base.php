@@ -1,5 +1,10 @@
 <?php namespace inkvizytor\FluentForm\Validation;
 
+/**
+ * Class Base
+ *
+ * @package inkvizytor\FluentForm
+ */
 abstract class Base
 {
     /**

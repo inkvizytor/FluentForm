@@ -3,9 +3,9 @@
 use inkvizytor\FluentForm\Base\Field;
 
 /**
- * Class Html
+ * Class Content
  *
- * @package inkvizytor\FluentForm\Controls
+ * @package inkvizytor\FluentForm
  */
 class Content extends Field
 {

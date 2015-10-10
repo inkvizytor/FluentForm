@@ -3,6 +3,11 @@
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\DataContract;
 
+/**
+ * Class Field
+ *
+ * @package inkvizytor\FluentForm
+ */
 abstract class Field extends Control
 {
     use CssContract, DataContract;

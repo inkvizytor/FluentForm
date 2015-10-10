@@ -5,7 +5,7 @@ use inkvizytor\FluentForm\Controls\Textarea;
 /**
  * Class Editor
  *
- * @package inkvizytor\FluentForm\Specials
+ * @package inkvizytor\FluentForm
  */
 class Editor extends Textarea
 {

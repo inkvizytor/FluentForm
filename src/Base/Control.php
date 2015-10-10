@@ -3,6 +3,11 @@
 use inkvizytor\FluentForm\Traits\AttrContract;
 use inkvizytor\FluentForm\Traits\HandlerContract;
 
+/**
+ * Class Control
+ *
+ * @package inkvizytor\FluentForm
+ */
 abstract class Control
 {
     use HandlerContract, AttrContract;

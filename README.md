@@ -18,7 +18,7 @@ Add the service provider to the `providers` array in `config/app.php`:
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         ...
-        inkvizytor\FluentForm\FluentFormServiceProvider::class,
+        inkvizytor\FluentForm\FluentServiceProvider::class,
     ],
 ```
 Next at the end of `config/app.php` add Fluent Form facade to the `aliases` array:
@@ -28,6 +28,7 @@ Next at the end of `config/app.php` add Fluent Form facade to the `aliases` arra
         'Artisan'   => Illuminate\Support\Facades\Artisan::class,
         ...
         'Form'  	 => inkvizytor\FluentForm\Facades\FluentForm::class,
+        'Fluent'  	 => inkvizytor\FluentForm\Facades\FluentHtml::class,
     ],
 ```
 And publish `fluentform.php` config file:
@@ -168,88 +169,114 @@ Form::footer([
 ```
 
 ###Something more
+####CDN support
+In `fluentform.php` config file you can enable or disable CDN support for Bootstrap and various other elements.
+```php
+	'cdn' => [
+        'enabled' => [
+            'jquery' => true,
+            'jquery-validate' => true,
+            'jquery-validate-unobtrusive' => true,
+            'moment' => true,
+            'bootstrap' => true,
+            'bootstrap-filestyle' => true,
+            'bootstrap-datetimepicker' => true,
+            'font-awesome' => true,
+            'tinymce' => true,
+        ],
+        'styles' => [
+            'bootstrap' => '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
+            'bootstrap-datetimepicker' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css',
+            'font-awesome' => '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css',
+        ],
+        'scripts' => [
+            'jquery' => '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js',
+            'jquery-validate' => '//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js',
+            'jquery-validate-unobtrusive' => '//ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js',
+            'moment' => '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.min.js',
+            'bootstrap' => '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js',
+            'bootstrap-filestyle' => '//cdn.jsdelivr.net/bootstrap.filestyle/1.1.0/js/bootstrap-filestyle.min.js',
+            'bootstrap-datetimepicker' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js',
+            'tinymce' => '//tinymce.cachefly.net/4.2/tinymce.min.js',
+        ]
+    ],
+```
+Next modify your `layout.php` file:
+```php
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fluent Form</title>
+    {!! Fluent::styles() !!}
+</head>
+<body>
+<div class="container">
+    ...
+</div>
+{!! Fluent::scripts() !!}
+</body>
+</html>
+```
+All required styles and scripts will be included in html. If you don't like the idea of CDN you can link to your local styles/scripts. Then you need to include in `layout.php` only `Fluent::scripts(false)` to initialize javascript controls like Date/Time Picker or TinyMCE.
+```php
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fluent Form</title>
+	...
+</head>
+<body>
+<div class="container">
+    ...
+</div>
+{!! Fluent::scripts(false) !!}
+</body>
+</html>
+```
+
 ####Datetime picker
 [Bootstrap 3 Date/Time Picker](https://github.com/Eonasdan/bootstrap-datetimepicker)
 ```php
 Form::group()->datetime($name, $value = null);
 ```
-```javascript
-$(function()
-{
-    $(document).on('datetimepicker', function ()
-    {
-        $('input[data-toggle^="date"]').each(function ()
-        {
-            $(this).datetimepicker($(this).data('config'))
-        })
-        .next('.input-group-addon').click(function ()
-        {
-            $(this).prev().focus();
-        });
-    });
-
-    $(document).trigger("datetimepicker");
-});
+You can also change some default settings for this control in `fluentform.php` config file.
+```php
+    // Bootstrap DateTimePicker configuration
+    'datetimepicker' => [
+        'showClear' => true,
+        'showClose' => true,
+    ]
 ```
+
 ####Editor
-This method renders textarea with `data-editor` attribute and nothing more. I recommend [TinyMCE](http://www.tinymce.com/).
+This method renders textarea replaced with [TinyMCE](http://www.tinymce.com/).
 ```php
 Form::group()->editor($name, $value = null);
 ```
-```javascript
-$(function()
-{
-	tinymce.init({
-    	selector:'textarea[data-editor]'
-    });
-});
-
+In `fluentform.php` config file you can change some default settings for TinyMCE.
+```php
+    // TinyMCE configuration
+    'tinymce' => [
+        'plugins' => [
+            'advlist autolink lists link image charmap hr anchor pagebreak autoresize',
+            'searchreplace wordcount visualblocks visualchars code',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern autosave'
+        ],
+        'toolbar1' => 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        'relative_urls' => false,
+        'paste_data_images' => false,
+        'browser_spellcheck' => true,
+        'entity_encoding' => "raw",
+        'autoresize_bottom_margin' => 0,
+        'nowrap' => false,
+        'resize'=> false,
+    ],
 ```
+
 ####Validation
 For client side validation use [jQuery Validation Plugin](http://jqueryvalidation.org/) and [jQuery Unobtrusive Validation](https://github.com/aspnet/jquery-validation-unobtrusive).
-```javascript
-$(function ()
-{
-    var forms = $('form');
 
-    if ($.validator && forms.length > 0)
-    {
-        forms.each(function ()
-        {
-            var settings = $(this).validate().settings;
-
-            settings.highlight = function (element)
-            {
-                $(element).closest('.control-group').addClass('error');
-                $(element).closest('.form-group').addClass('has-error');
-            };
-
-            settings.unhighlight = function (element)
-            {
-                $(element).closest('.control-group').removeClass('error');
-                $(element).closest('.form-group').removeClass('has-error');
-            };
-
-            settings.errorPlacement = function (error, element)
-            {
-                var group = element.parent('.input-group');
-
-                if (group.length > 0)
-                    element = group.first();
-
-                error.insertAfter(element);
-            }
-        });
-
-        forms.validate({
-            submitHandler: function(form)
-            {
-                form.submit();
-            }
-        });
-    }
-})
-```
 
 ##License
 The **Fluent Form** is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

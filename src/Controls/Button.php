@@ -7,7 +7,7 @@ use inkvizytor\FluentForm\Traits\DataContract;
 /**
  * Class Button
  *
- * @package inkvizytor\FluentForm\Controls
+ * @package inkvizytor\FluentForm
  */
 class Button extends Control
 {

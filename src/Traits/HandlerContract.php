@@ -1,10 +1,11 @@
 <?php namespace inkvizytor\FluentForm\Traits;
+
 use inkvizytor\FluentForm\Base\Handler;
 
 /**
  * Class HandlerContract
  *
- * @package inkvizytor\FluentForm\Traits
+ * @package inkvizytor\FluentForm
  */
 trait HandlerContract
 {

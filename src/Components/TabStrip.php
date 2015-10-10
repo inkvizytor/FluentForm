@@ -3,6 +3,11 @@
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
 
+/**
+ * Class TabStrip
+ *
+ * @package inkvizytor\FluentForm
+ */
 class TabStrip extends Control
 {
     use CssContract;

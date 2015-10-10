@@ -6,7 +6,7 @@ use inkvizytor\FluentForm\Traits\CssContract;
 /**
  * Class Footer
  *
- * @package inkvizytor\FluentForm\Controls\Elements
+ * @package inkvizytor\FluentForm
  */
 class Footer extends Control
 {

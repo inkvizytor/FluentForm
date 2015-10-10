@@ -7,7 +7,7 @@ use inkvizytor\FluentForm\Traits\DataContract;
 /**
  * Class LinkButton
  *
- * @package inkvizytor\FluentForm\Controls
+ * @package inkvizytor\FluentForm
  */
 class LinkButton extends Control
 {

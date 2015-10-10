@@ -10,7 +10,7 @@ use inkvizytor\FluentForm\Controls\Textarea;
 /**
  * Class ControlsContract
  *
- * @package inkvizytor\FluentForm\Traits
+ * @package inkvizytor\FluentForm
  */
 trait ControlsContract
 {

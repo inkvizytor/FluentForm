@@ -6,7 +6,7 @@ use inkvizytor\FluentForm\Controls\LinkButton;
 /**
  * Class ButtonsContract
  *
- * @package inkvizytor\FluentForm\Traits
+ * @package inkvizytor\FluentForm
  */
 trait ButtonsContract
 {

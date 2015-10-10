@@ -3,7 +3,7 @@
 /**
  * Class Base
  *
- * @package inkvizytor\FluentForm\Validation
+ * @package inkvizytor\FluentForm
  */
 class JQuery extends Base
 {

@@ -5,7 +5,7 @@ use inkvizytor\FluentForm\Base\Field;
 /**
  * Class DateTime
  *
- * @package inkvizytor\FluentForm\Specials
+ * @package inkvizytor\FluentForm
  */
 class DateTime extends Field
 {

@@ -5,7 +5,7 @@ use inkvizytor\FluentForm\Base\Field;
 /**
  * Class Textarea
  *
- * @package inkvizytor\FluentForm\Controls
+ * @package inkvizytor\FluentForm
  */
 class Textarea extends Field
 {

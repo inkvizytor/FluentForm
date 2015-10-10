@@ -8,6 +8,11 @@ use inkvizytor\FluentForm\Model\Binder as ModelBinder;
 use inkvizytor\FluentForm\Renderers\Base as BaseRenderer;
 use inkvizytor\FluentForm\Validation\Base as BaseValidation;
 
+/**
+ * Class Handler
+ *
+ * @package inkvizytor\FluentForm
+ */
 class Handler
 {
     /** @var \inkvizytor\FluentForm\Html\Builder */

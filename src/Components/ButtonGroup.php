@@ -3,6 +3,11 @@
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
 
+/**
+ * Class ButtonGroup
+ *
+ * @package inkvizytor\FluentForm
+ */
 class ButtonGroup extends Control
 {
     use CssContract;

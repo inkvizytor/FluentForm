@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 /**
  * Class Binder
  *
- * @package inkvizytor\FluentForm\Model
+ * @package inkvizytor\FluentForm
  */
 class Binder
 {

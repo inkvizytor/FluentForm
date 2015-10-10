@@ -5,7 +5,7 @@ use inkvizytor\FluentForm\Base\Field;
 /**
  * Class Select
  *
- * @package inkvizytor\FluentForm\Controls
+ * @package inkvizytor\FluentForm
  */
 class Select extends Field
 {

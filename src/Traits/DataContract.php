@@ -3,7 +3,7 @@
 /**
  * Class DataContract
  *
- * @package inkvizytor\FluentForm\Traits
+ * @package inkvizytor\FluentForm
  */
 trait DataContract
 {

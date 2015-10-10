@@ -3,7 +3,7 @@
 /**
  * Class AttrContract
  *
- * @package inkvizytor\FluentForm\Traits
+ * @package inkvizytor\FluentForm
  */
 trait AttrContract
 {

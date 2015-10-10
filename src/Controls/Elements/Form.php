@@ -7,7 +7,7 @@ use inkvizytor\FluentForm\Traits\DataContract;
 /**
  * Class Form
  *
- * @package inkvizytor\FluentForm\Controls\Elements
+ * @package inkvizytor\FluentForm
  */
 class Form extends Control
 {

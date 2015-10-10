@@ -3,7 +3,7 @@
 /**
  * Class Builder
  *
- * @package inkvizytor\FluentForm\Builder
+ * @package inkvizytor\FluentForm
  */
 class Builder
 {

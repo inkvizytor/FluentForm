@@ -2,13 +2,11 @@
 
 use inkvizytor\FluentForm\Base\Field;
 use inkvizytor\FluentForm\Base\Handler;
-use inkvizytor\FluentForm\Model\Binder;
-use inkvizytor\FluentForm\Renderers\Base;
 
 /**
  * Class Checkable
  *
- * @package inkvizytor\FluentForm\Controls
+ * @package inkvizytor\FluentForm
  */
 class Checkable extends Field
 {
