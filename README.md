@@ -68,7 +68,7 @@ edit.blade.php
     <div class="row">
         <div class="col-lg-4 col-md-6">
             {!! Form::group()->text('username')->label('User name') !!}
-            {!! Form::group()->text('email')->label('Email address') !!}
+            {!! Form::group()->text('email')->label('Email address')->prepend('@') !!}
             {!! Form::group()->content('<a href="#change-password" data-toggle="collapse">Change password</a>') !!}
             <div id="change-password" class="{!! $errors->getBag('default')->has('password') ? '' : 'collapse' !!}">
                 {!! Form::group()->password('password')->label('Password') !!}
@@ -87,7 +87,16 @@ edit.blade.php
 @endsection
 ```
 
-### Form layouts
+###Extended example
+You can preview all controls by executing `Form::preview()` in your controller action (let's say UserController.php):
+```php
+    public function preview()
+    {
+        return Form::preview();
+    }
+```
+
+###Form layouts
 ```php
 Form::standard($model = null, $formName = 'default');
 Form::horizontal($model = null, $formName = 'default');
@@ -95,7 +104,7 @@ Form::inline($model = null, $formName = 'default');
 Form::open($model = null, $formName = 'default', $layout = 'standard')
 ```
 
-### Controls
+###Controls
 ```php
 Form:: or Form::group()->
 
@@ -111,7 +120,7 @@ Form::group()->radios($name, array $items, $checked = null);
 Form::group()->content($html);
 ```
 
-### Buttons
+###Buttons
 ```php
 Form::button($name, $label, $value = null);
 Form::submit($name, $label, $value = null);
@@ -128,7 +137,7 @@ Fluent::buttons([
 ]])
 ```
 
-### Tabs
+###Tabs
 ```php
 @section('content')
     {!! Fluent::tabs()
@@ -152,7 +161,7 @@ Fluent::buttons([
 @endsection
 ```
 
-### Other
+###Other
 ```php
 Form::hidden($name, $value = null)
 Form::radio($name, $value = true, $checked = null)
