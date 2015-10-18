@@ -21,6 +21,11 @@ abstract class Control
     public function __construct(Handler $handler)
     {
         $this->setHandler($handler);
+
+        if (method_exists($this, 'backupRenderer'))
+        {
+            $this->backupRenderer();
+        }
     }
 
     /**
@@ -56,7 +61,7 @@ abstract class Control
      */
     protected function getGuarded()
     {
-        return array_merge(['handler', 'attr', 'css', 'data', 'guarded'], $this->guarded);
+        return array_merge(['handler', 'attr', 'css', 'data', 'guarded', 'inputGroup', 'renderer'], $this->guarded);
     }
 
     /**

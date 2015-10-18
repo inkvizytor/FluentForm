@@ -15,7 +15,7 @@ class CheckableList extends Field
 
     /** @var string */
     private $type = 'checkbox';
-    
+
     /** @var array */
     protected $items;
 
@@ -35,7 +35,7 @@ class CheckableList extends Field
 
         parent::__construct($handler);
     }
-    
+
     /**
      * @param array $items
      * @return $this
@@ -46,7 +46,7 @@ class CheckableList extends Field
 
         return $this;
     }
-    
+
     /**
      * @param string|array $checked
      * @return $this
@@ -84,14 +84,14 @@ class CheckableList extends Field
     {
         return $this->type;
     }
-    
+
     /**
      * @return string
      */
     public function render()
     {
         $checkables = [];
-        
+
         foreach ($this->items as $value => $label)
         {
             $checkables[] = (new Checkable($this->handler(), $this->getType()))
@@ -104,7 +104,7 @@ class CheckableList extends Field
                 ->setData($this->getData(null))
                 ->render();
         }
-        
+
         return implode($this->inline ? ' ' : '<br/>', $checkables);
     }
 } 

@@ -1,7 +1,7 @@
 <?php namespace inkvizytor\FluentForm\Traits;
 
 use inkvizytor\FluentForm\Controls\Button;
-use inkvizytor\FluentForm\Controls\LinkButton;
+use inkvizytor\FluentForm\Components\LinkButton;
 
 /**
  * Class ButtonsContract
@@ -21,7 +21,7 @@ trait ButtonsContract
     {
         return (new Button($this->handler()))->type($type)->name($name)->label($label)->value($value);
     }
-    
+
     /**
      * @param string $name
      * @param string $label
@@ -53,26 +53,5 @@ trait ButtonsContract
     public function reset($name, $label, $value = null)
     {
         return $this->pushable('reset', $name, $label, $value);
-    }
-
-    /**
-     * @param string $url
-     * @param string $label
-     * @return \inkvizytor\FluentForm\Controls\LinkButton
-     */
-    public function link($url, $label)
-    {
-        return (new LinkButton($this->handler()))->href($url)->label($label);
-    }
-
-    /**
-     * @param $icon
-     * @param string $url
-     * @param string $label
-     * @return \inkvizytor\FluentForm\Controls\LinkButton
-     */
-    public function icon($icon, $url, $label)
-    {
-        return $this->link($url, '')->icon($icon)->title($label);
     }
 }

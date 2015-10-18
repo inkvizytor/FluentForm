@@ -19,10 +19,10 @@ class Editor extends Textarea
     protected $config = [];
 
     /**
-     * @param string $config
+     * @param array $config
      * @return $this
      */
-    public function config($config)
+    public function config(array $config)
     {
         $this->config = $config;
 

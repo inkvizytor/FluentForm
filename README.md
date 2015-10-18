@@ -33,7 +33,7 @@ Next at the end of `config/app.php` add Fluent Form facade to the `aliases` arra
 ```
 And publish `fluentform.php` config file:
 ```
-php artisan vendor:publish --provider="inkvizytor\FluentForm\FluentFormServiceProvider"
+php artisan vendor:publish --provider="inkvizytor\FluentForm\FluentServiceProvider"
 ```
 
 ##Getting Started
@@ -79,7 +79,7 @@ edit.blade.php
             <br>
             {!! Form::group()
                 ->add(Form::submit('save', 'Save changes')->icon('fa fa-download')->css('btn-primary'))
-                ->add(Form::link(action('Admin\UsersController@index'), 'Back')->icon('fa fa-arrow-left'))
+                ->add(Fluent::link(action('Admin\UsersController@index'), 'Back')->icon('fa fa-arrow-left'))
             !!}
         </div>
     </div>
@@ -89,10 +89,10 @@ edit.blade.php
 
 ### Form layouts
 ```php
-Form::open($model = null, $formName = 'default', $layout = 'standard')
 Form::standard($model = null, $formName = 'default');
 Form::horizontal($model = null, $formName = 'default');
 Form::inline($model = null, $formName = 'default');
+Form::open($model = null, $formName = 'default', $layout = 'standard')
 ```
 
 ### Controls
@@ -116,13 +116,13 @@ Form::group()->content($html);
 Form::button($name, $label, $value = null);
 Form::submit($name, $label, $value = null);
 Form::reset($name, $label, $value = null);
-Form::link($url, $label);
+Fluent::link($url, $label);
 
 /* Buttons group */
 Fluent::buttons([
-    \Form::icon('fa fa-pencil', action('Admin\UsersController@edit', $user->id), 'Edit')
+    \Fluent::iconlink('fa fa-pencil', action('Admin\UsersController@edit', $user->id), 'Edit')
         ->css('btn-sm btn-primary'),
-    \Form::icon('fa fa-remove', action('Admin\UsersController@delete', $user->id), 'Delete')
+    \Fluent::iconlink('fa fa-remove', action('Admin\UsersController@delete', $user->id), 'Delete')
         ->css('btn-sm btn-danger')
         ->data('confirm', 'Are you sure?')
 ]])
@@ -162,7 +162,7 @@ Form::group();
 
 /* Form footer */
 Form::footer([
-    Form::link(action('Admin\UsersController@create'), 'Add user')
+    Fluent::link(action('Admin\UsersController@create'), 'Add user')
         ->icon('fa fa-plus')
         ->css('btn-success')
 ]);
@@ -245,6 +245,26 @@ You can also change some default settings for this control in `fluentform.php` c
     'datetimepicker' => [
         'showClear' => true,
         'showClose' => true,
+    ]
+```
+
+####Date range picker
+[Date Range Picker for Bootstrap](https://github.com/dangrossman/bootstrap-daterangepicker)
+```php
+Form::group()->datetimerange($name, $value = null);
+```
+And default settings in `fluentform.php` config file.
+```php
+    // Bootstrap DateRangePicker configuration
+    'datetimerange' => [
+        'format' => [
+            'date' => 'YYYY-MM-DD',
+            'datetime' => 'YYYY-MM-DD HH:mm:ss'
+        ],
+        'separator' => ' | ',
+        'firstDay' => 1,
+        'timePicker24Hour' => true,
+        'opens' => 'center',
     ]
 ```
 

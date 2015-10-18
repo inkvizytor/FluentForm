@@ -18,7 +18,7 @@ trait CssContract
     {
         return in_array($class, $this->css);
     }
-    
+
     /**
      * @param string $class
      * @return $this
@@ -60,14 +60,14 @@ trait CssContract
         {
             $css = func_get_args();
         }
-        
+
         if (!is_array($css))
         {
             $css = explode(' ', $css);
         }
-        
+
         $this->css = $css;
-        
+
         return $this;
     }
 

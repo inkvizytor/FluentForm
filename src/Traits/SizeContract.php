@@ -26,7 +26,7 @@ trait SizeContract
         'sm' => null,
         'xs' => null
     ];
-    
+
     /**
      * Set size of the controls in horizontal form
      *
@@ -38,10 +38,22 @@ trait SizeContract
      */
     public function setFieldSize($lg = null, $md = null, $sm = null, $xs = null)
     {
-        if (!empty($lg)) $this->fieldSize['lg'] = $lg;
-        if (!empty($md)) $this->fieldSize['md'] = $md;
-        if (!empty($sm)) $this->fieldSize['sm'] = $sm;
-        if (!empty($xs)) $this->fieldSize['xs'] = $xs;
+        if (!empty($lg))
+        {
+            $this->fieldSize['lg'] = $lg;
+        }
+        if (!empty($md))
+        {
+            $this->fieldSize['md'] = $md;
+        }
+        if (!empty($sm))
+        {
+            $this->fieldSize['sm'] = $sm;
+        }
+        if (!empty($xs))
+        {
+            $this->fieldSize['xs'] = $xs;
+        }
 
         return $this;
     }
@@ -54,7 +66,7 @@ trait SizeContract
      */
     public function getFieldSize($screen)
     {
-        return array_get($this->fieldSize, $screen);
+        return (int)array_get($this->fieldSize, $screen, 0);
     }
 
     /**
@@ -68,10 +80,22 @@ trait SizeContract
      */
     public function setLabelSize($lg = null, $md = null, $sm = null, $xs = null)
     {
-        if (!empty($lg)) $this->labelSize['lg'] = $lg;
-        if (!empty($md)) $this->labelSize['md'] = $md;
-        if (!empty($sm)) $this->labelSize['sm'] = $sm;
-        if (!empty($xs)) $this->labelSize['xs'] = $xs;
+        if (!empty($lg))
+        {
+            $this->labelSize['lg'] = $lg;
+        }
+        if (!empty($md))
+        {
+            $this->labelSize['md'] = $md;
+        }
+        if (!empty($sm))
+        {
+            $this->labelSize['sm'] = $sm;
+        }
+        if (!empty($xs))
+        {
+            $this->labelSize['xs'] = $xs;
+        }
 
         return $this;
     }
@@ -84,7 +108,7 @@ trait SizeContract
      */
     public function getLabelSize($screen)
     {
-        return array_get($this->labelSize, $screen);
+        return (int)array_get($this->labelSize, $screen, 0);
     }
 
     /**

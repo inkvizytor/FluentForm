@@ -1,6 +1,7 @@
 <?php namespace inkvizytor\FluentForm\Traits;
 
 use inkvizytor\FluentForm\Controls\Exclusive\DateTime;
+use inkvizytor\FluentForm\Controls\Exclusive\DateTimeRange;
 use inkvizytor\FluentForm\Controls\Exclusive\Editor;
 
 /**
@@ -18,6 +19,16 @@ trait ExclusiveContract
     public function datetime($name, $value = null)
     {
         return (new DateTime($this->handler()))->name($name)->value($value)->time(false);
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     * @return \inkvizytor\FluentForm\Controls\Exclusive\DateTimeRange
+     */
+    public function datetimerange($name, $value = null)
+    {
+        return (new DateTimeRange($this->handler()))->name($name)->value($value)->time(false);
     }
 
     /**

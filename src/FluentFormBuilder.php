@@ -29,9 +29,7 @@ class FluentFormBuilder extends FluentBuilder
         $label = config('fluentform.size.label');
         $field = config('fluentform.size.field');
 
-        $this->handler()
-            ->binder()
-            ->model($model);
+        $this->handler()->binder()->model($model);
 
         $this->handler()
             ->renderer()

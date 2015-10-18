@@ -30,9 +30,13 @@ trait DataContract
     public function getData($key, $default = null)
     {
         if ($key !== null)
+        {
             return array_get($this->data, $key, $default);
+        }
         else
+        {
             return $this->data;
+        }
     }
 
     /**
@@ -45,7 +49,7 @@ trait DataContract
 
         return $this;
     }
-    
+
     /**
      * @param array $options
      */

@@ -111,6 +111,11 @@ class Checkable extends Field
             ]));
         }
         
-        return $this->html()->tag('label', $attributes, $content.' '.$this->getLabel());
+        if (!empty($this->getLabel()))
+        {
+            return $this->html()->tag('label', $attributes, $content.' '.$this->getLabel());
+        }
+        
+        return $content;
     }
 } 

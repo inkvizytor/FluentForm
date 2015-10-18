@@ -27,7 +27,7 @@ trait HandlerContract
     {
         return $this->handler;
     }
-    
+
     /**
      * @return \inkvizytor\FluentForm\Html\Builder
      */

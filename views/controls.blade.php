@@ -1,10 +1,18 @@
 {!! Form::password($form.'dummy')->css('hide') !!}
 {!! Form::group()->content('Some text...')->label('Info')->css(['text-success']) !!}
 {!! Form::group()->content('Some text without label...')->css(['text-info']) !!}
-{!! Form::group()->text($form.'text')->label('Text')->data('custom', 'value') !!}
+{!! Form::group()->text($form.'text')->label('Text')->data('custom', 'value')
+    ->prepend(Form::checkbox('test'))
+    ->append(Fluent::iconlink('fa fa-envelope', url('/email'), 'Check')->css(['btn-info'])) !!}
 {!! Form::group()->password($form.'password')->label('Password') !!}
-{!! Form::group()->file($form.'file')->label('File')->sronly($form == 'inline') !!}
-{!! Form::group()->select($form.'select', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->label('Select')->placeholder('choose...') !!}
+@if($form != 'inline')
+<div class="clearfix"></div>
+{!! Form::group()->file($form.'file')->label('File')->sronly($form == 'inline')->width(6) !!}
+{!! Form::group()->select($form.'select', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->label('Select')->placeholder('choose...')
+    ->prepend('Options')
+    ->append(Form::button('choose', 'Choose')->css(['btn-primary']))
+    ->width(6) !!}
+@endif
 <div class="clearfix"></div>
 {!! Form::group()->checkbox($form.'checkbox')->label('Checkbox') !!}
 {!! Form::group()->checkboxes($form.'checkboxes', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->checked([2])->label('Checkbox list') !!}
@@ -13,17 +21,18 @@
 {!! Form::group()->radios($form.'radios-inline', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->label('Radio list inline')->inline(true) !!}
 @if($form != 'inline')
 <div class="clearfix"></div>
-{!! Form::group()->datetime($form.'date')->label('Date') !!}
-{!! Form::group()->datetime($form.'datetime')->time()->label('Date and Time') !!}
+{!! Form::group()->datetime($form.'date')->label('Date')->width(3) !!}
+{!! Form::group()->datetime($form.'datetime')->time()->label('Date and Time')->width(3) !!}
+{!! Form::group()->datetimerange($form.'datetimerange')->time()->label('Date range')->width(6) !!}
 {!! Form::group()->textarea($form.'textarea')->label('Textarea')->rows(2)->help('Some help..') !!}
 {!! Form::group()->editor($form.'editor')->label('Editor')->sronly($form == 'standard') !!}
 @else
 {!! Fluent::buttons([
-    Form::icon('fa fa-pencil', url('/edit'), 'Edit')
+    Fluent::iconlink('fa fa-pencil', url('/edit'), 'Edit')
         ->css(['btn-sm', 'btn-primary']),
-    Form::icon('fa fa-search', url('/details'), 'Edit')
+    Fluent::iconlink('fa fa-search', url('/details'), 'Edit')
         ->css(['btn-sm']),
-    Form::link(url('/delete'), 'Delete')
+    Fluent::link(url('/delete'), 'Delete')
         ->icon('fa fa-remove')
         ->css(['btn-sm', 'btn-danger'])
         ->data('confirm', 'Are you sure?')
@@ -34,5 +43,5 @@
     Form::submit('save', 'Save'),
     Form::button('disabled', 'Disabled')->disabled(),
     Form::reset('reset', 'Reset')->css(['btn-danger']),
-    Form::link(url('/back'), 'Back')->disabled(),
+    Fluent::link(url('/back'), 'Back')->disabled(),
 ]) !!}

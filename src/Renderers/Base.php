@@ -10,22 +10,22 @@ use inkvizytor\FluentForm\Traits\SizeContract;
 abstract class Base
 {
     use SizeContract;
-    
+
     const RENDER_STANDARD = 'standard';
     const RENDER_GROUP = 'group';
-    
+
     /** @var \inkvizytor\FluentForm\Html\Builder */
     protected $html;
 
     /** @var \inkvizytor\FluentForm\Validation\Base */
     protected $validation;
-    
+
     /** @var \inkvizytor\FluentForm\Base\Control */
     protected $control;
 
     /** @var \inkvizytor\FluentForm\Controls\Elements\Group */
     protected $group;
-    
+
     /** @var string */
     protected $mode;
 
@@ -34,7 +34,7 @@ abstract class Base
 
     /** @var mixed */
     protected $rules;
-    
+
     /** @var string */
     protected $layout;
 
@@ -49,7 +49,7 @@ abstract class Base
     {
         $this->html = $html;
         $this->validation = $validation;
-        
+
         $this->reset();
     }
 
@@ -76,7 +76,7 @@ abstract class Base
     public function bindControl(Control $control)
     {
         $this->control = $control;
-        
+
         return $this;
     }
 
@@ -98,7 +98,7 @@ abstract class Base
     public function mode($mode)
     {
         $this->reset();
-        
+
         $this->mode = $mode;
 
         return $this;
@@ -140,12 +140,12 @@ abstract class Base
     public function rules($rules)
     {
         $this->validation->setRules($rules);
-        
+
         $this->rules = $rules;
 
         return $this;
     }
-    
+
     /**
      * @param string $formName
      * @return $this
@@ -164,13 +164,10 @@ abstract class Base
     public function isRequired(Field $control)
     {
         $rules = array_get($this->rules, $control->getName(), []);
-        
-        return $control->isRequired() || (is_array($rules) ? 
-            array_has($rules, 'required') : 
-            str_contains($rules, 'required')
-        );
+
+        return $control->isRequired() || (is_array($rules) ? array_has($rules, 'required') : str_contains($rules, 'required'));
     }
-    
+
     /**
      * @return void
      */
@@ -186,50 +183,70 @@ abstract class Base
      */
     public function display()
     {
-        $type = get_class($this->control);
         $layout = ucfirst($this->layout);
+
+        $this->extend($layout, $this->control, $this->group);
+
+        return $this->render($layout, $this->control, $this->group);
+    }
+
+    /**
+     * @param \inkvizytor\FluentForm\Base\Control $control
+     * @return array
+     */
+    private function getClasses(Control $control)
+    {
+        $type = get_class($control);
         
-        $this->extend(
-            $type,
-            $layout,
-            $this->control,
-            $this->group
-        );
-        
-        return $this->render(
-            $type,
-            $layout,
-            $this->control,
-            $this->group
+        return array_map(
+            function($type) { return class_basename($type); },
+            array_merge([$type => $type], class_parents($control))
         );
     }
 
     /**
-     * @param string $type
+     * @param \inkvizytor\FluentForm\Base\Control $control
+     * @param string $prefix
+     * @param string $layout
+     * @return array
+     */
+    private function getMethods(Control $control, $prefix, $layout = null)
+    {
+        $settings = [];
+        $parents = $this->getClasses($control);
+
+        foreach ($parents as $type => $class)
+        {
+            if ($layout !== null)
+            {
+                $settings[$prefix.$class.$layout] = 'control';
+            }
+            $settings[$prefix.$class] = 'control';
+        }
+
+        if ($layout !== null)
+        {
+            $settings[$prefix.'Group'.$layout] = 'group';
+            $settings[$prefix.'Group'] = 'group';
+        }
+        
+        return $settings;
+    }
+    
+    /**
      * @param string $layout
      * @param Control $control
      * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
      */
-    public function extend($type, $layout, Control $control = null, Group $group = null)
+    public function extend($layout, Control $control = null, Group $group = null)
     {
-        $settings = [
-            'extend' . class_basename($type) . $layout => 'type',
-            'extend' . class_basename($type) => 'type',
-            'extendControl' . $layout => 'base',
-            'extendControl' => 'base',
-            'extendGroup' . $layout => 'group',
-            'extendGroup' => 'group'
-        ];
-
-        foreach ($settings as $method => $mode)
+        if ($control != null)
         {
-            if (method_exists($this, $method))
+            $methods = $this->getMethods($control, 'extend', $layout);
+
+            foreach ($methods as $method => $mode)
             {
-                $fire = ($mode == 'type' && $control != null) ||
-                        ($mode == 'base' && $control != null && is_subclass_of($control, Field::class)) ||
-                        ($mode == 'group' && $group != null);
-                
-                if ($fire == true)
+                if (method_exists($this, $method))
                 {
                     $this->{$method}($control, $group);
                     break;
@@ -239,47 +256,36 @@ abstract class Base
     }
 
     /**
-     * @param string $type
      * @param string $layout
      * @param Control $control
      * @param Group $group
      * @return string
      */
-    public function render($type, $layout, Control $control = null, Group $group = null)
+    public function render($layout, Control $control = null, Group $group = null)
     {
-        if ($this->mode == self::RENDER_GROUP)
+        if ($control != null)
         {
-            $settings = [
-                'render' . class_basename($type) . $layout => 'type',
-                'render' . class_basename($type) => 'type',
-                'renderControl' . $layout => 'base',
-                'renderControl' => 'base',
-                'renderGroup' . $layout => 'group',
-                'renderGroup' => 'group'
-            ];
-
-            foreach ($settings as $method => $mode)
+            if ($this->mode == self::RENDER_GROUP)
             {
-                if (method_exists($this, $method))
-                {
-                    $fire = ($mode == 'type' && $control != null) ||
-                            ($mode == 'base' && $control != null && is_subclass_of($control, Field::class)) ||
-                            ($mode == 'group' && $group != null);
+                $methods = $this->getMethods($control, 'render', $layout);
 
-                    if ($fire == true)
+                foreach ($methods as $method => $mode)
+                {
+                    if (method_exists($this, $method))
                     {
                         return $this->{$method}($control, $group);
                     }
                 }
             }
+            
+            return $this->decorate($control);
         }
 
-        if ($control != null)
-            return $this->decorate($control);
-
         if ($group != null)
+        {
             return $group->render();
-        
+        }
+
         return '';
     }
 
@@ -289,16 +295,17 @@ abstract class Base
      */
     public function decorate(Control $control)
     {
-        $method = 'decorate'.class_basename(get_class($control));
-
-        if (method_exists($this, $method))
+        $methods = $this->getMethods($control, 'decorate');
+        
+        foreach ($methods as $method => $mode)
         {
-            return $this->{$method}($control);
+            if (method_exists($this, $method))
+            {
+                return $this->{$method}($control);
+            }
         }
-        else
-        {
-            return $control->render();
-        }
+        
+        return $control->render();
     }
 
     /**
@@ -311,7 +318,7 @@ abstract class Base
         {
             return $this->errors->get($key);
         }
-        
+
         return [];
     }
 } 

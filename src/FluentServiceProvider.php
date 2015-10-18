@@ -25,13 +25,19 @@ class FluentServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadViewsFrom(__DIR__.'/../views', 'fluentform');
+
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'fluentform');
+
         $this->publishes([
-            __DIR__.'/config.php' => config_path('fluentform.php'),
+            __DIR__.'/../config/config.php' => config_path('fluentform.php'),
         ], 'config');
 
-        $this->loadViewsFrom(__DIR__.'/../views', 'fluentform');
+        $this->publishes([
+            __DIR__.'/../lang' => base_path('resources/lang/vendor/fluentform'),
+        ], 'lang');
     }
-    
+
     /**
      * Register the service provider.
      *
@@ -39,13 +45,11 @@ class FluentServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(
-            __DIR__.'/config.php', 'fluentform'
-        );
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'fluentform');
 
         $this->app->bind(BaseRenderer::class, config('fluentform.renderer'));
         $this->app->bind(BaseValidation::class, config('fluentform.validation'));
-        
+
         $this->app->bind('FluentForm', function ($app)
         {
             return app()->make(FluentFormBuilder::class);
@@ -56,7 +60,7 @@ class FluentServiceProvider extends ServiceProvider
             return app()->make(FluentHtmlBuilder::class);
         });
     }
-    
+
     /**
      * Get the services provided by the provider.
      *
@@ -64,6 +68,6 @@ class FluentServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['FluentForm'];
+        return ['FluentForm', 'FluentHtml'];
     }
 } 

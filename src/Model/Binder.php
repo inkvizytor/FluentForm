@@ -73,9 +73,13 @@ class Binder
     public function value($key, $value = null)
     {
         if ($this->submit())
+        {
             return $this->post($key, $this->old($key));
+        }
         else
+        {
             return $this->data($key, $value);
+        }
     }
 
     /**
@@ -125,9 +129,9 @@ class Binder
         {
             return $checked;
         }
-        
+
         $data = $this->value($key);
-        
+
         if (is_array($data))
         {
             return in_array($value, $data);
@@ -136,7 +140,7 @@ class Binder
         {
             return $data->contains('id', $value);
         }
-        
+
         return strval($data) === strval($value);
     }
 }

@@ -27,7 +27,7 @@ abstract class FluentBuilder
     protected function handler()
     {
         $this->handler->renderer()->mode(BaseRenderer::RENDER_STANDARD);
-        
+
         return $this->handler;
     }
 } 

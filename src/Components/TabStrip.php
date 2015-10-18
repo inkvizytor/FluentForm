@@ -25,7 +25,7 @@ class TabStrip extends Control
     protected $name = null;
     
     /** @var string */
-    protected $active = null;
+    protected static $active = null;
 
     /** @var bool */
     protected $pills = null;
@@ -92,7 +92,7 @@ class TabStrip extends Control
         {
             if (empty($this->tabs) || $active == true)
             {
-                $this->active = $name;
+                self::$active = $name;
             }
             
             $this->tabs[$name] = $label;
@@ -107,7 +107,7 @@ class TabStrip extends Control
      */
     public function active($name)
     {
-        $this->active = $name;
+        self::$active = $name;
 
         return $this;
     }
@@ -128,25 +128,20 @@ class TabStrip extends Control
     public function close()
     {
         $this->mode = 'tabs:end';
+        self::$active = null;
 
         return $this;
     }
 
     /**
      * @param string $name
-     * @param bool $active
      * @return $this
      */
-    public function panel($name, $active = false)
+    public function panel($name)
     {
         $this->mode = 'panel:begin';
         $this->name = $name;
 
-        if ($active == true)
-        {
-            $this->active = $name;
-        }
-        
         return $this;
     }
 
@@ -204,7 +199,7 @@ class TabStrip extends Control
         foreach ($this->tabs as $key => $value)
         {
             $li = $this->getAttr('tab');
-            $active = $this->active == $key ? $this->getAttr('active') : '';
+            $active = self::$active == $key ? $this->getAttr('active') : '';
             array_set($li, 'class', trim(array_get($li, 'class', '').' '.$active));
 
             if (empty($li['class'])) unset($li['class']);
@@ -237,7 +232,7 @@ class TabStrip extends Control
     private function renderPanelBegin()
     {
         $div = $this->getAttr('panel');
-        $active = $this->active == $this->name ? $this->getAttr('active') : '';
+        $active = self::$active == $this->name ? $this->getAttr('active') : '';
         array_set($div, 'class', trim(array_get($div, 'class', '').' '.$active));
 
         if (empty($div['class'])) unset($div['class']);

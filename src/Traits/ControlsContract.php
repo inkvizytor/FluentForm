@@ -62,7 +62,7 @@ trait ControlsContract
     {
         return (new Textarea($this->handler()))->name($name)->value($value)->rows(5);
     }
-    
+
     /**
      * @param string $name
      * @param array $items

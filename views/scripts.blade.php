@@ -46,14 +46,33 @@ $(function()
     }
     @endif 
 
-    @if(config('fluentform.cdn.enabled.jquery-validate', false) == true) 
-    $('input[data-toggle^="date"]').each(function ()
+    @if(config('fluentform.cdn.enabled.bootstrap-datetimepicker', false) == true) 
+    $('input[data-toggle="datetimepicker"]').each(function ()
     {
         $(this).datetimepicker($(this).data('config'))
     })
     .next('.input-group-addon').css('cursor', 'pointer').click(function ()
     {
         $(this).prev().focus();
+    });
+    @endif
+     
+    @if(config('fluentform.cdn.enabled.bootstrap-daterangepicker', false) == true) 
+    $('input[data-toggle="datetimerange"]').each(function ()
+    {
+        var $this = $(this);
+        var value = $this.val();
+
+        $this.daterangepicker($(this).data('config'))
+            .val(value)
+            .on('cancel.daterangepicker', function(ev, picker)
+            {
+                $(this).val('');
+            })
+            .next('.input-group-addon').css('cursor', 'pointer').click(function ()
+            {
+                $(this).prev().focus();
+            });
     });
     @endif 
 

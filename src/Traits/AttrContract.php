@@ -28,9 +28,27 @@ trait AttrContract
      */
     public function getAttr($key)
     {
-        return array_get($this->attr, $key);
+        if ($key !== null)
+        {
+            return array_get($this->attr, $key);
+        }
+        else
+        {
+            return $this->attr;
+        }
     }
 
+    /**
+     * @param array $attr
+     * @return $this
+     */
+    public function setAttr(array $attr)
+    {
+        $this->attr = $attr;
+
+        return $this;
+    }
+    
     /**
      * @param array $options
      */

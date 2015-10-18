@@ -8,8 +8,21 @@
 class Builder
 {
     private $selfClosing = [
-        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
-        'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'
+        'area',
+        'base',
+        'br',
+        'col',
+        'embed',
+        'hr',
+        'img',
+        'input',
+        'keygen',
+        'link',
+        'meta',
+        'param',
+        'source',
+        'track',
+        'wbr'
     ];
 
     /**
@@ -20,13 +33,13 @@ class Builder
      */
     public function tag($name, array $attributes = [], $content = null)
     {
-        $tag  = "\n<{$name}{$this->attr($attributes)}{$this->end($name)}>";
-        
+        $tag = "\n<{$name}{$this->attr($attributes)}{$this->end($name)}>";
+
         if (!in_array($name, $this->selfClosing) && $content !== null)
         {
             $tag .= "\n".trim($content).$this->close($name);
         }
-        
+
         return $tag;
     }
 
@@ -47,7 +60,7 @@ class Builder
     {
         return in_array($name, $this->selfClosing) ? ' /' : '';
     }
-    
+
     /**
      * @param array $attributes
      * @return string
@@ -58,8 +71,14 @@ class Builder
 
         foreach ($attributes as $key => $value)
         {
-            if (is_numeric($key)) $key = $value;
-            if ($value === null || $value === false) continue;
+            if (is_numeric($key))
+            {
+                $key = $value;
+            }
+            if ($value === null || $value === false)
+            {
+                continue;
+            }
 
             $html .= ' '.$key.'="'.$this->encode($value).'"';
         }

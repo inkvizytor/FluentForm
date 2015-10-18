@@ -62,7 +62,7 @@ class JQuery extends Base
     protected function getRule($inputName)
     {
         $rule = $this->rules[$inputName];
-        
+
         return is_array($rule) ? $rule : explode('|', $rule);
     }
 
@@ -76,11 +76,11 @@ class JQuery extends Base
     protected function convertRule($rule, $name, $type, $label)
     {
         $options = [];
-        
+
         $parsedRule = $this->parseValidationRule($rule);
         $prepareRule = $this->getRuleMethodName($parsedRule['name']);
         $prepareMessage = $this->getMessageMethodName($parsedRule['name']);
-        
+
         // If method does not exist, it is not implemented yet so return empty array
         if (!method_exists($this, $prepareRule))
         {
@@ -123,7 +123,7 @@ class JQuery extends Base
         foreach ($rules as $key => $rule)
         {
             $parsedRule = $this->parseValidationRule($rule);
-            
+
             if (in_array($parsedRule['name'], $this->numericRules))
             {
                 return 'numeric';
@@ -163,12 +163,12 @@ class JQuery extends Base
         $ruleArray['name'] = array_shift($explodedRule);
         $rule = implode(':', $explodedRule);
         $ruleArray['parameters'] = explode(',', $rule);
-        
+
         return $ruleArray;
     }
 
     // --------------------------------------------------
-    
+
     /*
      * Rules convertions which returns attributes as an array
      *
@@ -213,7 +213,7 @@ class JQuery extends Base
     protected function prepareRuleSame($parsedRule, $attribute, $type)
     {
         $value = vsprintf("*[name='%1s']", $parsedRule['parameters']);
-        
+
         return ['data-rule-equalto' => $value];
     }
 
@@ -221,7 +221,7 @@ class JQuery extends Base
     {
         $rule = $parsedRule['parameters'][0];
 
-        if(substr($rule, 0, 1) == substr($rule, -1, 1))
+        if (substr($rule, 0, 1) == substr($rule, -1, 1))
         {
             $rule = substr($rule, 1, -1);
         }
@@ -238,7 +238,7 @@ class JQuery extends Base
     {
         return ['data-rule-regex' => "^[A-Za-z0-9_-]+$"];
     }
-    
+
     protected function prepareRuleAlphanum($parsedRule, $attribute, $type)
     {
         return ['data-rule-regex' => "^[A-Za-z0-9]+$"];
@@ -291,11 +291,14 @@ class JQuery extends Base
                 break;
 
             default:
-                return ['data-rule-minlength' => $parsedRule['parameters'][0], 'data-rule-maxlength' =>  $parsedRule['parameters'][1]];
+                return [
+                    'data-rule-minlength' => $parsedRule['parameters'][0],
+                    'data-rule-maxlength' => $parsedRule['parameters'][1]
+                ];
                 break;
         }
     }
-    
+
     protected function prepareRuleDateFormat($parsedRule, $attribute, $type)
     {
         return ['data-rule-regex' => $this->dateRegexFromFormat($parsedRule['parameters'][0])];
@@ -317,28 +320,31 @@ class JQuery extends Base
     protected function prepareMessageIp($parsedRule, $attribute, $type)
     {
         $message = \Lang::get('validation.'.$parsedRule['name'], ['attribute' => $attribute]);
-        
+
         return ['data-msg-ipv4' => $message];
     }
 
     protected function prepareMessageAlpha($parsedRule, $attribute, $type)
     {
         $message = \Lang::get('validation.'.$parsedRule['name'], ['attribute' => $attribute]);
-        
+
         return ['data-msg-regex' => $message];
     }
 
     protected function prepareMessageAlphanum($parsedRule, $attribute, $type)
     {
         $message = \Lang::get('validation.'.$parsedRule['name'], ['attribute' => $attribute]);
-        
+
         return ['data-msg-regex' => $message];
     }
 
     protected function prepareMessageMax($parsedRule, $attribute, $type)
     {
-        $message = \Lang::get('validation.'.$parsedRule['name'].'.'.$type, ['attribute' => $attribute, 'max' => $parsedRule['parameters'][0]]);
-        
+        $message = \Lang::get('validation.'.$parsedRule['name'].'.'.$type, [
+            'attribute' => $attribute,
+            'max' => $parsedRule['parameters'][0]
+        ]);
+
         switch ($type)
         {
             case 'numeric':
@@ -353,8 +359,11 @@ class JQuery extends Base
 
     protected function prepareMessageMin($parsedRule, $attribute, $type)
     {
-        $message = \Lang::get('validation.'.$parsedRule['name'].'.'.$type, ['attribute' => $attribute, 'min' => $parsedRule['parameters'][0]]);
-        
+        $message = \Lang::get('validation.'.$parsedRule['name'].'.'.$type, [
+            'attribute' => $attribute,
+            'min' => $parsedRule['parameters'][0]
+        ]);
+
         switch ($type)
         {
             case 'numeric':
@@ -369,8 +378,12 @@ class JQuery extends Base
 
     protected function prepareMessageBetween($parsedRule, $attribute, $type)
     {
-        $message = \Lang::get('validation.'.$parsedRule['name'].'.'.$type, ['attribute' => $attribute, 'min' => $parsedRule['parameters'][0], 'max' => $parsedRule['parameters'][1]]);
-        
+        $message = \Lang::get('validation.'.$parsedRule['name'].'.'.$type, [
+            'attribute' => $attribute,
+            'min' => $parsedRule['parameters'][0],
+            'max' => $parsedRule['parameters'][1]
+        ]);
+
         switch ($type)
         {
             case 'numeric':
@@ -385,8 +398,11 @@ class JQuery extends Base
 
     protected function prepareMessageDateFormat($parsedRule, $attribute, $type)
     {
-        $message = \Lang::get('validation.'.$parsedRule['name'], ['attribute' => $attribute, 'format' => $parsedRule['parameters'][0]]);
-        
+        $message = \Lang::get('validation.'.$parsedRule['name'], [
+            'attribute' => $attribute,
+            'format' => $parsedRule['parameters'][0]
+        ]);
+
         return ['data-msg-regex' => $message];
     }
 
@@ -395,25 +411,25 @@ class JQuery extends Base
     private function dateRegexFromFormat($format)
     {
         // reverse engineer date formats
-        $keys = array(
-            'Y' => array('year', '\d{4}'),
-            'y' => array('year', '\d{2}'),
-            'm' => array('month', '\d{2}'),
-            'n' => array('month', '\d{1,2}'),
-            'M' => array('month', '[A-Z][a-z]{3}'),
-            'F' => array('month', '[A-Z][a-z]{2,8}'),
-            'd' => array('day', '\d{2}'),
-            'j' => array('day', '\d{1,2}'),
-            'D' => array('day', '[A-Z][a-z]{2}'),
-            'l' => array('day', '[A-Z][a-z]{6,9}'),
-            'u' => array('hour', '\d{1,6}'),
-            'h' => array('hour', '\d{2}'),
-            'H' => array('hour', '\d{2}'),
-            'g' => array('hour', '\d{1,2}'),
-            'G' => array('hour', '\d{1,2}'),
-            'i' => array('minute', '\d{2}'),
-            's' => array('second', '\d{2}')
-        );
+        $keys = [
+            'Y' => ['year', '\d{4}'],
+            'y' => ['year', '\d{2}'],
+            'm' => ['month', '\d{2}'],
+            'n' => ['month', '\d{1,2}'],
+            'M' => ['month', '[A-Z][a-z]{3}'],
+            'F' => ['month', '[A-Z][a-z]{2,8}'],
+            'd' => ['day', '\d{2}'],
+            'j' => ['day', '\d{1,2}'],
+            'D' => ['day', '[A-Z][a-z]{2}'],
+            'l' => ['day', '[A-Z][a-z]{6,9}'],
+            'u' => ['hour', '\d{1,6}'],
+            'h' => ['hour', '\d{2}'],
+            'H' => ['hour', '\d{2}'],
+            'g' => ['hour', '\d{1,2}'],
+            'G' => ['hour', '\d{1,2}'],
+            'i' => ['minute', '\d{2}'],
+            's' => ['second', '\d{2}']
+        ];
 
         // convert format string to regex
         $regex = '';

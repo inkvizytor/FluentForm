@@ -1,4 +1,4 @@
-<?php namespace inkvizytor\FluentForm\Controls;
+<?php namespace inkvizytor\FluentForm\Components;
 
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;

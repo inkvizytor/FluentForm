@@ -14,7 +14,7 @@ class Content extends Field
 
     /** @var string */
     protected $content;
-    
+
     /**
      * @param string $content
      * @return $this

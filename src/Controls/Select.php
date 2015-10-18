@@ -1,6 +1,7 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
 use inkvizytor\FluentForm\Base\Field;
+use inkvizytor\FluentForm\Traits\AddonsContract;
 
 /**
  * Class Select
@@ -9,9 +10,11 @@ use inkvizytor\FluentForm\Base\Field;
  */
 class Select extends Field
 {
+    use AddonsContract;
+    
     /** @var array */
     protected $guarded = ['items', 'selected', 'placeholder'];
-    
+
     /** @var array */
     protected $items = [];
 
@@ -28,7 +31,7 @@ class Select extends Field
 
         return $this;
     }
-    
+
     /**
      * @param string $selected
      * @return $this
@@ -39,14 +42,14 @@ class Select extends Field
 
         return $this;
     }
-    
+
     /**
      * @return string
      */
     public function render()
     {
         $items = $this->items;
-        
+
         if (!empty($this->placeholder))
         {
             $items = ['' => $this->placeholder] + $items;
@@ -54,7 +57,7 @@ class Select extends Field
 
         $selected = $this->binder()->value($this->key($this->name), $this->selected);
         $options = $this->options($items, $selected);
-        
+
         return $this->html()->tag('select', array_merge($this->getOptions(), ['name' => $this->name]), $options);
     }
 
@@ -66,19 +69,19 @@ class Select extends Field
     private function options(array $items, $selected = null)
     {
         $options = [];
-        
+
         foreach ($items as $value => $text)
         {
             if (is_array($text) && !array_key_exists('text', $text))
             {
                 return $this->optgroup($text, $value, $selected);
             }
-            
+
             $attributes = [
                 'value' => $value,
                 'selected' => $selected == $value ? 'selected' : null
             ];
-            
+
             if (is_array($text))
             {
                 $attributes = array_merge($attributes, array_except($text, 'text'));
@@ -87,7 +90,7 @@ class Select extends Field
 
             $options[] = $this->html()->tag('option', $attributes, $this->html()->encode($text));
         }
-        
+
         return implode("\n", $options);
     }
 
@@ -99,6 +102,8 @@ class Select extends Field
      */
     private function optgroup(array $items, $text, $selected = null)
     {
-        return $this->html()->tag('optgroup', ['label' => $this->html()->encode($text)], $this->options($items, $selected));
+        return $this->html()->tag('optgroup', [
+            'label' => $this->html()->encode($text)
+        ], $this->options($items, $selected));
     }
 } 
