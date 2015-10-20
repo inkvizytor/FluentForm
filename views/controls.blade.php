@@ -3,7 +3,7 @@
 {!! Form::group()->content('Some text without label...')->css(['text-info']) !!}
 {!! Form::group()->text($form.'text')->label('Text')->data('custom', 'value')
     ->prepend(Form::checkbox('test'))
-    ->append(Fluent::iconlink('fa fa-envelope', url('/email'), 'Check')->css(['btn-info'])) !!}
+    ->append(Fluent::iconlink(Fluent::FA_ENVELOPE, url('/email'), 'Check')->css(['btn-info'])) !!}
 {!! Form::group()->password($form.'password')->label('Password') !!}
 @if($form != 'inline')
 <div class="clearfix"></div>
@@ -28,12 +28,12 @@
 {!! Form::group()->editor($form.'editor')->label('Editor')->sronly($form == 'standard') !!}
 @else
 {!! Fluent::buttons([
-    Fluent::iconlink('fa fa-pencil', url('/edit'), 'Edit')
+    Fluent::iconlink(Fluent::FA_PENCIL, url('/edit'), 'Edit')
         ->css(['btn-sm', 'btn-primary']),
-    Fluent::iconlink('fa fa-search', url('/details'), 'Edit')
+    Fluent::iconlink(Fluent::FA_SEARCH, url('/details'), 'Edit')
         ->css(['btn-sm']),
     Fluent::link(url('/delete'), 'Delete')
-        ->icon('fa fa-remove')
+        ->icon(Fluent::FA_REMOVE)
         ->css(['btn-sm', 'btn-danger'])
         ->data('confirm', 'Are you sure?')
 ]) !!}

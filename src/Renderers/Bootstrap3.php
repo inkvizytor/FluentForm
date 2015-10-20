@@ -606,7 +606,7 @@ class Bootstrap3 extends Base
                 $label .= ' <var class="required">*</var>';
             }
 
-            return '<label'.$this->html()->attr($attributes).'>'.$label.'</label>';
+            return $this->html()->tag('label', $attributes, $label);
         }
 
         return null;

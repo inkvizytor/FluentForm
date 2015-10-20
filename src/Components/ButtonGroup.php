@@ -28,11 +28,15 @@ class ButtonGroup extends Control
 
     /**
      * @param Control $button
+     * @param bool $enabled
      * @return $this
      */
-    public function add(Control $button)
+    public function add(Control $button, $enabled = true)
     {
-        $this->buttons[] = $button;
+        if ($enabled == true)
+        {
+            $this->buttons[] = $button;
+        }
 
         return $this;
     }
@@ -42,6 +46,6 @@ class ButtonGroup extends Control
      */
     public function render()
     {
-        return '<div'.$this->html()->attr($this->getOptions()).'>'.implode(' ', $this->buttons).'</div>';
+        return $this->html()->tag('div', $this->getOptions(), implode(' ', $this->buttons));
     }
 }

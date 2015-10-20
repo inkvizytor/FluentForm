@@ -78,8 +78,8 @@ edit.blade.php
             {!! Form::group()->select('timezone', $timezones)->label('Timezone')->placeholder('Default timezone') !!}
             <br>
             {!! Form::group()
-                ->add(Form::submit('save', 'Save changes')->icon('fa fa-download')->css('btn-primary'))
-                ->add(Fluent::link(action('Admin\UsersController@index'), 'Back')->icon('fa fa-arrow-left'))
+                ->add(Form::submit('save', 'Save changes')->icon(Fluent::FA_DOWNLOAD)->css('btn-primary'))
+                ->add(Fluent::link(action('Admin\UsersController@index'), 'Back')->icon(Fluent::FA_ARROW_LEFT))
             !!}
         </div>
     </div>
@@ -129,9 +129,9 @@ Fluent::link($url, $label);
 
 /* Buttons group */
 Fluent::buttons([
-    \Fluent::iconlink('fa fa-pencil', action('Admin\UsersController@edit', $user->id), 'Edit')
+    \Fluent::iconlink(Fluent::FA_PENCIL, action('Admin\UsersController@edit', $user->id), 'Edit')
         ->css('btn-sm btn-primary'),
-    \Fluent::iconlink('fa fa-remove', action('Admin\UsersController@delete', $user->id), 'Delete')
+    \Fluent::iconlink(Fluent::FA_REMOVE, action('Admin\UsersController@delete', $user->id), 'Delete')
         ->css('btn-sm btn-danger')
         ->data('confirm', 'Are you sure?')
 ]])
@@ -161,6 +161,13 @@ Fluent::buttons([
 @endsection
 ```
 
+###Icons
+Supported icon sets: FontAwesome, GlyphIcons
+```php
+Fluent::FA_*
+Fluent::GI_*
+```
+
 ###Other
 ```php
 Form::hidden($name, $value = null)
@@ -172,7 +179,7 @@ Form::group();
 /* Form footer */
 Form::footer([
     Fluent::link(action('Admin\UsersController@create'), 'Add user')
-        ->icon('fa fa-plus')
+        ->icon(Fluent::FA_PLUS)
         ->css('btn-success')
 ]);
 ```

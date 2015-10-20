@@ -46,6 +46,6 @@ class Footer extends Control
      */
     public function render()
     {
-        return '<div'.$this->html()->attr($this->getOptions()).'>'.implode(' ', $this->buttons).'</div>';
+        return $this->html()->tag('div', $this->getOptions(), implode(' ', $this->buttons));
     }
 }
