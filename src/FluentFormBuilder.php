@@ -7,6 +7,7 @@ use inkvizytor\FluentForm\Controls\Checkable;
 use inkvizytor\FluentForm\Controls\Input;
 use inkvizytor\FluentForm\Traits\ButtonsContract;
 use inkvizytor\FluentForm\Traits\ControlsContract;
+use inkvizytor\FluentForm\Traits\CustomContract;
 use inkvizytor\FluentForm\Traits\ExclusiveContract;
 
 /**
@@ -16,7 +17,7 @@ use inkvizytor\FluentForm\Traits\ExclusiveContract;
  */
 class FluentFormBuilder extends FluentBuilder
 {
-    use ControlsContract, ExclusiveContract, ButtonsContract;
+    use ControlsContract, ExclusiveContract, ButtonsContract, CustomContract;
 
     /**
      * @param mixed $model

@@ -15,7 +15,7 @@ return [
 
     // Custom controls registration
     'controls' => [
-        // 'fancycontrol' => Acme\Controls\FancyControl::class
+        'timezones' => inkvizytor\FluentForm\Controls\Custom\TimeZones::class
     ],
     
     // CDN support

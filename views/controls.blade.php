@@ -19,6 +19,7 @@
 {!! Form::group()->checkboxes($form.'checkboxes-inline', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->checked([2])->label('Checkbox list inline')->inline(true) !!}
 {!! Form::group()->radios($form.'radios', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->checked(3)->label('Radio list') !!}
 {!! Form::group()->radios($form.'radios-inline', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->label('Radio list inline')->inline(true) !!}
+{!! Form::group()->timezones($form.'timezones')->placeholder('Choose your timezone') !!}
 @if($form != 'inline')
 <div class="clearfix"></div>
 {!! Form::group()->datetime($form.'date')->label('Date')->width(3) !!}

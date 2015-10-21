@@ -27,8 +27,8 @@ Next at the end of `config/app.php` add Fluent Form facade to the `aliases` arra
         'App'       => Illuminate\Support\Facades\App::class,
         'Artisan'   => Illuminate\Support\Facades\Artisan::class,
         ...
-        'Form'  	 => inkvizytor\FluentForm\Facades\FluentForm::class,
-        'Fluent'  	 => inkvizytor\FluentForm\Facades\FluentHtml::class,
+        'Form'      => inkvizytor\FluentForm\Facades\FluentForm::class,
+        'Fluent'    => inkvizytor\FluentForm\Facades\FluentHtml::class,
     ],
 ```
 And publish `fluentform.php` config file:
@@ -162,7 +162,7 @@ Fluent::buttons([
 ```
 
 ###Icons
-Supported icon sets: FontAwesome, GlyphIcons
+Autocomplete for icons. Supported icon sets: FontAwesome, GlyphIcons.
 ```php
 Fluent::FA_*
 Fluent::GI_*
@@ -313,6 +313,66 @@ In `fluentform.php` config file you can change some default settings for TinyMCE
 ####Validation
 For client side validation use [jQuery Validation Plugin](http://jqueryvalidation.org/) and [jQuery Unobtrusive Validation](https://github.com/aspnet/jquery-validation-unobtrusive).
 
+####Custom controls
+If you wish to make your own custom control, you can. First create a new class that extends abstract `Field` class. Example TimeZone custom class (it extends Select but Select extends Field):
+```php
+<?php namespace inkvizytor\FluentForm\Controls\Custom;
+
+use inkvizytor\FluentForm\Base\Handler;
+use inkvizytor\FluentForm\Controls\Select;
+
+/**
+ * Class TimeZones
+ * 
+ * Example of custom control. Control registered in config file in section 'controls'.
+ *
+ * @package inkvizytor\FluentForm
+ */
+class TimeZones extends Select
+{
+    protected $items = [
+        ...
+    ];
+
+    /**
+     * @param \inkvizytor\FluentForm\Base\Handler $handler
+     * @param string $name
+     * @param string $selected
+     */
+    public function __construct(Handler $handler, $name, $selected = null)
+    {
+        parent::__construct($handler);
+        
+        $this->name($name);
+        $this->selected($selected);
+    }
+    
+    /**
+     * @param array $items
+     * @return $this
+     */
+    public function items(array $items)
+    {
+        // Do nothing. Just override select behavior.
+
+        return $this;
+    }
+}
+```
+Next you have to register it in `fluentform.php` config file like TimeZone class is.
+```php
+    // Custom controls registration
+    'controls' => [
+        'timezones' => inkvizytor\FluentForm\Controls\Custom\TimeZones::class
+    ],
+```
+And then call it by it's alias name:
+```php
+{!! Form::group()->timezones($form.'timezones')->placeholder('Choose your timezone') !!}
+// or
+{!! Form::timezones($form.'timezones')->placeholder('Choose your timezone') !!}
+```
+All arguments of this magic method are passed to constructor after `$handler`. Sadly no autocomplite is available for custom controls.
 
 ##License
 The **Fluent Form** is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

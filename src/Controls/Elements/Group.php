@@ -5,6 +5,7 @@ use inkvizytor\FluentForm\Base\Handler;
 use inkvizytor\FluentForm\Renderers\Base;
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\ControlsContract;
+use inkvizytor\FluentForm\Traits\CustomContract;
 use inkvizytor\FluentForm\Traits\SizeContract;
 use inkvizytor\FluentForm\Traits\ExclusiveContract;
 
@@ -15,7 +16,7 @@ use inkvizytor\FluentForm\Traits\ExclusiveContract;
  */
 class Group extends Control
 {
-    use ControlsContract, ExclusiveContract, CssContract, SizeContract;
+    use ControlsContract, ExclusiveContract, CustomContract, CssContract, SizeContract;
 
     /** @var array */
     protected $guarded = ['content'];
