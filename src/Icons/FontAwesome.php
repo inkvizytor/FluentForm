@@ -23,9 +23,6 @@ interface FontAwesome
     const FA_ROTATE_180             = 'fa-rotate-180';
     const FA_FLIP_HORIZONTAL        = 'fa-flip-horizontal';
     const FA_FLIP_VERTICAL          = 'fa-flip-vertical';
-    const FA_STACK                  = 'fa-stack';
-    const FA_STACK_1X               = 'fa-stack-1x';
-    const FA_STACK_2X               = 'fa-stack-2x';
     const FA_INVERSE                = 'fa-inverse';
     
     const FA_GLASS                  = 'fa fa-glass';

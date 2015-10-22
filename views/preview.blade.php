@@ -44,6 +44,40 @@
         {!! Fluent::tabs()->end() !!}
 
         {!! Fluent::tabs()->panel('components') !!}
+            <br>
+            {!! Fluent::panel()->open('Panel title')->css(['panel-primary']) !!}
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Suspendisse cursus diam nec auctor lacinia. Nam hendrerit 
+                risus at condimentum egestas. Donec aliquam, velit at molestie 
+                finibus, metus dui condimentum odio, sit amet dignissim tellus 
+                dolor sed nisi. Proin consequat leo in lorem sollicitudin, vel 
+                aliquam lorem ullamcorper. In hac habitasse platea dictumst. 
+                Nullam aliquet justo ac justo aliquet, eu dignissim nulla pharetra. 
+                Fusce mollis lacus ut varius blandit. Nulla eget lorem in metus 
+                lacinia imperdiet. Maecenas a imperdiet orci, a laoreet dolor. 
+                Quisque id scelerisque turpis, a facilisis justo. Vestibulum pulvinar 
+                lacus vitae ornare vehicula. Quisque dignissim, risus eu egestas 
+                fringilla, magna massa suscipit ipsum, pretium varius enim mi 
+                eget magna. Mauris aliquet turpis a tempor pellentesque.
+            {!! Fluent::panel()->close([
+                Form::submit('save', 'Save'),
+                Form::button('disabled', 'Disabled')->disabled(),
+            ]) !!}
+            {!! Fluent::panel()->open('Panel title')->css(['panel-success']) !!}
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse cursus diam nec auctor lacinia. Nam hendrerit
+                risus at condimentum egestas. Donec aliquam, velit at molestie
+                finibus, metus dui condimentum odio, sit amet dignissim tellus
+                dolor sed nisi. Proin consequat leo in lorem sollicitudin, vel
+                aliquam lorem ullamcorper. In hac habitasse platea dictumst.
+                Nullam aliquet justo ac justo aliquet, eu dignissim nulla pharetra.
+                Fusce mollis lacus ut varius blandit. Nulla eget lorem in metus
+                lacinia imperdiet. Maecenas a imperdiet orci, a laoreet dolor.
+                Quisque id scelerisque turpis, a facilisis justo. Vestibulum pulvinar
+                lacus vitae ornare vehicula. Quisque dignissim, risus eu egestas
+                fringilla, magna massa suscipit ipsum, pretium varius enim mi
+                eget magna. Mauris aliquet turpis a tempor pellentesque.
+            {!! Fluent::panel()->close() !!}
         {!! Fluent::tabs()->end() !!}
         
         {!! Fluent::tabs()->close() !!}

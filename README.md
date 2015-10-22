@@ -161,11 +161,29 @@ Fluent::buttons([
 @endsection
 ```
 
+###Panel
+```php
+@section('content')
+    {!! Fluent::panel()->open('Panel title')->css(['panel-primary']) !!}
+        
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Suspendisse cursus diam nec auctor lacinia. Nam hendrerit 
+        risus at condimentum egestas. 
+        
+    {!! Fluent::panel()->close([
+        Form::submit('change', 'Change'),
+        Form::button('back', 'Back')->disabled(),
+    ]) !!}
+@endsection
+```
+
 ###Icons
 Autocomplete for icons. Supported icon sets: FontAwesome, GlyphIcons.
 ```php
 Fluent::FA_*
 Fluent::GI_*
+
+{!! Fluent::icon(Fluent::FA_SPINNER, Fluent::FA_SPIN, Fluent::FA_5X) !!}
 ```
 
 ###Other

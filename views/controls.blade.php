@@ -22,11 +22,13 @@
 {!! Form::group()->timezones($form.'timezones')->placeholder('Choose your timezone') !!}
 @if($form != 'inline')
 <div class="clearfix"></div>
-{!! Form::group()->datetime($form.'date')->label('Date')->width(3) !!}
-{!! Form::group()->datetime($form.'datetime')->time()->label('Date and Time')->width(3) !!}
-{!! Form::group()->datetimerange($form.'datetimerange')->time()->label('Date range')->width(6) !!}
-{!! Form::group()->textarea($form.'textarea')->label('Textarea')->rows(2)->help('Some help..') !!}
-{!! Form::group()->editor($form.'editor')->label('Editor')->sronly($form == 'standard') !!}
+{!! Fluent::panel()->open('Some other controls') !!}
+    {!! Form::group()->datetime($form.'date')->label('Date')->width(3) !!}
+    {!! Form::group()->datetime($form.'datetime')->time()->label('Date and Time')->width(3) !!}
+    {!! Form::group()->datetimerange($form.'datetimerange')->time()->label('Date range')->width(6) !!}
+    {!! Form::group()->textarea($form.'textarea')->label('Textarea')->rows(2)->help('Some help..') !!}
+    {!! Form::group()->editor($form.'editor')->label('Editor')->sronly($form == 'standard') !!}
+{!! Fluent::panel()->close() !!}
 @else
 {!! Fluent::buttons([
     Fluent::iconlink(Fluent::FA_PENCIL, url('/edit'), 'Edit')

@@ -4,6 +4,7 @@ use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Base\Field;
 use inkvizytor\FluentForm\Components\ButtonGroup;
 use inkvizytor\FluentForm\Components\InputGroup;
+use inkvizytor\FluentForm\Components\Panel;
 use inkvizytor\FluentForm\Controls\Elements\Footer;
 use inkvizytor\FluentForm\Controls\Elements\Form;
 use inkvizytor\FluentForm\Controls\Elements\Group;
@@ -498,6 +499,45 @@ class Bootstrap3 extends Base
         if ($control->getMode() == 'panel:begin')
         {
             $control->attr('panel', ['role' => 'tabpanel', 'class' => 'tab-pane']);
+        }
+    }
+
+    // --------------------------------------------------
+
+    private $panelTypes = [
+        'panel-default',
+        'panel-primary',
+        'panel-success',
+        'panel-info',
+        'panel-warning',
+        'panel-danger'
+    ];
+    
+    /**
+     * @param Panel $control
+     * @param Group $group
+     */
+    protected function extendPanel(Panel $control, Group $group = null)
+    {
+        if ($control->getMode() == 'panel:begin')
+        {
+            if (!$control->hasClass('btn'))
+            {
+                $control->addClass('panel');
+            }
+
+            if (empty(array_intersect($control->getCss(), $this->panelTypes)))
+            {
+                $control->addClass('panel-default');
+            }
+            
+            $control->attr('heading', ['class' => 'panel-heading']);
+            $control->attr('body', ['class' => 'panel-body']);
+        }
+
+        if ($control->getMode() == 'panel:end')
+        {
+            $control->attr('footer', ['class' => 'panel-footer']);
         }
     }
 

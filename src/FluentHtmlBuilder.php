@@ -1,7 +1,9 @@
 <?php namespace inkvizytor\FluentForm;
 
 use inkvizytor\FluentForm\Components\ButtonGroup;
+use inkvizytor\FluentForm\Components\Icon;
 use inkvizytor\FluentForm\Components\LinkButton;
+use inkvizytor\FluentForm\Components\Panel;
 use inkvizytor\FluentForm\Components\TabStrip;
 
 /**
@@ -37,6 +39,14 @@ class FluentHtmlBuilder extends FluentBuilder
     }
 
     /**
+     * @return \inkvizytor\FluentForm\Components\Panel
+     */
+    public function panel()
+    {
+        return (new Panel($this->handler()));
+    }
+    
+    /**
      * @param array $buttons
      * @return \inkvizytor\FluentForm\Components\ButtonGroup
      */
@@ -53,6 +63,15 @@ class FluentHtmlBuilder extends FluentBuilder
     public function link($url, $label)
     {
         return (new LinkButton($this->handler()))->href($url)->label($label);
+    }
+
+    /**
+     * @param string|array $icons
+     * @return \inkvizytor\FluentForm\Components\Icon
+     */
+    public function icon($icons)
+    {
+        return (new Icon($this->handler()))->css(is_array($icons) ? $icons : func_get_args());
     }
 
     /**
