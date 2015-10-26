@@ -88,7 +88,7 @@ edit.blade.php
 ```
 
 ###Extended example
-You can preview all controls by executing `Form::preview()` in your controller action (let's say UserController.php):
+You can preview all controls by executing `Form::preview()` in your controller action:
 ```php
     public function preview()
     {
@@ -390,7 +390,7 @@ And then call it by it's alias name:
 // or
 {!! Form::timezones($form.'timezones')->placeholder('Choose your timezone') !!}
 ```
-All arguments of this magic method are passed to constructor after `$handler`. Sadly no autocomplite is available for custom controls.
+All arguments of this magic method are passed to constructor after `$handler`. Sadly no autocomplete is available for custom controls.
 
 ##License
 The **Fluent Form** is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
