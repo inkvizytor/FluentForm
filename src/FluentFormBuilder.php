@@ -1,5 +1,6 @@
 <?php namespace inkvizytor\FluentForm;
 
+use inkvizytor\FluentForm\Base\IModel;
 use inkvizytor\FluentForm\Controls\Elements\Form;
 use inkvizytor\FluentForm\Controls\Elements\Footer;
 use inkvizytor\FluentForm\Controls\Elements\Group;
@@ -30,8 +31,6 @@ class FluentFormBuilder extends FluentBuilder
         $label = config('fluentform.size.label');
         $field = config('fluentform.size.field');
 
-        $this->handler()->binder()->model($model);
-
         $this->handler()
             ->renderer()
             ->layout($layout)
@@ -39,8 +38,21 @@ class FluentFormBuilder extends FluentBuilder
             ->setFieldSize($field['lg'], $field['md'], $field['sm'], $field['xs'])
             ->setLabelSize($label['lg'], $label['md'], $label['sm'], $label['xs'])
             ->errors(null)
-            ->rules([]);
+            ->rules(null);
 
+        if ($model != null)
+        {
+            $this->handler()->binder()->model($model);
+
+            if ($model instanceof IModel)
+            {
+                $this->handler()
+                    ->renderer()
+                    ->errors($model->errors())
+                    ->rules($model->rules());
+            }
+        }
+        
         return (new Form($this->handler()))->files(true)->open();
     }
 
