@@ -72,14 +72,7 @@ class Binder
      */
     public function value($key, $value = null)
     {
-        if ($this->submit())
-        {
-            return $this->post($key, $this->old($key));
-        }
-        else
-        {
-            return $this->data($key, $value);
-        }
+        return $this->old($key, $this->post($key, $this->data($key, $value)));
     }
 
     /**
@@ -109,12 +102,7 @@ class Binder
      */
     private function data($key, $default = null)
     {
-        if (isset($this->model))
-        {
-            return data_get($this->model, $key, $default);
-        }
-
-        return $default;
+        return data_get($this->model, $key, $default);
     }
 
     /**
@@ -125,12 +113,12 @@ class Binder
      */
     public function checked($key, $value, $checked)
     {
-        if (!$this->submit() && empty($this->data($key)))
+        $data = $this->value($key);
+        
+        if ($data === null)
         {
             return $checked;
         }
-
-        $data = $this->value($key);
 
         if (is_array($data))
         {
