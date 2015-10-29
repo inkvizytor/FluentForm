@@ -41,7 +41,7 @@ class FluentFormBuilder extends FluentBuilder
             ->errors(null)
             ->rules([]);
 
-        return (new Form($this->handler()))->model($model)->files(true)->open();
+        return (new Form($this->handler()))->files(true)->open();
     }
 
     /**

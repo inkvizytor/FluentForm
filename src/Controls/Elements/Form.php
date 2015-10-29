@@ -14,7 +14,7 @@ class Form extends Control
     use CssContract, DataContract;
 
     /** @var array */
-    protected $guarded = ['mode', 'url', 'route', 'action', 'files', 'model'];
+    protected $guarded = ['mode', 'url', 'route', 'action', 'files'];
 
     /** @var string */
     protected $mode;
@@ -33,9 +33,6 @@ class Form extends Control
     
     /** @var bool */
     protected $files = false;
-
-    /** @var mixed */
-    protected $model;
 
     /**
      * @return $this
@@ -139,17 +136,6 @@ class Form extends Control
     {
         $this->renderer()->rules($rules);
 
-        return $this;
-    }
-
-    /**
-     * @param mixed $model
-     * @return $this
-     */
-    public function model($model)
-    {
-        $this->model = $model;
-        
         return $this;
     }
 
@@ -277,7 +263,7 @@ class Form extends Control
 
         if ($this->getMode() == 'form:close')
         {
-            $this->binder()->model([]);
+            $this->binder()->model(null);
             
             return $this->html()->close('form');
         }
