@@ -13,6 +13,10 @@
     ->append(Form::button('choose', 'Choose')->css(['btn-primary']))
     ->width(6) !!}
 @endif
+{!! Form::group()
+    ->add(Form::submit('filter', 'Filter')->icon('fa fa-filter'))
+    ->add(Form::reset('reset', 'Reset')->icon('fa fa-refresh')->css(['btn-danger']))
+!!}
 <div class="clearfix"></div>
 {!! Form::group()->checkbox($form.'checkbox')->label('Checkbox') !!}
 {!! Form::group()->checkboxes($form.'checkboxes', [1 => 'option 1', 2 => 'option 2', 3 => 'option 3'])->checked([2])->label('Checkbox list') !!}

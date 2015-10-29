@@ -210,18 +210,22 @@ abstract class Base
      * @param string $layout
      * @return array
      */
-    private function getMethods(Control $control, $prefix, $layout = null)
+    private function getMethods(Control $control = null, $prefix = 'render', $layout = null)
     {
         $settings = [];
-        $parents = $this->getClasses($control);
 
-        foreach ($parents as $type => $class)
+        if ($control != null)
         {
-            if ($layout !== null)
+            $classes = $this->getClasses($control);
+            
+            foreach ($classes as $type => $class)
             {
-                $settings[$prefix.$class.$layout] = 'control';
+                if ($layout !== null)
+                {
+                    $settings[$prefix . $class . $layout] = 'control';
+                }
+                $settings[$prefix . $class] = 'control';
             }
-            $settings[$prefix.$class] = 'control';
         }
 
         if ($layout !== null)
@@ -283,6 +287,16 @@ abstract class Base
 
         if ($group != null)
         {
+            $methods = $this->getMethods(null, 'render', $layout);
+
+            foreach ($methods as $method => $mode)
+            {
+                if (method_exists($this, $method))
+                {
+                    return $this->{$method}($control, $group);
+                }
+            }
+            
             return $group->render();
         }
 
