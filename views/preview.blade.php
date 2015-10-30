@@ -10,8 +10,8 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="content">
+<div class="{{ config('fluentform.cdn.enabled.bootstrap') ? 'container' : 'row' }}">
+    <div class="{{ config('fluentform.cdn.enabled.bootstrap') ? 'content' : 'large-12 columns' }}">
         <h1>Fluent Form Preview</h1>
         {!! Fluent::tabs()
             ->add('horizontal', 'Horizontal form') 

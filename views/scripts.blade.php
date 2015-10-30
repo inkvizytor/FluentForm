@@ -82,6 +82,10 @@ $(function()
         tinymce.init($(this).data('config'));
     });
     @endif 
+    
+    @if(config('fluentform.cdn.enabled.foundation', false) == true)
+    $(document).foundation();
+    @endif 
 });
 </script>
 @endif

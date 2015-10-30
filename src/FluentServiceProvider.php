@@ -52,12 +52,12 @@ class FluentServiceProvider extends ServiceProvider
 
         $this->app->bind('FluentForm', function ($app)
         {
-            return app()->make(FluentFormBuilder::class);
+            return app()->make(config('fluentform.form'));
         });
 
         $this->app->bind('FluentHtml', function ($app)
         {
-            return app()->make(FluentHtmlBuilder::class);
+            return app()->make(config('fluentform.html'));
         });
     }
 

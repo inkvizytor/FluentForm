@@ -1,8 +1,15 @@
 <?php
 
 return [
+    // Html builder
+    'html' => inkvizytor\FluentForm\FluentHtmlBuilder::class,
+
+    // Form builder
+    'form' => inkvizytor\FluentForm\FluentFormBuilder::class,
+    
     // Renderer
-    'renderer' => inkvizytor\FluentForm\Renderers\Bootstrap3::class,
+    //'renderer' => inkvizytor\FluentForm\Renderers\Bootstrap3::class,
+    'renderer' => inkvizytor\FluentForm\Renderers\Foundation::class,
     
     // Validation
     'validation' => inkvizytor\FluentForm\Validation\JQuery::class,
@@ -25,10 +32,11 @@ return [
             'jquery-validate' => true,
             'jquery-validate-unobtrusive' => true,
             'moment' => true,
-            'bootstrap' => true,
-            'bootstrap-filestyle' => true,
-            'bootstrap-datetimepicker' => true,
-            'bootstrap-daterangepicker' => true,
+            'bootstrap' => false,
+            'bootstrap-filestyle' => false,
+            'bootstrap-datetimepicker' => false,
+            'bootstrap-daterangepicker' => false,
+            'foundation' => true,
             'font-awesome' => true,
             'tinymce' => true,
         ],
@@ -36,6 +44,7 @@ return [
             'bootstrap' => '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
             'bootstrap-datetimepicker' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css',
             'bootstrap-daterangepicker' => '//cdn.jsdelivr.net/bootstrap.daterangepicker/2.1.12/daterangepicker.css',
+            'foundation' => '//cdn.jsdelivr.net/foundation/5.5.3/css/foundation.min.css',
             'font-awesome' => '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css',
         ],
         'scripts' => [
@@ -47,6 +56,7 @@ return [
             'bootstrap-filestyle' => '//cdn.jsdelivr.net/bootstrap.filestyle/1.1.0/js/bootstrap-filestyle.min.js',
             'bootstrap-datetimepicker' => '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js',
             'bootstrap-daterangepicker' => '//cdn.jsdelivr.net/bootstrap.daterangepicker/2.1.12/daterangepicker.js',
+            'foundation' => '//cdn.jsdelivr.net/foundation/5.5.3/js/foundation.min.js',
             'tinymce' => '//tinymce.cachefly.net/4.2/tinymce.min.js',
         ]
     ],

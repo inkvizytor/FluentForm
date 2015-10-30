@@ -141,12 +141,13 @@ Fluent::buttons([
 ```php
 @section('content')
     {!! Fluent::tabs()
-        ->add('details', 'User details', true)
+        ->add('details', 'User details')
         ->add('security', 'Account security')
         ->add('permissions', 'Roles and permissions')
+        ->active('security')
         ->open()
     !!}
-        {!! Fluent::tabs()->panel('details', true) !!}
+        {!! Fluent::tabs()->panel('details') !!}
             ...
         {!! Fluent::tabs()->end() !!}
 
@@ -391,6 +392,12 @@ And then call it by it's alias name:
 {!! Form::timezones($form.'timezones')->placeholder('Choose your timezone') !!}
 ```
 All arguments of this magic method are passed to constructor after `$handler`. Sadly no autocomplete is available for custom controls.
+
+##ToDo
+1. Localization for getLabel().
+2. Nag Validation proxy class.
+3. Foundation renderer class.
+4. Change css framework on the fly like this Fluent::renderer('Bootstrap3').
 
 ##License
 The **Fluent Form** is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

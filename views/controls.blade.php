@@ -1,4 +1,4 @@
-{!! Form::password($form.'dummy')->css('hide') !!}
+{!! Form::password($form.'dummy')->attr('style', 'display: none;') !!}
 {!! Form::group()->content('Some text...')->label('Info')->css(['text-success']) !!}
 {!! Form::group()->content('Some text without label...')->css(['text-info']) !!}
 {!! Form::group()->text($form.'text')->label('Text')->data('custom', 'value')

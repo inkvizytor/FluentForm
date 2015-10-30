@@ -19,11 +19,11 @@ use inkvizytor\FluentForm\Controls\Exclusive\DateTime;
 use Illuminate\Support\Str;
 
 /**
- * Class Bootstrap3
+ * Class Foundation
  *
  * @package inkvizytor\FluentForm
  */
-class Bootstrap3 extends Base
+class Foundation extends Base
 {
     /**
      * @param \inkvizytor\FluentForm\Controls\Elements\Form $control
@@ -33,7 +33,7 @@ class Bootstrap3 extends Base
     {
         if ($control->getMode() == 'form:open')
         {
-            $control->addClass('form-standard');
+            //$control->addClass('form-standard');
         }
     }
 
@@ -45,7 +45,7 @@ class Bootstrap3 extends Base
     {
         if ($control->getMode() == 'form:open')
         {
-            $control->addClass('form-horizontal');
+            //$control->addClass('form-horizontal');
         }
     }
 
@@ -57,7 +57,7 @@ class Bootstrap3 extends Base
     {
         if ($control->getMode() == 'form:open')
         {
-            $control->addClass('form-inline');
+            //$control->addClass('form-inline');
         }
     }
 
@@ -69,7 +69,7 @@ class Bootstrap3 extends Base
      */
     protected function extendField(Field $control, Group $group = null)
     {
-        $control->addClass('form-control');
+        //$control->addClass('form-control');
 
         if ($group != null && $this->hasErrors($control))
         {
@@ -99,15 +99,15 @@ class Bootstrap3 extends Base
     protected function renderFieldStandard(Field $control, Group $group)
     {
         $label = $this->label($control, 'control-label');
-        $groupCss = array_merge(['form-group'], $group->getCss());
+        $groupCss = array_merge(['row'], $group->getCss());
         $render = $this->decorate($control);
 
         return '
     <div class="'.implode(' ', $groupCss).'">
         '.$label.'
         '.$this->applyWidth($render, $control->getWidth()).'
-        '.$this->renderErrors($control).'
         '.$this->renderHelp($control).'
+        '.$this->renderErrors($control).'
     </div>
         ';
     }
@@ -119,17 +119,19 @@ class Bootstrap3 extends Base
      */
     protected function renderFieldHorizontal(Field $control, Group $group)
     {
-        $label = $this->label($control, $this->getLabelColumnClass($group));
-        $groupCss = array_merge(['form-group'], $group->getCss());
+        $label = $this->label($control);
+        $groupCss = array_merge(['row'], $group->getCss());
         $render = $this->decorate($control);
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        '.$label.'
+        <div class="'.$this->getLabelColumnClass($group).'">
+            '.$label.'
+        </div>
         <div class="'.$this->getFieldColumnClass($group, empty($label)).'">
             '.$this->applyWidth($render, $control->getWidth()).'
-            '.$this->renderErrors($control).'
             '.$this->renderHelp($control).'
+            '.$this->renderErrors($control).'
         </div>
     </div>
         ';
@@ -143,7 +145,7 @@ class Bootstrap3 extends Base
     protected function renderFieldInline(Field $control, Group $group)
     {
         $label = $this->label($control);
-        $groupCss = array_merge(['form-group'], $group->getCss());
+        $groupCss = array_merge(['row'], $group->getCss());
         $render = $this->decorate($control);
 
         return '
@@ -251,14 +253,14 @@ class Bootstrap3 extends Base
      */
     protected function renderCheckableStandard(Checkable $control, Group $group)
     {
-        $labelCss = $this->getCheckableCss($control);
-        $groupCss = array_merge([$labelCss], $group->getCss());
+        $checkableCss = $this->getCheckableCss($control);
+        $groupCss = array_merge([$checkableCss], $group->getCss());
 
         return '
     <div class="'.implode(' ', $groupCss).'">
         '.$this->decorate($control).'
-        '.$this->renderHelp($control).'
         '.$this->renderErrors($control).'
+        '.$this->renderHelp($control).'
     </div>
         ';
     }
@@ -270,16 +272,17 @@ class Bootstrap3 extends Base
      */
     protected function renderCheckableHorizontal(Checkable $control, Group $group)
     {
-        $label = $this->decorate($control);
-        $labelCss = $this->getCheckableCss($control);
-        $groupCss = array_merge(['form-group'], $group->getCss());
+        $checkable = $this->decorate($control);
+        $checkableCss = $this->getCheckableCss($control);
+        $groupCss = array_merge(['row'], $group->getCss());
 
         return '
     <div class="'.implode(' ', $groupCss).'">
+        <div class="'.$this->getLabelColumnClass($group).'"></div>
         <div class="'.$this->getFieldColumnClass($group, true).'">
-            <div class="'.$labelCss.'">'.$label.'</div>
-            '.$this->renderHelp($control).'
+            <div class="'.$checkableCss.'">'.$checkable.'</div>
             '.$this->renderErrors($control).'
+            '.$this->renderHelp($control).'
         </div>
     </div>
         ';
@@ -292,14 +295,14 @@ class Bootstrap3 extends Base
      */
     protected function renderCheckableInline(Checkable $control, Group $group)
     {
-        $labelCss = $this->getCheckableCss($control);
-        $groupCss = array_merge([$labelCss], $group->getCss());
+        $checkableCss = $this->getCheckableCss($control);
+        $groupCss = array_merge([$checkableCss], $group->getCss());
 
         return '
     <div class="'.implode(' ', $groupCss).'">
         '.$this->decorate($control).'
-        '.$this->renderHelp($control).'
         '.$this->renderErrors($control).'
+        '.$this->renderHelp($control).'
     </div>
         ';
     }
@@ -331,8 +334,8 @@ class Bootstrap3 extends Base
         <div class="'.$control->getType().'">
             '.$this->decorate($control).'
         </div>
-        '.$this->renderErrors($control).'
         '.$this->renderHelp($control).'
+        '.$this->renderErrors($control).'
     </div>
         ';
     }
@@ -354,8 +357,8 @@ class Bootstrap3 extends Base
             <div class="'.$control->getType().'">
                 '.$this->decorate($control).'
             </div>
-            '.$this->renderErrors($control).'
             '.$this->renderHelp($control).'
+            '.$this->renderErrors($control).'
         </div>
     </div>
         ';
@@ -377,8 +380,8 @@ class Bootstrap3 extends Base
         <div class="form-control-static '.$control->getType().'">
             '.$this->decorate($control).'
         </div>
-        '.$this->renderErrors($control).'
         '.$this->renderHelp($control).'
+        '.$this->renderErrors($control).'
     </div>
         ';
     }
@@ -487,23 +490,23 @@ class Bootstrap3 extends Base
 
         if ($control->getMode() == 'tabs:begin')
         {
-            $control->addClass('nav');
-            $control->addClass($control->isPills() ? 'nav-pills' : 'nav-tabs');
+            $control->addClass('tabs');
+            //$control->addClass($control->isPills() ? 'nav-pills' : 'nav-tabs');
 
             if ($control->isJustified())
             {
-                $control->addClass('nav-justified');
+                //$control->addClass('nav-justified');
             }
 
-            $control->attr('tabs', ['role' => 'tablist']);
-            $control->attr('tab', ['role' => 'presentation']);
-            $control->attr('link', ['role' => 'tab', 'data-toggle' => 'tab']);
-            $control->attr('panels', ['class' => 'tab-content']);
+            $control->attr('tabs', ['data-tab' => '']);
+            $control->attr('tab', ['class' => 'tab-title']);
+            $control->attr('link', []);
+            $control->attr('panels', ['class' => 'tabs-content']);
         }
 
         if ($control->getMode() == 'panel:begin')
         {
-            $control->attr('panel', ['role' => 'tabpanel', 'class' => 'tab-pane']);
+            $control->attr('panel', ['class' => 'content']);
         }
     }
 
@@ -573,21 +576,26 @@ class Bootstrap3 extends Base
      */
     protected function decorateInputGroup(InputGroup $control)
     {
+        $size = 12;
         $prepend = $control->getPrepend();
         
         if ($prepend !== null)
         {
+            $size -= 2;
+            
             if ($prepend instanceof Button || $prepend instanceof LinkButton)
             {
-                $prepend = sprintf('<span class="input-group-btn">%s</span>', $prepend->display());
+                $prepend->addClass('prefix');
+                
+                $prepend = sprintf('<div class="small-2 columns">%s</div>', $prepend->display());
             }
             else if ($prepend instanceof Control)
             {
-                $prepend = sprintf('<span class="input-group-addon">%s</span>', $prepend->display());
+                $prepend = sprintf('<div class="small-2 columns"><span class="prefix">%s</span></div>', $prepend->display());
             }
             else
             {
-                $prepend = sprintf('<span class="input-group-addon">%s</span>', $prepend);
+                $prepend = sprintf('<div class="small-2 columns"><span class="prefix">%s</span></div>', $prepend);
             }
         }
 
@@ -595,24 +603,30 @@ class Bootstrap3 extends Base
 
         if ($append !== null)
         {
+            $size -= 2;
+            
             if ($append instanceof Button || $append instanceof LinkButton)
             {
-                $append = sprintf('<span class="input-group-btn">%s</span>', $append->display());
+                $append = sprintf('<div class="small-2 columns">%s</div>', $append->display());
             }
             else if ($append instanceof Control)
             {
-                $append = sprintf('<span class="input-group-addon">%s</span>', $append->display());
+                $append = sprintf('<div class="small-2 columns"><span class="postfix">%s</span></div>', $append->display());
             }
             else
             {
-                $append = sprintf('<span class="input-group-addon">%s</span>', $append);
+                $append->addClass('postfix');
+                
+                $append = sprintf('<div class="small-2 columns"><span class="postfix">%s</span></div>', $append);
             }
         }
         
         $decorator = '
-<div class="input-group">
+<div class="row collapse">
     '.$prepend.'
-    %s
+    <div class="small-'.$size.' columns">
+        %s
+    </div>
     '.$append.'
 </div>';
 
@@ -684,7 +698,7 @@ class Bootstrap3 extends Base
             $message = str_replace($name, $label, $message);
 
             // Return only first error
-            return sprintf('<label class="error" for="%s">%s</label>', $control->getName(), $message);
+            return sprintf('<small class="error" for="%s">%s</small>', $control->getName(), $message);
         }
 
         return '';
@@ -747,11 +761,12 @@ class Bootstrap3 extends Base
     private function getLabelColumnClass(Group $group)
     {
         $class = [
-            'control-label',
-            'col-lg-'.($group->getLabelSize('lg') ?: $this->getLabelSize('lg')),
-            'col-md-'.($group->getLabelSize('md') ?: $this->getLabelSize('md')),
-            'col-sm-'.($group->getLabelSize('sm') ?: $this->getLabelSize('sm')),
-            'col-xs-'.($group->getLabelSize('xs') ?: $this->getLabelSize('xs'))
+            'columns',
+            'inline',
+            'large-'.($group->getLabelSize('lg') ?: $this->getLabelSize('lg')),
+            'medium-'.($group->getLabelSize('md') ?: $this->getLabelSize('md')),
+            'small-'.($group->getLabelSize('sm') ?: $this->getLabelSize('sm')),
+            //'col-xs-'.($group->getLabelSize('xs') ?: $this->getLabelSize('xs'))
         ];
 
         return implode(' ', $class);
@@ -765,13 +780,14 @@ class Bootstrap3 extends Base
     private function getFieldColumnClass(Group $group, $offset = false)
     {
         $class = [
-            'col-lg-'.($group->getFieldSize('lg') ?: $this->getFieldSize('lg')),
-            'col-md-'.($group->getFieldSize('md') ?: $this->getFieldSize('md')),
-            'col-sm-'.($group->getFieldSize('sm') ?: $this->getFieldSize('sm')),
-            'col-xs-'.($group->getFieldSize('xs') ?: $this->getFieldSize('xs'))
+            'columns',
+            'large-'.($group->getFieldSize('lg') ?: $this->getFieldSize('lg')),
+            'medium-'.($group->getFieldSize('md') ?: $this->getFieldSize('md')),
+            'small-'.($group->getFieldSize('sm') ?: $this->getFieldSize('sm')),
+            //'col-xs-'.($group->getFieldSize('xs') ?: $this->getFieldSize('xs'))
         ];
 
-        if ($offset)
+        /*if ($offset)
         {
             $class = array_merge($class, [
                 'col-lg-offset-'.($group->getLabelSize('lg') ?: $this->getLabelSize('lg')),
@@ -779,7 +795,7 @@ class Bootstrap3 extends Base
                 'col-sm-offset-'.($group->getLabelSize('sm') ?: $this->getLabelSize('sm')),
                 'col-xs-offset-'.($group->getLabelSize('xs') ?: $this->getLabelSize('xs'))
             ]);
-        }
+        }*/
 
         return implode(' ', $class);
     }
