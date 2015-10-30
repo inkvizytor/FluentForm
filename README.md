@@ -134,7 +134,7 @@ Fluent::buttons([
     \Fluent::iconlink(Fluent::FA_REMOVE, action('Admin\UsersController@delete', $user->id), 'Delete')
         ->css('btn-sm btn-danger')
         ->data('confirm', 'Are you sure?')
-]])
+])
 ```
 
 ###Tabs
