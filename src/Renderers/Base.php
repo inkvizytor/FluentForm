@@ -227,8 +227,7 @@ abstract class Base
                 $settings[$prefix . $class] = 'control';
             }
         }
-
-        if ($layout !== null)
+        else if ($layout !== null)
         {
             $settings[$prefix.'Group'.$layout] = 'group';
             $settings[$prefix.'Group'] = 'group';

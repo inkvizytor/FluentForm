@@ -2,6 +2,7 @@
 
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\DataContract;
+use inkvizytor\FluentForm\Traits\GroupContract;
 
 /**
  * Class Field
@@ -10,22 +11,13 @@ use inkvizytor\FluentForm\Traits\DataContract;
  */
 abstract class Field extends Control
 {
-    use CssContract, DataContract;
+    use GroupContract, CssContract, DataContract;
     
     /** @var string */
     protected $name;
 
     /** @var string */
-    protected $label;
-    
-    /** @var  bool */
-    protected $sronly;
-
-    /** @var string */
     protected $help;
-
-    /** @var bool */
-    protected $required;
 
     /** @var string */
     protected $disabled;
@@ -66,27 +58,6 @@ abstract class Field extends Control
     }
 
     /**
-     * @param string $label
-     * @param bool $sronly
-     * @return $this
-     */
-    public function label($label, $sronly = false)
-    {
-        $this->label = $label;
-        $this->sronly = $sronly;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
      * @param string $text
      * @return $this
      */
@@ -105,44 +76,6 @@ abstract class Field extends Control
         return $this->help;
     }
 
-    /**
-     * @param bool $required
-     * @return $this
-     */
-    public function required($required)
-    {
-        $this->required = $required;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRequired()
-    {
-        return $this->required;
-    }
-
-    /**
-     * @param bool $sronly
-     * @return $this
-     */
-    public function sronly($sronly)
-    {
-        $this->sronly = $sronly;
-
-        return $this;
-    }
-    
-    /**
-     * @return bool
-     */
-    public function isSrOnly()
-    {
-        return $this->sronly;
-    }
-    
     /**
      * @param int $lg
      * @param int $md
@@ -289,6 +222,6 @@ abstract class Field extends Control
      */
     protected function getGuarded()
     {
-        return array_merge(['name', 'label', 'help', 'required', 'width'], parent::getGuarded());
+        return array_merge(['name', 'label', 'sronly', 'help', 'required', 'width'], parent::getGuarded());
     }
 } 
