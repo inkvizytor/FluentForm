@@ -79,7 +79,7 @@ class Select extends Field
 
             $attributes = [
                 'value' => $value,
-                'selected' => $selected == $value ? 'selected' : null
+                'selected' => strval($selected) == strval($value) ? 'selected' : null
             ];
 
             if (is_array($text))
