@@ -6,6 +6,7 @@ use inkvizytor\FluentForm\Renderers\Base;
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\ControlsContract;
 use inkvizytor\FluentForm\Traits\CustomContract;
+use inkvizytor\FluentForm\Traits\GroupContract;
 use inkvizytor\FluentForm\Traits\SizeContract;
 use inkvizytor\FluentForm\Traits\ExclusiveContract;
 
@@ -16,7 +17,7 @@ use inkvizytor\FluentForm\Traits\ExclusiveContract;
  */
 class Group extends Control
 {
-    use ControlsContract, ExclusiveContract, CustomContract, CssContract, SizeContract;
+    use ControlsContract, ExclusiveContract, CustomContract, GroupContract, CssContract, SizeContract;
 
     /** @var array */
     protected $guarded = ['content'];
@@ -67,7 +68,7 @@ class Group extends Control
      * @param int $xs
      * @return $this
      */
-    public function size($lg = null, $md = null, $sm = null, $xs = null)
+    public function fieldSize($lg = null, $md = null, $sm = null, $xs = null)
     {
         $this->setFieldSize($lg, $md, $sm, $xs);
         
@@ -83,7 +84,7 @@ class Group extends Control
      * @param int $xs
      * @return $this
      */
-    public function label($lg = null, $md = null, $sm = null, $xs = null)
+    public function labelSize($lg = null, $md = null, $sm = null, $xs = null)
     {
         $this->setLabelSize($lg, $md, $sm, $xs);
 

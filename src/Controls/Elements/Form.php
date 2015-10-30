@@ -148,7 +148,7 @@ class Form extends Control
      * @param int $xs
      * @return $this
      */
-    public function size($lg = null, $md = null, $sm = null, $xs = null)
+    public function fieldSize($lg = null, $md = null, $sm = null, $xs = null)
     {
         $this->renderer()->setFieldSize($lg, $md, $sm, $xs);
 
@@ -164,7 +164,7 @@ class Form extends Control
      * @param int $xs
      * @return $this
      */
-    public function label($lg = null, $md = null, $sm = null, $xs = null)
+    public function labelSize($lg = null, $md = null, $sm = null, $xs = null)
     {
         $this->renderer()->setLabelSize($lg, $md, $sm, $xs);
 

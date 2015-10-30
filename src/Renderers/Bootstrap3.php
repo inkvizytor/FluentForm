@@ -93,7 +93,7 @@ class Bootstrap3 extends Base
      */
     protected function renderFieldStandard(Field $control, Group $group)
     {
-        $label = $this->label($control, 'control-label');
+        $label = $this->fieldLabel($control, 'control-label');
         $groupCss = array_merge(['form-group'], $group->getCss());
         $render = $this->decorate($control);
 
@@ -114,7 +114,7 @@ class Bootstrap3 extends Base
      */
     protected function renderFieldHorizontal(Field $control, Group $group)
     {
-        $label = $this->label($control, $this->getLabelColumnClass($group));
+        $label = $this->fieldLabel($control, $this->getLabelColumnClass($group));
         $groupCss = array_merge(['form-group'], $group->getCss());
         $render = $this->decorate($control);
 
@@ -137,7 +137,7 @@ class Bootstrap3 extends Base
      */
     protected function renderFieldInline(Field $control, Group $group)
     {
-        $label = $this->label($control);
+        $label = $this->fieldLabel($control);
         $groupCss = array_merge(['form-group'], $group->getCss());
         $render = $this->decorate($control);
 
@@ -160,11 +160,14 @@ class Bootstrap3 extends Base
      */
     protected function renderGroupStandard(Control $control = null, Group $group)
     {
+        $label = $this->groupLabel($group, 'control-label');
         $groupCss = array_merge(['form-group'], $group->getCss());
+        $render = $group->render();
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        '.$group->render().'
+        '.$label.'
+        '.$render.'
     </div>
         ';
     }
@@ -176,12 +179,15 @@ class Bootstrap3 extends Base
      */
     protected function renderGroupHorizontal(Control $control = null, Group $group)
     {
+        $label = $this->groupLabel($group, $this->getLabelColumnClass($group));
         $groupCss = array_merge(['form-group'], $group->getCss());
+        $render = $group->render();
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        <div class="'.$this->getFieldColumnClass($group, true).'">
-            '.$group->render().'
+        '.$label.'
+        <div class="'.$this->getFieldColumnClass($group, empty($label)).'">
+            '.$render.'
         </div>
     </div>
         ';
@@ -194,11 +200,14 @@ class Bootstrap3 extends Base
      */
     protected function renderGroupInline(Control $control = null, Group $group)
     {
+        $label = $this->groupLabel($group);
         $groupCss = array_merge(['form-group'], $group->getCss());
+        $render = $group->render();
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        '.$group->render().'
+        '.$label.'
+        '.$render.'
     </div>
         ';
     }
@@ -317,7 +326,7 @@ class Bootstrap3 extends Base
      */
     protected function renderCheckableListStandard(CheckableList $control, Group $group)
     {
-        $label = $this->label($control, 'control-label');
+        $label = $this->fieldLabel($control, 'control-label');
         $groupCss = array_merge(['form-group'], $group->getCss());
 
         return '
@@ -339,7 +348,7 @@ class Bootstrap3 extends Base
      */
     protected function renderCheckableListHorizontal(CheckableList $control, Group $group)
     {
-        $label = $this->label($control, $this->getLabelColumnClass($group));
+        $label = $this->fieldLabel($control, $this->getLabelColumnClass($group));
         $groupCss = array_merge(['form-group'], $group->getCss());
 
         return '
@@ -363,7 +372,7 @@ class Bootstrap3 extends Base
      */
     protected function renderCheckableListInline(CheckableList $control, Group $group)
     {
-        $label = $this->label($control);
+        $label = $this->fieldLabel($control);
         $groupCss = array_merge(['form-group'], $group->getCss());
 
         return '
@@ -621,7 +630,7 @@ class Bootstrap3 extends Base
      * @param string $class
      * @return string
      */
-    private function label(Field $control, $class = null)
+    private function fieldLabel(Field $control, $class = null)
     {
         $attributes = [
             'for' => $control->getName()
@@ -642,6 +651,40 @@ class Bootstrap3 extends Base
         if (!empty($label))
         {
             if ($this->isRequired($control))
+            {
+                $label .= ' <var class="required">*</var>';
+            }
+
+            return $this->html()->tag('label', $attributes, $label);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Group $group
+     * @param string $class
+     * @return string
+     */
+    private function groupLabel(Group $group, $class = null)
+    {
+        $attributes = [];
+
+        if ($group->isSrOnly())
+        {
+            $class = trim($class.' sr-only');
+        }
+
+        if (!empty($class))
+        {
+            $attributes['class'] = $class;
+        }
+
+        $label = $group->getLabel();
+
+        if (!empty($label))
+        {
+            if ($group->isRequired())
             {
                 $label .= ' <var class="required">*</var>';
             }
