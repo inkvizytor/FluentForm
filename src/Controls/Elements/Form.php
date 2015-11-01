@@ -286,7 +286,7 @@ class Form extends Control
         }
         if (!empty($this->action))
         {
-            return $this->locator()->action(head($this->url), array_slice($this->url, 1));
+            return $this->locator()->action(head($this->action), array_slice($this->action, 1));
         }
 
         return $this->locator()->current();
