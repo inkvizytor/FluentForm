@@ -47,8 +47,11 @@ class FluentServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'fluentform');
 
-        $this->app->bind(BaseRenderer::class, config('fluentform.renderer'));
-        $this->app->bind(BaseValidation::class, config('fluentform.validation'));
+        $renderer = config('fluentform.renderer');
+        $validation = config('fluentform.validation');
+        
+        $this->app->bind(BaseRenderer::class, config('fluentform.renderers.'.$renderer));
+        $this->app->bind(BaseValidation::class, config('fluentform.validators.'.$validation));
 
         $this->app->bind('FluentForm', function ($app)
         {

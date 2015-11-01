@@ -52,7 +52,7 @@ class Group extends Control
      * @param string $html
      * @return $this
      */
-    public function literal($html)
+    public function content($html)
     {
         $this->content[] = $html;
 
@@ -96,7 +96,7 @@ class Group extends Control
      */
     public function render()
     {
-        return implode(' ', $this->content);
+        return implode("\n", $this->content);
     }
 
     /**

@@ -387,17 +387,15 @@ Next you have to register it in `fluentform.php` config file like TimeZone class
 ```
 And then call it by it's alias name:
 ```php
-{!! Form::group()->timezones($form.'timezones')->placeholder('Choose your timezone') !!}
+{!! Form::group()->timezones('timezones')->placeholder('Choose your timezone') !!}
 // or
-{!! Form::timezones($form.'timezones')->placeholder('Choose your timezone') !!}
+{!! Form::timezones('timezones')->placeholder('Choose your timezone') !!}
 ```
 All arguments of this magic method are passed to constructor after `$handler`. Sadly no autocomplete is available for custom controls.
 
 ##ToDo
 1. Localization for getLabel().
 2. Nag Validation proxy class.
-3. Foundation renderer class.
-4. Change css framework on the fly like this Fluent::renderer('Bootstrap3').
 
 ##License
 The **Fluent Form** is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

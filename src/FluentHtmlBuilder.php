@@ -5,6 +5,7 @@ use inkvizytor\FluentForm\Components\Icon;
 use inkvizytor\FluentForm\Components\LinkButton;
 use inkvizytor\FluentForm\Components\Panel;
 use inkvizytor\FluentForm\Components\TabStrip;
+use inkvizytor\FluentForm\Renderers\Base as BaseRenderer;
 
 /**
  * Class FluentHtmlBuilder
@@ -28,6 +29,14 @@ class FluentHtmlBuilder extends FluentBuilder
     public function scripts($cdn = null)
     {
         return view('fluentform::scripts', ['cdn' => $cdn])->render();
+    }
+
+    /**
+     * @param string $renderer
+     */
+    public function renderer($renderer)
+    {
+        $this->handler()->setRenderer(app()->make(config('fluentform.renderers.'.$renderer)));
     }
 
     /**

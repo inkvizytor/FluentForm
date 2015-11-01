@@ -105,6 +105,11 @@ class CheckableList extends Field
                 ->render();
         }
 
-        return implode($this->inline ? ' ' : '<br/>', $checkables);
+        foreach ($checkables as $i => $checkable)
+        {
+            $checkables[$i] = $this->html()->tag('li', [], $checkable);
+        }
+
+        return $this->html()->tag('ul', $this->getOptions(), implode("\n", $checkables));
     }
 } 

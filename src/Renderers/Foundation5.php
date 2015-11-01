@@ -6,7 +6,6 @@ use inkvizytor\FluentForm\Components\ButtonGroup;
 use inkvizytor\FluentForm\Components\InputGroup;
 use inkvizytor\FluentForm\Components\Panel;
 use inkvizytor\FluentForm\Controls\Elements\Footer;
-use inkvizytor\FluentForm\Controls\Elements\Form;
 use inkvizytor\FluentForm\Controls\Elements\Group;
 use inkvizytor\FluentForm\Components\TabStrip;
 use inkvizytor\FluentForm\Controls\Button;
@@ -23,54 +22,14 @@ use Illuminate\Support\Str;
  *
  * @package inkvizytor\FluentForm
  */
-class Foundation extends Base
+class Foundation5 extends Base
 {
-    /**
-     * @param \inkvizytor\FluentForm\Controls\Elements\Form $control
-     * @return string
-     */
-    protected function extendFormStandard(Form $control)
-    {
-        if ($control->getMode() == 'form:open')
-        {
-            //$control->addClass('form-standard');
-        }
-    }
-
-    /**
-     * @param \inkvizytor\FluentForm\Controls\Elements\Form $control
-     * @return string
-     */
-    protected function extendFormHorizontal(Form $control)
-    {
-        if ($control->getMode() == 'form:open')
-        {
-            //$control->addClass('form-horizontal');
-        }
-    }
-
-    /**
-     * @param \inkvizytor\FluentForm\Controls\Elements\Form $control
-     * @return string
-     */
-    protected function extendFormInline(Form $control)
-    {
-        if ($control->getMode() == 'form:open')
-        {
-            //$control->addClass('form-inline');
-        }
-    }
-
-    // --------------------------------------------------
-
     /**
      * @param Field $control
      * @param Group $group
      */
     protected function extendField(Field $control, Group $group = null)
     {
-        //$control->addClass('form-control');
-
         if ($group != null && $this->hasErrors($control))
         {
             $group->addClass('has-error');
@@ -88,6 +47,7 @@ class Foundation extends Base
         if (!empty($control->getLabel()))
         {
             $control->placeholder($control->getLabel());
+            $control->sronly(true);
         }
     }
 
@@ -98,16 +58,18 @@ class Foundation extends Base
      */
     protected function renderFieldStandard(Field $control, Group $group)
     {
-        $label = $this->label($control, 'control-label');
+        $label = $this->fieldLabel($control);
         $groupCss = array_merge(['row'], $group->getCss());
         $render = $this->decorate($control);
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        '.$label.'
-        '.$this->applyWidth($render, $control->getWidth()).'
-        '.$this->renderHelp($control).'
-        '.$this->renderErrors($control).'
+        <div class="columns large-12">
+            '.$label.'
+            '.$this->applyWidth($render, $control->getWidth()).'
+            '.$this->renderErrors($control).'
+            '.$this->renderHelp($control).'
+        </div>
     </div>
         ';
     }
@@ -119,7 +81,7 @@ class Foundation extends Base
      */
     protected function renderFieldHorizontal(Field $control, Group $group)
     {
-        $label = $this->label($control);
+        $label = $this->fieldLabel($control, 'inline right');
         $groupCss = array_merge(['row'], $group->getCss());
         $render = $this->decorate($control);
 
@@ -128,10 +90,10 @@ class Foundation extends Base
         <div class="'.$this->getLabelColumnClass($group).'">
             '.$label.'
         </div>
-        <div class="'.$this->getFieldColumnClass($group, empty($label)).'">
+        <div class="'.$this->getFieldColumnClass($group).'">
             '.$this->applyWidth($render, $control->getWidth()).'
-            '.$this->renderHelp($control).'
             '.$this->renderErrors($control).'
+            '.$this->renderHelp($control).'
         </div>
     </div>
         ';
@@ -144,13 +106,11 @@ class Foundation extends Base
      */
     protected function renderFieldInline(Field $control, Group $group)
     {
-        $label = $this->label($control);
-        $groupCss = array_merge(['row'], $group->getCss());
+        $groupCss = array_merge(['left'], $group->getCss());
         $render = $this->decorate($control);
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        '.$label.'
         '.$render.'
         '.$this->renderErrors($control).'
         '.$this->renderHelp($control).'
@@ -167,11 +127,16 @@ class Foundation extends Base
      */
     protected function renderGroupStandard(Control $control = null, Group $group)
     {
-        $groupCss = array_merge(['form-group'], $group->getCss());
+        $label = $this->groupLabel($group);
+        $groupCss = array_merge(['row'], $group->getCss());
+        $render = $group->render();
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        '.$group->render().'
+        <div class="columns large-12">
+            '.$label.'
+            '.$render.'
+        </div>
     </div>
         ';
     }
@@ -183,12 +148,17 @@ class Foundation extends Base
      */
     protected function renderGroupHorizontal(Control $control = null, Group $group)
     {
-        $groupCss = array_merge(['form-group'], $group->getCss());
+        $label = $this->groupLabel($group, 'inline right');
+        $groupCss = array_merge(['row'], $group->getCss());
+        $render = $group->render();
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        <div class="'.$this->getFieldColumnClass($group, true).'">
-            '.$group->render().'
+        <div class="'.$this->getLabelColumnClass($group).'">
+            '.$label.'
+        </div>
+        <div class="'.$this->getFieldColumnClass($group).'">
+            '.$render.'
         </div>
     </div>
         ';
@@ -201,11 +171,12 @@ class Foundation extends Base
      */
     protected function renderGroupInline(Control $control = null, Group $group)
     {
-        $groupCss = array_merge(['form-group'], $group->getCss());
+        $groupCss = array_merge(['left'], $group->getCss());
+        $render = $group->render();
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        '.$group->render().'
+        '.$render.'
     </div>
         ';
     }
@@ -253,14 +224,16 @@ class Foundation extends Base
      */
     protected function renderCheckableStandard(Checkable $control, Group $group)
     {
-        $checkableCss = $this->getCheckableCss($control);
-        $groupCss = array_merge([$checkableCss], $group->getCss());
+        $labelCss = $this->getCheckableCss($control);
+        $groupCss = array_merge(['row', $labelCss], $group->getCss());
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        '.$this->decorate($control).'
-        '.$this->renderErrors($control).'
-        '.$this->renderHelp($control).'
+        <div class="columns large-12">
+            '.$this->decorate($control).'
+            '.$this->renderErrors($control).'
+            '.$this->renderHelp($control).'
+        </div>
     </div>
         ';
     }
@@ -272,15 +245,15 @@ class Foundation extends Base
      */
     protected function renderCheckableHorizontal(Checkable $control, Group $group)
     {
-        $checkable = $this->decorate($control);
-        $checkableCss = $this->getCheckableCss($control);
+        $label = $this->decorate($control);
+        $labelCss = $this->getCheckableCss($control);
         $groupCss = array_merge(['row'], $group->getCss());
 
         return '
     <div class="'.implode(' ', $groupCss).'">
         <div class="'.$this->getLabelColumnClass($group).'"></div>
-        <div class="'.$this->getFieldColumnClass($group, true).'">
-            <div class="'.$checkableCss.'">'.$checkable.'</div>
+        <div class="'.$this->getFieldColumnClass($group).'">
+            <div class="'.$labelCss.'">'.$label.'</div>
             '.$this->renderErrors($control).'
             '.$this->renderHelp($control).'
         </div>
@@ -295,8 +268,8 @@ class Foundation extends Base
      */
     protected function renderCheckableInline(Checkable $control, Group $group)
     {
-        $checkableCss = $this->getCheckableCss($control);
-        $groupCss = array_merge([$checkableCss], $group->getCss());
+        $labelCss = $this->getCheckableCss($control);
+        $groupCss = array_merge(['left', $labelCss], $group->getCss());
 
         return '
     <div class="'.implode(' ', $groupCss).'">
@@ -313,9 +286,25 @@ class Foundation extends Base
      * @param CheckableList $control
      * @param Group $group
      */
+    protected function extendCheckableList(CheckableList $control, Group $group = null)
+    {
+        if ($control->isInline())
+            $control->addClass('inline-list');
+        else
+            $control->addClass('no-bullet');
+
+        $control->addClass($control->getType());
+    }
+
+    /**
+     * @param CheckableList $control
+     * @param Group $group
+     */
     protected function extendCheckableListInline(CheckableList $control, Group $group = null)
     {
         $control->inline(true);
+
+        $this->extendCheckableList($control, $group);
     }
 
     /**
@@ -325,17 +314,17 @@ class Foundation extends Base
      */
     protected function renderCheckableListStandard(CheckableList $control, Group $group)
     {
-        $label = $this->label($control, 'control-label');
-        $groupCss = array_merge(['form-group'], $group->getCss());
+        $label = $this->fieldLabel($control);
+        $groupCss = array_merge(['row'], $group->getCss());
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        '.$label.'
-        <div class="'.$control->getType().'">
+        <div class="columns large-12">
+            '.$label.'
             '.$this->decorate($control).'
+            '.$this->renderErrors($control).'
+            '.$this->renderHelp($control).'
         </div>
-        '.$this->renderHelp($control).'
-        '.$this->renderErrors($control).'
     </div>
         ';
     }
@@ -347,18 +336,18 @@ class Foundation extends Base
      */
     protected function renderCheckableListHorizontal(CheckableList $control, Group $group)
     {
-        $label = $this->label($control, $this->getLabelColumnClass($group));
-        $groupCss = array_merge(['form-group'], $group->getCss());
+        $label = $this->fieldLabel($control, 'inline right');
+        $groupCss = array_merge(['row'], $group->getCss());
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        '.$label.'
-        <div class="'.$this->getFieldColumnClass($group, empty($label)).'">
-            <div class="'.$control->getType().'">
-                '.$this->decorate($control).'
-            </div>
-            '.$this->renderHelp($control).'
+        <div class="'.$this->getLabelColumnClass($group).'">
+            '.$label.'
+        </div>
+        <div class="'.$this->getFieldColumnClass($group).'">
+            '.$this->decorate($control).'
             '.$this->renderErrors($control).'
+            '.$this->renderHelp($control).'
         </div>
     </div>
         ';
@@ -371,17 +360,13 @@ class Foundation extends Base
      */
     protected function renderCheckableListInline(CheckableList $control, Group $group)
     {
-        $label = $this->label($control);
-        $groupCss = array_merge(['form-group'], $group->getCss());
+        $groupCss = array_merge(['left'], $group->getCss());
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        '.$label.'
-        <div class="form-control-static '.$control->getType().'">
-            '.$this->decorate($control).'
-        </div>
-        '.$this->renderHelp($control).'
+        '.$this->decorate($control).'
         '.$this->renderErrors($control).'
+        '.$this->renderHelp($control).'
     </div>
         ';
     }
@@ -417,13 +402,10 @@ class Foundation extends Base
     // --------------------------------------------------
 
     private $buttonTypes = [
-        'btn-default',
-        'btn-primary',
-        'btn-success',
-        'btn-info',
-        'btn-warning',
-        'btn-danger',
-        'btn-link'
+        'primary',
+        'secondary',
+        'success',
+        'alert'
     ];
 
     /**
@@ -432,20 +414,20 @@ class Foundation extends Base
      */
     protected function extendButton(Button $control, Group $group = null)
     {
-        if (!$control->hasClass('btn'))
+        if (!$control->hasClass('button'))
         {
-            $control->addClass('btn');
+            $control->addClass('button');
         }
 
         if (empty(array_intersect($control->getCss(), $this->buttonTypes)))
         {
             if ($control->getType() == 'submit')
             {
-                $control->addClass('btn-primary');
+                $control->addClass('primary');
             }
             else
             {
-                $control->addClass('btn-default');
+                $control->addClass('secondary');
             }
         }
     }
@@ -456,14 +438,14 @@ class Foundation extends Base
      */
     protected function extendLinkButton(LinkButton $control, Group $group = null)
     {
-        if (!$control->hasClass('btn'))
+        if (!$control->hasClass('button'))
         {
-            $control->addClass('btn');
+            $control->addClass('button');
         }
 
         if (empty(array_intersect($control->getCss(), $this->buttonTypes)))
         {
-            $control->addClass('btn-default');
+            $control->addClass('secondary');
         }
     }
 
@@ -491,12 +473,6 @@ class Foundation extends Base
         if ($control->getMode() == 'tabs:begin')
         {
             $control->addClass('tabs');
-            //$control->addClass($control->isPills() ? 'nav-pills' : 'nav-tabs');
-
-            if ($control->isJustified())
-            {
-                //$control->addClass('nav-justified');
-            }
 
             $control->attr('tabs', ['data-tab' => '']);
             $control->attr('tab', ['class' => 'tab-title']);
@@ -512,15 +488,6 @@ class Foundation extends Base
 
     // --------------------------------------------------
 
-    private $panelTypes = [
-        'panel-default',
-        'panel-primary',
-        'panel-success',
-        'panel-info',
-        'panel-warning',
-        'panel-danger'
-    ];
-    
     /**
      * @param Panel $control
      * @param Group $group
@@ -529,16 +496,11 @@ class Foundation extends Base
     {
         if ($control->getMode() == 'panel:begin')
         {
-            if (!$control->hasClass('btn'))
+            if (!$control->hasClass('panel'))
             {
                 $control->addClass('panel');
             }
 
-            if (empty(array_intersect($control->getCss(), $this->panelTypes)))
-            {
-                $control->addClass('panel-default');
-            }
-            
             $control->attr('heading', ['class' => 'panel-heading']);
             $control->attr('body', ['class' => 'panel-body']);
         }
@@ -558,10 +520,12 @@ class Foundation extends Base
     protected function decorateDateTime(DateTime $control)
     {
         $decorator = '
-<div class="input-group">
-    %s
-    <span class="input-group-addon">
-        <span class="fa fa-fw fa-calendar"></span>
+<div class="row collapse">
+    <div class="columns small-10">%s</div>
+    <span class="columns small-2">
+        <span class="postfix">
+            <i class="fa fa-fw fa-calendar"></i>
+        </span>
     </span>
 </div>';
 
@@ -577,8 +541,9 @@ class Foundation extends Base
     protected function decorateInputGroup(InputGroup $control)
     {
         $size = 12;
-        $prepend = $control->getPrepend();
         
+        $prepend = $control->getPrepend();
+
         if ($prepend !== null)
         {
             $size -= 2;
@@ -586,17 +551,17 @@ class Foundation extends Base
             if ($prepend instanceof Button || $prepend instanceof LinkButton)
             {
                 $prepend->addClass('prefix');
-                
-                $prepend = sprintf('<div class="small-2 columns">%s</div>', $prepend->display());
             }
             else if ($prepend instanceof Control)
             {
-                $prepend = sprintf('<div class="small-2 columns"><span class="prefix">%s</span></div>', $prepend->display());
+                $prepend = $this->html()->tag('span', ['class' => 'prefix'], $prepend->display());
             }
             else
             {
-                $prepend = sprintf('<div class="small-2 columns"><span class="prefix">%s</span></div>', $prepend);
+                $prepend = $this->html()->tag('span', ['class' => 'prefix'], $prepend);
             }
+
+            $prepend = $this->html()->tag('div', ['class' => 'columns small-2'], $prepend); 
         }
 
         $append = $control->getAppend();
@@ -607,32 +572,25 @@ class Foundation extends Base
             
             if ($append instanceof Button || $append instanceof LinkButton)
             {
-                $append = sprintf('<div class="small-2 columns">%s</div>', $append->display());
+                $append->addClass('postfix');
             }
             else if ($append instanceof Control)
             {
-                $append = sprintf('<div class="small-2 columns"><span class="postfix">%s</span></div>', $append->display());
+                $append = $this->html()->tag('span', ['class' => 'postfix'], $append->display());
             }
             else
             {
-                $append->addClass('postfix');
-                
-                $append = sprintf('<div class="small-2 columns"><span class="postfix">%s</span></div>', $append);
+                $append = $this->html()->tag('span', ['class' => 'postfix'], $append);
             }
+
+            $append = $this->html()->tag('div', ['class' => 'columns small-2'], $append);
         }
         
-        $decorator = '
-<div class="row collapse">
-    '.$prepend.'
-    <div class="small-'.$size.' columns">
-        %s
-    </div>
-    '.$append.'
-</div>';
-
-        return sprintf($decorator, $control->render());
+        $render = $this->html()->tag('div', ['class' => 'columns small-'.$size], $control->render());
+        
+        return $this->html()->tag('div', ['class' => 'row collapse'], $prepend.$render.$append);
     }
-    
+
     // --------------------------------------------------
 
     /**
@@ -640,7 +598,7 @@ class Foundation extends Base
      * @param string $class
      * @return string
      */
-    private function label(Field $control, $class = null)
+    private function fieldLabel(Field $control, $class = null)
     {
         $attributes = [
             'for' => $control->getName()
@@ -662,7 +620,41 @@ class Foundation extends Base
         {
             if ($this->isRequired($control))
             {
-                $label .= ' <var class="required">*</var>';
+                $label .= ' '.$this->html()->tag('var', ['class' => 'required'], '*');
+            }
+
+            return $this->html()->tag('label', $attributes, $label);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Group $group
+     * @param string $class
+     * @return string
+     */
+    private function groupLabel(Group $group, $class = null)
+    {
+        $attributes = [];
+
+        if ($group->isSrOnly())
+        {
+            $class = trim($class.' sr-only');
+        }
+
+        if (!empty($class))
+        {
+            $attributes['class'] = $class;
+        }
+
+        $label = $group->getLabel();
+
+        if (!empty($label))
+        {
+            if ($group->isRequired())
+            {
+                $label .= ' '.$this->html()->tag('var', ['class' => 'required'], '*');
             }
 
             return $this->html()->tag('label', $attributes, $label);
@@ -698,7 +690,7 @@ class Foundation extends Base
             $message = str_replace($name, $label, $message);
 
             // Return only first error
-            return sprintf('<small class="error" for="%s">%s</small>', $control->getName(), $message);
+            return $this->html()->tag('small', ['class' => 'error'], $message);
         }
 
         return '';
@@ -712,7 +704,7 @@ class Foundation extends Base
     {
         if (!empty($control->getHelp()))
         {
-            return sprintf('<p class="help-block">%s</p>', $control->getHelp());
+            return $this->html()->tag('p', [], $control->getHelp());
         }
 
         return '';
@@ -724,13 +716,23 @@ class Foundation extends Base
      */
     private function getWidthCss(array $width)
     {
-        $css = [];
+        $css = ['columns'];
 
         foreach ($width as $key => $size)
         {
             if ($size != null)
             {
-                $css[$key] = "col-$key-$size";
+                switch ($key)
+                {
+                    case 'lg':
+                        $css['large'] = "large-$size";
+                        break;
+                    case 'md':
+                        $css['medium'] = "medium-$size";
+                        break;
+                    default:
+                        $css['small'] = "small-$size";
+                }
             }
         }
 
@@ -748,7 +750,9 @@ class Foundation extends Base
 
         if (!empty($css))
         {
-            $content = '<div class="row"><div class="'.implode(' ', $css).'">'.$content.'</div></div>';
+            $content = $this->html()->tag('div', ['class' => 'row'],
+                $this->html()->tag('div', ['class' => implode(' ', $css)], $content)
+            );
         }
 
         return $content;
@@ -761,12 +765,10 @@ class Foundation extends Base
     private function getLabelColumnClass(Group $group)
     {
         $class = [
-            'columns',
-            'inline',
+            'column',
             'large-'.($group->getLabelSize('lg') ?: $this->getLabelSize('lg')),
             'medium-'.($group->getLabelSize('md') ?: $this->getLabelSize('md')),
-            'small-'.($group->getLabelSize('sm') ?: $this->getLabelSize('sm')),
-            //'col-xs-'.($group->getLabelSize('xs') ?: $this->getLabelSize('xs'))
+            'small-'.($group->getLabelSize('sm') ?: $this->getLabelSize('sm'))
         ];
 
         return implode(' ', $class);
@@ -774,28 +776,16 @@ class Foundation extends Base
 
     /**
      * @param Group $group
-     * @param bool $offset
      * @return string
      */
-    private function getFieldColumnClass(Group $group, $offset = false)
+    private function getFieldColumnClass(Group $group)
     {
         $class = [
-            'columns',
+            'column',
             'large-'.($group->getFieldSize('lg') ?: $this->getFieldSize('lg')),
             'medium-'.($group->getFieldSize('md') ?: $this->getFieldSize('md')),
-            'small-'.($group->getFieldSize('sm') ?: $this->getFieldSize('sm')),
-            //'col-xs-'.($group->getFieldSize('xs') ?: $this->getFieldSize('xs'))
+            'small-'.($group->getFieldSize('sm') ?: $this->getFieldSize('sm'))
         ];
-
-        /*if ($offset)
-        {
-            $class = array_merge($class, [
-                'col-lg-offset-'.($group->getLabelSize('lg') ?: $this->getLabelSize('lg')),
-                'col-md-offset-'.($group->getLabelSize('md') ?: $this->getLabelSize('md')),
-                'col-sm-offset-'.($group->getLabelSize('sm') ?: $this->getLabelSize('sm')),
-                'col-xs-offset-'.($group->getLabelSize('xs') ?: $this->getLabelSize('xs'))
-            ]);
-        }*/
 
         return implode(' ', $class);
     }
@@ -808,4 +798,4 @@ class Foundation extends Base
     {
         return $control->getType() == 'checkbox' ? 'checkbox' : 'radio';
     }
-} 
+}

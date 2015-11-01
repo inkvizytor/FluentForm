@@ -8,12 +8,20 @@ return [
     'form' => inkvizytor\FluentForm\FluentFormBuilder::class,
     
     // Renderer
-    //'renderer' => inkvizytor\FluentForm\Renderers\Bootstrap3::class,
-    'renderer' => inkvizytor\FluentForm\Renderers\Foundation::class,
+    'renderer' => 'bootstrap',
+    
+    'renderers' => [
+        'bootstrap' => inkvizytor\FluentForm\Renderers\Bootstrap3::class,
+        'foundation' => inkvizytor\FluentForm\Renderers\Foundation5::class
+    ],
     
     // Validation
-    'validation' => inkvizytor\FluentForm\Validation\JQuery::class,
+    'validation' => 'jquery',
     
+    'validators' => [
+        'jquery' => inkvizytor\FluentForm\Validation\JQuery::class
+    ],
+        
     // Form default size
     'size' => [
         'label' => ['lg' => 4, 'md' => 4, 'sm' => 0, 'xs' => 0],
@@ -32,11 +40,11 @@ return [
             'jquery-validate' => true,
             'jquery-validate-unobtrusive' => true,
             'moment' => true,
-            'bootstrap' => false,
-            'bootstrap-filestyle' => false,
-            'bootstrap-datetimepicker' => false,
-            'bootstrap-daterangepicker' => false,
-            'foundation' => true,
+            'bootstrap' => true,
+            'bootstrap-filestyle' => true,
+            'bootstrap-datetimepicker' => true,
+            'bootstrap-daterangepicker' => true,
+            'foundation' => false,
             'font-awesome' => true,
             'tinymce' => true,
         ],

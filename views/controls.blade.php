@@ -5,16 +5,6 @@
     ->prepend(Form::checkbox('test'))
     ->append(Fluent::iconlink(Fluent::FA_ENVELOPE, url('/email'), 'Check')->css(['btn-info'])) !!}
 {!! Form::group()->password($form.'password')->label('Password') !!}
-{!! Form::group()
-    ->add(
-        Form::text('birthdate', Input::get('birthdate'))
-            ->label('Geboortedatum')
-            ->placeholder('Geboortedatum')
-            ->prepend(Fluent::icon(Fluent::FA_CALENDAR))
-            ->css('datepicker')
-    )
-    ->css('has-warning')->label('test')
-!!}
 @if($form != 'inline')
 <div class="clearfix"></div>
 {!! Form::group()->file($form.'file')->label('File')->sronly($form == 'inline')->width(6) !!}

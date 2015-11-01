@@ -72,6 +72,14 @@ class Handler
     }
 
     /**
+    @param \inkvizytor\FluentForm\Renderers\Base $renderer
+     */
+    public function setRenderer(BaseRenderer $renderer)
+    {
+        $this->renderer = $renderer;
+    }
+
+    /**
      * @return \inkvizytor\FluentForm\Model\Binder
      */
     public function binder()

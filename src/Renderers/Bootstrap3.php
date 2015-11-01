@@ -266,8 +266,8 @@ class Bootstrap3 extends Base
         return '
     <div class="'.implode(' ', $groupCss).'">
         '.$this->decorate($control).'
-        '.$this->renderHelp($control).'
         '.$this->renderErrors($control).'
+        '.$this->renderHelp($control).'
     </div>
         ';
     }
@@ -287,8 +287,8 @@ class Bootstrap3 extends Base
     <div class="'.implode(' ', $groupCss).'">
         <div class="'.$this->getFieldColumnClass($group, true).'">
             <div class="'.$labelCss.'">'.$label.'</div>
-            '.$this->renderHelp($control).'
             '.$this->renderErrors($control).'
+            '.$this->renderHelp($control).'
         </div>
     </div>
         ';
@@ -307,8 +307,8 @@ class Bootstrap3 extends Base
         return '
     <div class="'.implode(' ', $groupCss).'">
         '.$this->decorate($control).'
-        '.$this->renderHelp($control).'
         '.$this->renderErrors($control).'
+        '.$this->renderHelp($control).'
     </div>
         ';
     }
@@ -319,9 +319,25 @@ class Bootstrap3 extends Base
      * @param CheckableList $control
      * @param Group $group
      */
+    protected function extendCheckableList(CheckableList $control, Group $group = null)
+    {
+        if ($control->isInline())
+            $control->addClass('list-inline');
+        else
+            $control->addClass('list-unstyled');
+
+        $control->addClass($control->getType());
+    }
+    
+    /**
+     * @param CheckableList $control
+     * @param Group $group
+     */
     protected function extendCheckableListInline(CheckableList $control, Group $group = null)
     {
         $control->inline(true);
+
+        $this->extendCheckableList($control, $group);
     }
 
     /**
@@ -337,9 +353,7 @@ class Bootstrap3 extends Base
         return '
     <div class="'.implode(' ', $groupCss).'">
         '.$label.'
-        <div class="'.$control->getType().'">
-            '.$this->decorate($control).'
-        </div>
+        '.$this->decorate($control).'
         '.$this->renderErrors($control).'
         '.$this->renderHelp($control).'
     </div>
@@ -360,9 +374,7 @@ class Bootstrap3 extends Base
     <div class="'.implode(' ', $groupCss).'">
         '.$label.'
         <div class="'.$this->getFieldColumnClass($group, empty($label)).'">
-            <div class="'.$control->getType().'">
-                '.$this->decorate($control).'
-            </div>
+            '.$this->decorate($control).'
             '.$this->renderErrors($control).'
             '.$this->renderHelp($control).'
         </div>
@@ -383,9 +395,7 @@ class Bootstrap3 extends Base
         return '
     <div class="'.implode(' ', $groupCss).'">
         '.$label.'
-        <div class="form-control-static '.$control->getType().'">
-            '.$this->decorate($control).'
-        </div>
+        '.$this->decorate($control).'
         '.$this->renderErrors($control).'
         '.$this->renderHelp($control).'
     </div>
@@ -535,7 +545,7 @@ class Bootstrap3 extends Base
     {
         if ($control->getMode() == 'panel:begin')
         {
-            if (!$control->hasClass('btn'))
+            if (!$control->hasClass('panel'))
             {
                 $control->addClass('panel');
             }
@@ -588,15 +598,15 @@ class Bootstrap3 extends Base
         {
             if ($prepend instanceof Button || $prepend instanceof LinkButton)
             {
-                $prepend = sprintf('<span class="input-group-btn">%s</span>', $prepend->display());
+                $prepend = $this->html()->tag('span', ['class' => 'input-group-btn'], $prepend->display());
             }
             else if ($prepend instanceof Control)
             {
-                $prepend = sprintf('<span class="input-group-addon">%s</span>', $prepend->display());
+                $prepend = $this->html()->tag('span', ['class' => 'input-group-addon'], $prepend->display());
             }
             else
             {
-                $prepend = sprintf('<span class="input-group-addon">%s</span>', $prepend);
+                $prepend = $this->html()->tag('span', ['class' => 'input-group-addon'], $prepend);
             }
         }
 
@@ -606,26 +616,19 @@ class Bootstrap3 extends Base
         {
             if ($append instanceof Button || $append instanceof LinkButton)
             {
-                $append = sprintf('<span class="input-group-btn">%s</span>', $append->display());
+                $append = $this->html()->tag('span', ['class' => 'input-group-btn'], $append->display());
             }
             else if ($append instanceof Control)
             {
-                $append = sprintf('<span class="input-group-addon">%s</span>', $append->display());
+                $append = $this->html()->tag('span', ['class' => 'input-group-addon'], $append->display());
             }
             else
             {
-                $append = sprintf('<span class="input-group-addon">%s</span>', $append);
+                $append = $this->html()->tag('span', ['class' => 'input-group-addon'], $append);
             }
         }
         
-        $decorator = '
-<div class="input-group">
-    '.$prepend.'
-    %s
-    '.$append.'
-</div>';
-
-        return sprintf($decorator, $control->render());
+        return $this->html()->tag('div', ['class' => 'input-group'], $prepend.$control->render().$append);
     }
     
     // --------------------------------------------------
@@ -657,7 +660,7 @@ class Bootstrap3 extends Base
         {
             if ($this->isRequired($control))
             {
-                $label .= ' <var class="required">*</var>';
+                $label .= ' '.$this->html()->tag('var', ['class' => 'required'], '*');
             }
 
             return $this->html()->tag('label', $attributes, $label);
@@ -691,7 +694,7 @@ class Bootstrap3 extends Base
         {
             if ($group->isRequired())
             {
-                $label .= ' <var class="required">*</var>';
+                $label .= ' '.$this->html()->tag('var', ['class' => 'required'], '*');
             }
 
             return $this->html()->tag('label', $attributes, $label);
@@ -727,7 +730,7 @@ class Bootstrap3 extends Base
             $message = str_replace($name, $label, $message);
 
             // Return only first error
-            return sprintf('<label class="error" for="%s">%s</label>', $control->getName(), $message);
+            return $this->html()->tag('label', ['for' => $control->getName(), 'class' => 'error'], $message);
         }
 
         return '';
@@ -741,7 +744,7 @@ class Bootstrap3 extends Base
     {
         if (!empty($control->getHelp()))
         {
-            return sprintf('<p class="help-block">%s</p>', $control->getHelp());
+            return $this->html()->tag('p', ['class' => 'help-block'], $control->getHelp());
         }
 
         return '';
@@ -777,7 +780,9 @@ class Bootstrap3 extends Base
 
         if (!empty($css))
         {
-            $content = '<div class="row"><div class="'.implode(' ', $css).'">'.$content.'</div></div>';
+            $content = $this->html()->tag('div', ['class' => 'row'],
+                $this->html()->tag('div', ['class' => implode(' ', $css)], $content)
+            );
         }
 
         return $content;
@@ -835,4 +840,4 @@ class Bootstrap3 extends Base
     {
         return $control->getType() == 'checkbox' ? 'checkbox' : 'radio';
     }
-} 
+}

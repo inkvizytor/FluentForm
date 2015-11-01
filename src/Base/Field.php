@@ -12,7 +12,7 @@ use inkvizytor\FluentForm\Traits\GroupContract;
 abstract class Field extends Control
 {
     use GroupContract, CssContract, DataContract;
-    
+
     /** @var string */
     protected $name;
 
