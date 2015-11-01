@@ -330,6 +330,13 @@ class JQuery extends Base
 
         return ['data-msg-regex' => $message];
     }
+    
+    protected function prepareMessageAlphadash($parsedRule, $attribute, $type)
+    {
+        $message = \Lang::get('validation.'.$parsedRule['name'], ['attribute' => $attribute]);
+
+        return ['data-msg-regex' => $message];
+    }
 
     protected function prepareMessageAlphanum($parsedRule, $attribute, $type)
     {
