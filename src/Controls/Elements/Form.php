@@ -233,7 +233,7 @@ class Form extends Control
             $options['action'] = $this->getFormAction();
             $options['accept-charset'] = 'UTF-8';
             
-            if (isset($options['files']) && $options['files'] !== null)
+            if ($this->files == true)
             {
                 $options['enctype'] = 'multipart/form-data';
             }
