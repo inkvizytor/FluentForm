@@ -41,13 +41,13 @@ class Group extends Control
      * @param Control|string $control
      * @return $this
      */
-    public function add(Control $content)
+    public function add($content)
     {
         if ($control instanceof Control)
         {
             $this->content[] = $control->display();
         }
-        else
+        else if (is_string($content))
         {
             $this->content[] = $content;
         }
