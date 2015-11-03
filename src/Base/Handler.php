@@ -72,11 +72,13 @@ class Handler
     }
 
     /**
-    @param \inkvizytor\FluentForm\Renderers\Base $renderer
+     * @param string $alias
      */
-    public function setRenderer(BaseRenderer $renderer)
+    public function setRenderer($alias)
     {
-        $this->renderer = $renderer;
+        $class = config('fluentform.renderers.'.$alias);
+        app()->bind(BaseRenderer::class, $class);
+        $this->renderer = app()->make($class);;
     }
 
     /**

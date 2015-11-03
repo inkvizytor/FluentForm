@@ -1,6 +1,7 @@
 <?php namespace inkvizytor\FluentForm;
 
 use Illuminate\Support\ServiceProvider;
+use inkvizytor\FluentForm\Base\Handler;
 use inkvizytor\FluentForm\Renderers\Base as BaseRenderer;
 use inkvizytor\FluentForm\Validation\Base as BaseValidation;
 
@@ -52,7 +53,8 @@ class FluentServiceProvider extends ServiceProvider
         
         $this->app->bind(BaseRenderer::class, config('fluentform.renderers.'.$renderer));
         $this->app->bind(BaseValidation::class, config('fluentform.validators.'.$validation));
-
+        $this->app->singleton(Handler::class, Handler::class);
+        
         $this->app->bind('FluentForm', function ($app)
         {
             return app()->make(config('fluentform.form'));

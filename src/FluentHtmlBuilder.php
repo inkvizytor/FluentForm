@@ -36,7 +36,7 @@ class FluentHtmlBuilder extends FluentBuilder
      */
     public function renderer($renderer)
     {
-        $this->handler()->setRenderer(app()->make(config('fluentform.renderers.'.$renderer)));
+        $this->handler()->setRenderer($renderer);
     }
 
     /**

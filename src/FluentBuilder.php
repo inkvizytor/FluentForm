@@ -11,14 +11,14 @@ use inkvizytor\FluentForm\Renderers\Base as BaseRenderer;
 abstract class FluentBuilder
 {
     /** @var \inkvizytor\FluentForm\Base\Handler */
-    private static $handler;
+    private $handler;
 
     /**
      * @param \inkvizytor\FluentForm\Base\Handler $handler
      */
     public function __construct(Handler $handler)
     {
-        self::$handler = $handler;
+        $this->handler = $handler;
     }
 
     /**
@@ -26,8 +26,8 @@ abstract class FluentBuilder
      */
     protected function handler()
     {
-        self::$handler->renderer()->mode(BaseRenderer::RENDER_STANDARD);
+        $this->handler->renderer()->mode(BaseRenderer::RENDER_STANDARD);
 
-        return self::$handler;
+        return $this->handler;
     }
 } 
