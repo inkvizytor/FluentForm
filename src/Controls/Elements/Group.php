@@ -38,14 +38,14 @@ class Group extends Control
     }
     
     /**
-     * @param Control|string $control
+     * @param Control|string $content
      * @return $this
      */
     public function add($content)
     {
-        if ($control instanceof Control)
+        if ($content instanceof Control)
         {
-            $this->content[] = $control->display();
+            $this->content[] = $content->display();
         }
         else if (is_string($content))
         {
