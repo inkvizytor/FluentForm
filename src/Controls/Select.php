@@ -18,7 +18,7 @@ class Select extends Field
     /** @var array */
     protected $items = [];
 
-    /** @var mixed */
+    /** @var string|array */
     protected $selected;
 
     /**
@@ -33,7 +33,7 @@ class Select extends Field
     }
 
     /**
-     * @param string $selected
+     * @param string|array $selected
      * @return $this
      */
     public function selected($selected)
@@ -63,7 +63,7 @@ class Select extends Field
 
     /**
      * @param array $items
-     * @param string $selected
+     * @param string|array $selected
      * @return string
      */
     private function options(array $items, $selected = null)
@@ -79,7 +79,7 @@ class Select extends Field
 
             $attributes = [
                 'value' => $value,
-                'selected' => strval($selected) == strval($value) ? 'selected' : null
+                'selected' => (is_array($selected) ? in_array(strval($value), $selected) : strval($selected) == strval($value)) ? 'selected' : null
             ];
 
             if (is_array($text))
