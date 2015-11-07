@@ -24,7 +24,8 @@ class InputGroup extends Field
     {
         $this->name($control->getName());
         $this->help($control->getHelp());
-        $this->label($control->getLabel(), $this->isSrOnly());
+        $this->label($control->getLabel());
+        $this->sronly($this->isSrOnly());
         $this->required($control->isRequired());
         $this->setAttr($control->getAttr(null));
         $this->setData($control->getData(null));

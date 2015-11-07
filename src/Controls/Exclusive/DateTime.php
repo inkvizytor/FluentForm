@@ -76,7 +76,7 @@ class DateTime extends Field
         ]));
 
         return $this->html()->tag('input', array_merge($this->getOptions(), [
-            'type' => 'text',
+            'type' => $this->withTime() ? 'datetime' : 'date',
             'name' => $this->name,
             'value' => $this->binder()->value($this->key($this->name), $this->value)
         ]));

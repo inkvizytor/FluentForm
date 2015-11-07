@@ -85,7 +85,7 @@ class Bootstrap3 extends Base
     {
         $this->extendField($control);
 
-        if (!empty($control->getLabel()))
+        if (!empty($control->getLabel()) && empty($control->getPlaceholder()) && $control->isSrOnly())
         {
             $control->placeholder($control->getLabel());
         }
@@ -126,7 +126,7 @@ class Bootstrap3 extends Base
         return '
     <div class="'.implode(' ', $groupCss).'">
         '.$label.'
-        <div class="'.$this->getFieldColumnClass($group, empty($label)).'">
+        <div class="'.$this->getFieldColumnClass($group, empty($label) || $control->isSrOnly()).'">
             '.$this->applyWidth($render, $control->getWidth()).'
             '.$this->renderErrors($control).'
             '.$this->renderHelp($control).'
@@ -191,7 +191,7 @@ class Bootstrap3 extends Base
         return '
     <div class="'.implode(' ', $groupCss).'">
         '.$label.'
-        <div class="'.$this->getFieldColumnClass($group, empty($label)).'">
+        <div class="'.$this->getFieldColumnClass($group, empty($label) || $control->isSrOnly()).'">
             '.$render.'
         </div>
     </div>
@@ -373,7 +373,7 @@ class Bootstrap3 extends Base
         return '
     <div class="'.implode(' ', $groupCss).'">
         '.$label.'
-        <div class="'.$this->getFieldColumnClass($group, empty($label)).'">
+        <div class="'.$this->getFieldColumnClass($group, empty($label) || $control->isSrOnly()).'">
             '.$this->decorate($control).'
             '.$this->renderErrors($control).'
             '.$this->renderHelp($control).'

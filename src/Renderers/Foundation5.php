@@ -44,7 +44,7 @@ class Foundation5 extends Base
     {
         $this->extendField($control);
 
-        if (!empty($control->getLabel()))
+        if (!empty($control->getLabel()) && empty($control->getPlaceholder()))
         {
             $control->placeholder($control->getLabel());
             $control->sronly(true);

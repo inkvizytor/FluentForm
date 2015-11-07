@@ -44,11 +44,14 @@ class LinkButton extends Control
 
     /**
      * @param string $label
+     * @param array $parameters
+     * @param string $domain
+     * @param string|null $locale
      * @return $this
      */
-    public function label($label)
+    public function label($label, array $parameters = [], $domain = 'messages', $locale = null)
     {
-        $this->label = $label;
+        $this->label = $this->translator()->trans($label, $parameters, $domain, $locale);
 
         return $this;
     }
@@ -65,12 +68,15 @@ class LinkButton extends Control
     }
 
     /**
-     * @param string $title
+     * @param string $label
+     * @param array $parameters
+     * @param string $domain
+     * @param string|null $locale
      * @return $this
      */
-    public function title($title)
+    public function title($label, array $parameters = [], $domain = 'messages', $locale = null)
     {
-        $this->title = $title;
+        $this->title = $this->translator()->trans($label, $parameters, $domain, $locale);
 
         return $this;
     }

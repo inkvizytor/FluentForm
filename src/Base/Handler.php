@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store as Session;
+use Illuminate\Translation\Translator;
 use inkvizytor\FluentForm\Html\Builder;
 use inkvizytor\FluentForm\Model\Binder as ModelBinder;
 use inkvizytor\FluentForm\Renderers\Base as BaseRenderer;
@@ -35,6 +36,9 @@ class Handler
 
     /** @var \Illuminate\Http\Request */
     protected $request;
+
+    /** @var \Illuminate\Translation\Translator */
+    protected $translator;
     
     /**
      * @param \inkvizytor\FluentForm\Html\Builder $html
@@ -43,8 +47,12 @@ class Handler
      * @param \inkvizytor\FluentForm\Validation\Base $validation
      * @param \Illuminate\Session\Store $session
      * @param \Illuminate\Routing\UrlGenerator $locator
+     * @param \Illuminate\Translation\Translator $translator
      */
-    public function __construct(Builder $html, BaseRenderer $renderer, ModelBinder $binder, BaseValidation $validation, Session $session, UrlGenerator $locator, Request $request)
+    public function __construct(
+        Builder $html, BaseRenderer $renderer, ModelBinder $binder, 
+        BaseValidation $validation, Session $session, UrlGenerator $locator, 
+        Request $request, Translator $translator)
     {
         $this->html = $html;
         $this->renderer = $renderer;
@@ -53,6 +61,7 @@ class Handler
         $this->session = $session;
         $this->locator = $locator;
         $this->request = $request;
+        $this->translator = $translator;
     }
 
     /**
@@ -119,5 +128,13 @@ class Handler
     public function request()
     {
         return $this->request;
+    }
+
+    /**
+     * @return \Illuminate\Translation\Translator
+     */
+    public function translator()
+    {
+        return $this->translator;
     }
 }

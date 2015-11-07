@@ -83,4 +83,12 @@ trait HandlerContract
     {
         return $this->handler->request();
     }
+
+    /**
+     * @return \Illuminate\Translation\Translator
+     */
+    protected function translator()
+    {
+        return $this->handler->translator();
+    }
 }

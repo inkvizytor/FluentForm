@@ -112,6 +112,11 @@ Form::group()->input($type, $name, $value = null);
 Form::group()->text($name, $value = null);
 Form::group()->password($name);
 Form::group()->file($name);
+Form::group()->email($name, $value = null)
+Form::group()->url($name, $value = null)
+Form::group()->number($name, $value = null)->min(1)->max(10)
+Form::group()->range($name, $value = null)->min(0)->max(100)->step(5)
+Form::group()->color($name, $value = null)
 Form::group()->textarea($name, $value = null);
 Form::group()->select($name, array $items, $selected = null);
 Form::group()->checkbox($name, $value = true, $checked = null);
@@ -129,9 +134,9 @@ Fluent::link($url, $label);
 
 /* Buttons group */
 Fluent::buttons([
-    \Fluent::iconlink(Fluent::FA_PENCIL, action('Admin\UsersController@edit', $user->id), 'Edit')
+    Fluent::iconlink(Fluent::FA_PENCIL, action('Admin\UsersController@edit', $user->id), 'Edit')
         ->css('btn-sm btn-primary'),
-    \Fluent::iconlink(Fluent::FA_REMOVE, action('Admin\UsersController@delete', $user->id), 'Delete')
+    Fluent::iconlink(Fluent::FA_REMOVE, action('Admin\UsersController@delete', $user->id), 'Delete')
         ->css('btn-sm btn-danger')
         ->data('confirm', 'Are you sure?')
 ])
@@ -329,6 +334,17 @@ In `fluentform.php` config file you can change some default settings for TinyMCE
     ],
 ```
 
+####Localization
+Methods that add texts to controls can use translations. Those methods accept the same params as Laravel's `trans()` helper.
+```php
+$label = 'fluentform::preview.timezones.label';
+
+Form::group()->text(...)->label($label, array $parameters = [], $domain = 'messages', $locale = null);
+Form::group()->text(...)->placeholder($label, array $parameters = [], $domain = 'messages', $locale = null);
+Form::group()->textarea(...)->help($label, array $parameters = [], $domain = 'messages', $locale = null);
+Form::group()->icon(...)->title($label, array $parameters = [], $domain = 'messages', $locale = null);
+```
+
 ####Validation
 For client side validation use [jQuery Validation Plugin](http://jqueryvalidation.org/) and [jQuery Unobtrusive Validation](https://github.com/aspnet/jquery-validation-unobtrusive).
 
@@ -394,8 +410,7 @@ And then call it by it's alias name:
 All arguments of this magic method are passed to constructor after `$handler`. Sadly no autocomplete is available for custom controls.
 
 ##ToDo
-1. Localization for getLabel().
-2. Nag Validation proxy class.
+1. Nag Validation proxy class.
 
 ##License
 The **Fluent Form** is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

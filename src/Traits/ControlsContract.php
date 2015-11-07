@@ -37,6 +37,56 @@ trait ControlsContract
 
     /**
      * @param string $name
+     * @param string $value
+     * @return \inkvizytor\FluentForm\Controls\Input
+     */
+    public function url($name, $value = null)
+    {
+        return $this->input('url', $name, $value);
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     * @return \inkvizytor\FluentForm\Controls\Input
+     */
+    public function email($name, $value = null)
+    {
+        return $this->input('email', $name, $value);
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     * @return \inkvizytor\FluentForm\Controls\Input
+     */
+    public function range($name, $value = null)
+    {
+        return $this->input('range', $name, $value);
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     * @return \inkvizytor\FluentForm\Controls\Input
+     */
+    public function number($name, $value = null)
+    {
+        return $this->input('number', $name, $value);
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     * @return \inkvizytor\FluentForm\Controls\Input
+     */
+    public function color($name, $value = null)
+    {
+        return $this->input('color', $name, $value);
+    }
+    
+    /**
+     * @param string $name
      * @return \inkvizytor\FluentForm\Controls\Input
      */
     public function password($name)

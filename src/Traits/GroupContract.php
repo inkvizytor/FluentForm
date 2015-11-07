@@ -15,16 +15,17 @@ trait GroupContract
 
     /** @var bool */
     protected $required;
-    
+
     /**
      * @param string $label
-     * @param bool $sronly
+     * @param array $parameters
+     * @param string $domain
+     * @param string|null $locale
      * @return $this
      */
-    public function label($label, $sronly = false)
+    public function label($label, array $parameters = [], $domain = 'messages', $locale = null)
     {
-        $this->label = $label;
-        $this->sronly = $sronly;
+        $this->label = $this->translator()->trans($label, $parameters, $domain, $locale);
 
         return $this;
     }
