@@ -346,7 +346,17 @@ Form::group()->icon(...)->title($label, array $parameters = [], $domain = 'messa
 ```
 
 ####Validation
-For client side validation use [jQuery Validation Plugin](http://jqueryvalidation.org/) and [jQuery Unobtrusive Validation](https://github.com/aspnet/jquery-validation-unobtrusive).
+By default, for client side validation FluentForm use [jQuery Validation Plugin](http://jqueryvalidation.org/) and [jQuery Unobtrusive Validation](https://github.com/aspnet/jquery-validation-unobtrusive).
+If you prefer [Parsley](http://parsleyjs.org/) or [formvalidation.io](http://formvalidation.io/) enable [Nag](https://github.com/dragonFlyAdmin/nag) validation rules converter in `fluentform.php` config file.
+```php
+    // Validation
+    'validation' => 'nag',
+    
+    'validators' => [
+        'jquery' => inkvizytor\FluentForm\Validation\JQuery::class,
+        'nag' => inkvizytor\FluentForm\Validation\Nag::class
+    ],
+```
 
 ####Custom controls
 If you wish to make your own custom control, you can. First create a new class that extends abstract `Field` class. Example TimeZone custom class (it extends Select but Select extends Field):
@@ -408,9 +418,6 @@ And then call it by it's alias name:
 {!! Form::timezones('timezones')->placeholder('Choose your timezone') !!}
 ```
 All arguments of this magic method are passed to constructor after `$handler`. Sadly no autocomplete is available for custom controls.
-
-##ToDo
-1. Nag Validation proxy class.
 
 ##License
 The **Fluent Form** is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

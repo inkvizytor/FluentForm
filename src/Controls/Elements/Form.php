@@ -226,7 +226,8 @@ class Form extends Control
     {
         if ($this->getMode() == 'form:open')
         {
-            $options = $this->getOptions();
+            $live = $this->renderer()->validation()->getOptions('__FORM', '');
+            $options = array_merge($live, $this->getOptions());
             $method = strtoupper(array_get($options, 'method', 'POST'));
             
             $options['method'] = $method != 'GET' ? 'POST' : $method;

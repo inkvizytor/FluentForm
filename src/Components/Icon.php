@@ -3,6 +3,11 @@
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
 
+/**
+ * Class Icon
+ *
+ * @package inkvizytor\FluentForm
+ */
 class Icon extends Control
 {
     use CssContract;

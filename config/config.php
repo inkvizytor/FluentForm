@@ -19,7 +19,8 @@ return [
     'validation' => 'jquery',
     
     'validators' => [
-        'jquery' => inkvizytor\FluentForm\Validation\JQuery::class
+        'jquery' => inkvizytor\FluentForm\Validation\JQuery::class,
+        'nag' => inkvizytor\FluentForm\Validation\Nag::class
     ],
         
     // Form default size

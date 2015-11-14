@@ -19,6 +19,7 @@
         }
     },
     "suggest": {
-        "barryvdh/laravel-ide-helper": "Required to provide autocompletion for FluentForm facade (~2.0)."
+        "barryvdh/laravel-ide-helper": "Required to provide autocompletion for FluentForm facade (~2.0).",
+        "dragonfly/nag": "Required to enable validation rules converter to Parsley or formvalidation.io data attributes."
     }
 }

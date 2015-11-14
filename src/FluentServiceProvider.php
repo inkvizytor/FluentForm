@@ -50,10 +50,10 @@ class FluentServiceProvider extends ServiceProvider
 
         $renderer = config('fluentform.renderer');
         $validation = config('fluentform.validation');
-        
+
+        $this->app->singleton(Handler::class, Handler::class);
         $this->app->bind(BaseRenderer::class, config('fluentform.renderers.'.$renderer));
         $this->app->bind(BaseValidation::class, config('fluentform.validators.'.$validation));
-        $this->app->singleton(Handler::class, Handler::class);
         
         $this->app->bind('FluentForm', function ($app)
         {

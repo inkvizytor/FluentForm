@@ -3,6 +3,11 @@
 use inkvizytor\FluentForm\Base\Field;
 use inkvizytor\FluentForm\Renderers\Base;
 
+/**
+ * Class InputGroup
+ *
+ * @package inkvizytor\FluentForm
+ */
 class InputGroup extends Field
 {
     /** @var \inkvizytor\FluentForm\Base\Control */

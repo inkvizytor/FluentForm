@@ -1,7 +1,7 @@
 <?php namespace inkvizytor\FluentForm\Validation;
 
 /**
- * Class Base
+ * Class JQuery
  *
  * @package inkvizytor\FluentForm
  */
