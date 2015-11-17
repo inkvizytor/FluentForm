@@ -218,7 +218,7 @@ abstract class Field extends Control
         $options = parent::getOptions();
         
         $label = $this->getLabel() ? $this->getLabel() : $this->getPlaceholder();
-        $live = $this->renderer()->validation()->getOptions($this->getName(), $label);
+        $live = $this->renderer()->validation()->getOptions($this->key($this->getName()), $label);
         
         return array_merge($live, $options);
     }
