@@ -25,6 +25,19 @@ class Builder
         'wbr'
     ];
 
+    private $inline = [
+        'label',
+        'span',
+        'var',
+        'i'
+    ];
+
+    private $prefixed = [
+        'textarea',
+        'button',
+        'a'
+    ];
+
     /**
      * @param string $name
      * @param array $attributes
@@ -33,11 +46,11 @@ class Builder
      */
     public function tag($name, array $attributes = [], $content = null)
     {
-        $tag = "\n<{$name}{$this->attr($attributes)}{$this->end($name)}>";
+        $tag = $this->nl($name, true)."<{$name}{$this->attr($attributes)}{$this->end($name)}>";
 
         if (!in_array($name, $this->selfClosing) && $content !== null)
         {
-            $tag .= "\n".trim($content).$this->close($name);
+            $tag .= $this->nl($name).trim($content).$this->close($name);
         }
 
         return $tag;
@@ -49,7 +62,7 @@ class Builder
      */
     public function close($name)
     {
-        return in_array($name, $this->selfClosing) ? '' : "\n</$name>";
+        return in_array($name, $this->selfClosing) ? '' : $this->nl($name)."</$name>";
     }
 
     /**
@@ -59,6 +72,16 @@ class Builder
     private function end($name)
     {
         return in_array($name, $this->selfClosing) ? ' /' : '';
+    }
+
+    /**
+     * @param string $name
+     * @param bool|false $prefix
+     * @return string
+     */
+    private function nl($name, $prefix = false)
+    {
+        return in_array($name, $this->inline) || (in_array($name, $this->prefixed) && $prefix == false) ? '' : "\n";
     }
 
     /**
