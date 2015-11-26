@@ -133,7 +133,7 @@ class Button extends Control
      */
     public function render()
     {
-        if ($this->type == 'submit')
+        if ($this->type == 'submit' && $this->value === null)
         {
             $this->attr('value', true);
         }
