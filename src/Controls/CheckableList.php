@@ -102,6 +102,7 @@ class CheckableList extends Field
                 ->disabled($this->isDisabled())
                 ->readonly($this->isReadonly())
                 ->setData($this->getData(null))
+                ->live(false)
                 ->render();
         }
 

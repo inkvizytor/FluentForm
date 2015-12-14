@@ -27,6 +27,9 @@ abstract class Field extends Control
 
     /** @var string */
     protected $placeholder;
+
+    /** @var bool */
+    protected $live = true;
     
     /**
      * @var array
@@ -211,6 +214,17 @@ abstract class Field extends Control
     }
 
     /**
+     * @param bool $enabled
+     * @return $this
+     */
+    public function live($enabled)
+    {
+        $this->live = $enabled;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     protected function getOptions()
@@ -218,7 +232,7 @@ abstract class Field extends Control
         $options = parent::getOptions();
         
         $label = $this->getLabel() ? $this->getLabel() : $this->getPlaceholder();
-        $live = $this->renderer()->validation()->getOptions($this->key($this->getName()), $label);
+        $live = $this->live == true ? $this->renderer()->validation()->getOptions($this->key($this->getName()), $label) : [];
         
         return array_merge($live, $options);
     }
@@ -228,6 +242,6 @@ abstract class Field extends Control
      */
     protected function getGuarded()
     {
-        return array_merge(['name', 'label', 'sronly', 'help', 'required', 'width'], parent::getGuarded());
+        return array_merge(['name', 'label', 'sronly', 'help', 'required', 'width', 'live'], parent::getGuarded());
     }
 } 
