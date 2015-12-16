@@ -669,7 +669,7 @@ class Foundation5 extends Base
      */
     private function hasErrors(Field $control)
     {
-        foreach ($this->getErrorMessages($control->getName()) as $message)
+        foreach ($this->getErrorMessages($control->getKey()) as $message)
         {
             return true;
         }
@@ -683,9 +683,9 @@ class Foundation5 extends Base
      */
     private function renderErrors(Field $control)
     {
-        foreach ($this->getErrorMessages($control->getName()) as $message)
+        foreach ($this->getErrorMessages($control->getKey()) as $message)
         {
-            $name = str_replace('_', ' ', Str::snake($control->getName()));
+            $name = str_replace('_', ' ', Str::snake($control->getKey()));
             $label = $control->getLabel() ? $control->getLabel() : $control->getPlaceholder();
             $message = str_replace($name, $label, $message);
 

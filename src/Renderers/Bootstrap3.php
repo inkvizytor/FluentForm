@@ -709,7 +709,7 @@ class Bootstrap3 extends Base
      */
     private function hasErrors(Field $control)
     {
-        foreach ($this->getErrorMessages($control->getName()) as $message)
+        foreach ($this->getErrorMessages($control->getKey()) as $message)
         {
             return true;
         }
@@ -723,14 +723,14 @@ class Bootstrap3 extends Base
      */
     private function renderErrors(Field $control)
     {
-        foreach ($this->getErrorMessages($control->getName()) as $message)
+        foreach ($this->getErrorMessages($control->getKey()) as $message)
         {
-            $name = str_replace('_', ' ', Str::snake($control->getName()));
+            $name = str_replace('_', ' ', Str::snake($control->getKey()));
             $label = $control->getLabel() ? $control->getLabel() : $control->getPlaceholder();
             $message = str_replace($name, $label, $message);
 
             // Return only first error
-            return $this->html()->tag('label', ['for' => $control->getName(), 'class' => 'error'], $message);
+            return $this->html()->tag('label', ['for' => $control->getKey(), 'class' => 'error'], $message);
         }
 
         return '';
