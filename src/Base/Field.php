@@ -61,6 +61,14 @@ abstract class Field extends Control
     }
 
     /**
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key($this->name);
+    }
+
+    /**
      * @param string $label
      * @param array $parameters
      * @param string $domain

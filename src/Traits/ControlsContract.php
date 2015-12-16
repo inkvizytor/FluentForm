@@ -3,6 +3,7 @@
 use inkvizytor\FluentForm\Controls\Checkable;
 use inkvizytor\FluentForm\Controls\CheckableList;
 use inkvizytor\FluentForm\Controls\Content;
+use inkvizytor\FluentForm\Controls\File;
 use inkvizytor\FluentForm\Controls\Input;
 use inkvizytor\FluentForm\Controls\Select;
 use inkvizytor\FluentForm\Controls\Textarea;
@@ -96,11 +97,12 @@ trait ControlsContract
 
     /**
      * @param string $name
+     * @param string $value
      * @return \inkvizytor\FluentForm\Controls\Input
      */
-    public function file($name)
+    public function file($name, $value = null)
     {
-        return $this->input('file', $name);
+        return (new File($this->handler()))->name($name)->value($value);
     }
 
     /**
