@@ -74,7 +74,7 @@ class Select extends Field
         {
             if (is_array($text) && !array_key_exists('text', $text))
             {
-                return $this->optgroup($text, $value, $selected);
+                $options[] = $this->optgroup($text, $value, $selected);
             }
 
             $attributes = [
