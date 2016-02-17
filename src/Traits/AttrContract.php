@@ -56,7 +56,7 @@ trait AttrContract
     {
         foreach ($this->attr as $key => $value)
         {
-            array_set($options, $key, is_array($value) ? json_encode($value) : $value);
+            $options[$key] = is_array($value) ? json_encode($value) : $value;
         }
     }
 } 

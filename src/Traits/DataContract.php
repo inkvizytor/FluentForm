@@ -57,7 +57,7 @@ trait DataContract
     {
         foreach ($this->data as $key => $value)
         {
-            array_set($options, "data-$key", is_array($value) ? json_encode($value) : $value);
+            $options["data-$key"] = is_array($value) ? json_encode($value) : $value;
         }
     }
 } 
