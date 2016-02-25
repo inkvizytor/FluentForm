@@ -76,19 +76,21 @@ class Select extends Field
             {
                 $options[] = $this->optgroup($text, $value, $selected);
             }
-
-            $attributes = [
-                'value' => $value,
-                'selected' => (is_array($selected) ? in_array(strval($value), $selected) : strval($selected) == strval($value)) ? 'selected' : null
-            ];
-
-            if (is_array($text))
+            else
             {
-                $attributes = array_merge($attributes, array_except($text, 'text'));
-                $text = array_get($text, 'text');
-            }
+                $attributes = [
+                    'value'    => $value,
+                    'selected' => (is_array($selected) ? in_array(strval($value), $selected) : strval($selected) == strval($value)) ? 'selected' : null
+                ];
 
-            $options[] = $this->html()->tag('option', $attributes, $this->html()->encode($text));
+                if (is_array($text))
+                {
+                    $attributes = array_merge($attributes, array_except($text, 'text'));
+                    $text = array_get($text, 'text');
+                }
+
+                $options[] = $this->html()->tag('option', $attributes, $this->html()->encode($text));
+            }
         }
 
         return implode("\n", $options);
