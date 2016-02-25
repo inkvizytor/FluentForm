@@ -104,6 +104,13 @@ Form::inline($model = null, $formName = 'default');
 Form::open($model = null, $formName = 'default', $layout = 'standard')
 ```
 
+###Form navigation
+```php
+Form::standard($model)->url('users/edit', ['id' => 1]);
+Form::standard($model)->route('edit_user_route_name', ['id' => 1]);
+Form::standard($model)->action('UsersController@edit', ['id' => 1]);
+```
+
 ###Controls
 ```php
 Form:: or Form::group()->

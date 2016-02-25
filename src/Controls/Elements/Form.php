@@ -63,34 +63,37 @@ class Form extends Control
     }
     
     /**
-     * @param string|array $url
+     * @param string $url
+     * @param array $params
      * @return $this
      */
-    public function url($url)
+    public function url($url, $params = [])
     {
-        $this->url = is_array($url) ? $url : [$url];
+        $this->url = array_merge([$url], $params);
 
         return $this;
     }
 
     /**
-     * @param string|array $route
+     * @param string $route
+     * @param array $params
      * @return $this
      */
-    public function route($route)
+    public function route($route, $params = [])
     {
-        $this->route = is_array($route) ? $route : [$route];
+        $this->route = array_merge([$route], $params);
         
         return $this;
     }
     
     /**
-     * @param string|array $action
+     * @param string $action
+     * @param array $params
      * @return $this
      */
-    public function action($action)
+    public function action($action, $params = [])
     {
-        $this->action = is_array($action) ? $action : [$action];
+        $this->action = array_merge([$action], $params);
         
         return $this;
     }
