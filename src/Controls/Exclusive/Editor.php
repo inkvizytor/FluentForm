@@ -44,7 +44,7 @@ class Editor extends Textarea
         $this->attr('id', $this->getKey());
         $this->data('editor', $this->getKey());
         $this->data('config', array_merge($config, $this->config, [
-            'selector' => "#{$this->getName()}"
+            'selector' => str_replace('.', '\\.', "#{$this->getKey()}")
         ]));
         
         $attributes = array_merge($this->getOptions(), ['name' => $this->name]);
