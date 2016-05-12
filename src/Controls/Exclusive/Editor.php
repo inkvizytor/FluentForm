@@ -41,8 +41,8 @@ class Editor extends Textarea
             $config['language'] = app()->getLocale();
         }
 
-        $this->attr('id', $this->getName());
-        $this->data('editor', $this->getName());
+        $this->attr('id', $this->getKey());
+        $this->data('editor', $this->getKey());
         $this->data('config', array_merge($config, $this->config, [
             'selector' => "#{$this->getName()}"
         ]));
