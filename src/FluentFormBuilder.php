@@ -89,11 +89,12 @@ class FluentFormBuilder extends FluentBuilder
     /**
      * @param string $name
      * @param string $value
+     * @param array $attr
      * @return string
      */
-    public function hidden($name, $value = null)
+    public function hidden($name, $value = null, array $attr = [])
     {
-        return (new Input($this->handler()))->type('hidden')->name($name)->value($value)->display();
+        return (new Input($this->handler()))->type('hidden')->name($name)->value($value)->attr($attrs)->display();
     }
 
     /**
