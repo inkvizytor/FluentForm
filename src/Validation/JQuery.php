@@ -219,7 +219,7 @@ class JQuery extends Base
 
     protected function prepareRuleRegex($parsedRule, $attribute, $type)
     {
-        $rule = $parsedRule['parameters'][0];
+        $rule = implode(',', $parsedRule['parameters']);
 
         if (substr($rule, 0, 1) == substr($rule, -1, 1))
         {
