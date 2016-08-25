@@ -98,6 +98,10 @@ class Builder
             {
                 $key = $value;
             }
+            if (is_array($value))
+            {
+                $value = json_encode($value);
+            }
             if ($value === null || $value === false)
             {
                 continue;
