@@ -17,7 +17,10 @@ trait CustomContract
     public function __call($name, $arguments)
     {
         array_unshift($arguments, $this->handler());
+
+        $reflector = new \ReflectionClass(config('fluentform.controls.'.$name));
+        $constructor = $reflector->getConstructor();
         
-        return app()->make(config('fluentform.controls.'.$name), $arguments);
+        return $reflector->newInstanceArgs($arguments);
     }
 }
