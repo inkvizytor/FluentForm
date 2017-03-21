@@ -577,7 +577,7 @@ class Bootstrap3 extends Base
 <div class="input-group">
     %s
     <span class="input-group-addon">
-        <span class="fa fa-fw fa-calendar"></span>
+        <span class="fa fa-fw '.($control->withTimeOnly() ? 'fa-clock-o' : 'fa-calendar').'"></span>
     </span>
 </div>';
 
