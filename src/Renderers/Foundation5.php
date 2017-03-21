@@ -524,7 +524,7 @@ class Foundation5 extends Base
     <div class="columns small-10">%s</div>
     <span class="columns small-2">
         <span class="postfix">
-            <i class="fa fa-fw fa-calendar"></i>
+            <i class="fa fa-fw '.($control->withTimeOnly() ? 'fa-clock-oaa' : 'fa-calendar').'"></i>
         </span>
     </span>
 </div>';

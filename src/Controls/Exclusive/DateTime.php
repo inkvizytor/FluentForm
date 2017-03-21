@@ -15,6 +15,9 @@ class DateTime extends Field
     /** @var bool */
     protected $time;
 
+    /** @var bool */
+    protected $timeOnly;
+
     /** @var string */
     protected $value;
 
@@ -38,6 +41,25 @@ class DateTime extends Field
     public function withTime()
     {
         return $this->time;
+    }
+
+    /**
+     * @param bool $time
+     * @return $this
+     */
+    public function timeOnly($timeOnly = true)
+    {
+        $this->timeOnly = $timeOnly;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function withTimeOnly()
+    {
+        return $this->timeOnly;
     }
 
     /**
@@ -70,13 +92,13 @@ class DateTime extends Field
         $format = $this->withTime() ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD';
 
         $this->data('toggle', 'datetimepicker');
-        $this->data('config', array_merge(config('fluentform.datetimepicker'), $this->config, [
+        $this->data('config', array_merge(config('fluentform.datetimepicker'), [
             'format' => $format,
             'locale' => app()->getLocale()
-        ]));
+        ], $this->config));
 
         return $this->html()->tag('input', array_merge($this->getOptions(), [
-            'type' => $this->withTime() ? 'datetime' : 'date',
+            'type' => $this->timeOnly ? 'time' : $this->withTime() ? 'datetime' : 'date',
             'name' => $this->name,
             'value' => $this->binder()->value($this->key($this->name), $this->value)
         ]));
