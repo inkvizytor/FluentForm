@@ -62,7 +62,7 @@ trait SizeContract
      * Get size of the controls in horizontal form
      *
      * @param string $screen
-     * @return array
+     * @return int
      */
     public function getFieldSize($screen)
     {
@@ -104,7 +104,7 @@ trait SizeContract
      * Get size of the label in horizontal form
      *
      * @param string $screen
-     * @return array
+     * @return int
      */
     public function getLabelSize($screen)
     {

@@ -12,6 +12,7 @@ use inkvizytor\FluentForm\Controls\Textarea;
  * Class ControlsContract
  *
  * @package inkvizytor\FluentForm
+ * @method \inkvizytor\FluentForm\Contracts\IComponent parent()
  */
 trait ControlsContract
 {
@@ -23,7 +24,7 @@ trait ControlsContract
      */
     public function input($type, $name, $value = null)
     {
-        return (new Input($this->handler()))->type($type)->name($name)->value($value);
+        return (new Input($this->parent()))->type($type)->name($name)->value($value);
     }
 
     /**
@@ -102,7 +103,7 @@ trait ControlsContract
      */
     public function file($name, $value = null)
     {
-        return (new File($this->handler()))->name($name)->value($value);
+        return (new File($this->parent()))->name($name)->value($value);
     }
 
     /**
@@ -112,7 +113,7 @@ trait ControlsContract
      */
     public function textarea($name, $value = null)
     {
-        return (new Textarea($this->handler()))->name($name)->value($value)->rows(5);
+        return (new Textarea($this->parent()))->name($name)->value($value)->rows(5);
     }
 
     /**
@@ -123,7 +124,7 @@ trait ControlsContract
      */
     public function select($name, array $items, $selected = null)
     {
-        return (new Select($this->handler()))->name($name)->items($items)->selected($selected);
+        return (new Select($this->parent()))->name($name)->items($items)->selected($selected);
     }
 
     /**
@@ -134,7 +135,7 @@ trait ControlsContract
      */
     public function checkbox($name, $value = 1, $checked = null)
     {
-        return (new Checkable($this->handler(), 'checkbox'))->name($name)->value($value)->checked($checked)->always(true);
+        return (new Checkable($this->parent(), 'checkbox'))->name($name)->value($value)->checked($checked)->always(true);
     }
 
     /**
@@ -145,7 +146,7 @@ trait ControlsContract
      */
     public function checkboxes($name, array $items, array $checked = [])
     {
-        return (new CheckableList($this->handler(), 'checkbox'))->name($name)->items($items)->checked($checked);
+        return (new CheckableList($this->parent(), 'checkbox'))->name($name)->items($items)->checked($checked);
     }
 
     /**
@@ -156,7 +157,7 @@ trait ControlsContract
      */
     public function radios($name, array $items, $checked = null)
     {
-        return (new CheckableList($this->handler(), 'radio'))->name($name)->items($items)->checked($checked);
+        return (new CheckableList($this->parent(), 'radio'))->name($name)->items($items)->checked($checked);
     }
 
     /**
@@ -165,6 +166,6 @@ trait ControlsContract
      */
     public function content($content)
     {
-        return (new Content($this->handler()))->content($content);
+        return (new Content($this->parent()))->content($content);
     }
 }

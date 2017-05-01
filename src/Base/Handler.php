@@ -1,5 +1,6 @@
 <?php namespace inkvizytor\FluentForm\Base;
 
+use Illuminate\Config\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store as Session;
@@ -12,6 +13,7 @@ use inkvizytor\FluentForm\Validation\Base as BaseValidation;
 /**
  * Class Handler
  *
+ * @deprecated Use RootComponent class instead
  * @package inkvizytor\FluentForm
  */
 class Handler
@@ -40,6 +42,9 @@ class Handler
     /** @var \Illuminate\Translation\Translator */
     protected $translator;
     
+    /** @var \Illuminate\Config\Repository */
+    protected $config;
+
     /**
      * @param \inkvizytor\FluentForm\Html\Builder $html
      * @param \inkvizytor\FluentForm\Renderers\Base $renderer
@@ -47,12 +52,21 @@ class Handler
      * @param \inkvizytor\FluentForm\Validation\Base $validation
      * @param \Illuminate\Session\Store $session
      * @param \Illuminate\Routing\UrlGenerator $locator
+     * @param \Illuminate\Http\Request $request
      * @param \Illuminate\Translation\Translator $translator
+     * @param \Illuminate\Config\Repository $config
      */
     public function __construct(
-        Builder $html, BaseRenderer $renderer, ModelBinder $binder, 
-        BaseValidation $validation, Session $session, UrlGenerator $locator, 
-        Request $request, Translator $translator)
+        Builder $html, 
+        BaseRenderer $renderer, 
+        ModelBinder $binder, 
+        BaseValidation $validation, 
+        Session $session, 
+        UrlGenerator $locator, 
+        Request $request, 
+        Translator $translator,
+        Repository $config
+    )
     {
         $this->html = $html;
         $this->renderer = $renderer;
@@ -62,6 +76,7 @@ class Handler
         $this->locator = $locator;
         $this->request = $request;
         $this->translator = $translator;
+        $this->config = $config;
     }
 
     /**
@@ -85,9 +100,9 @@ class Handler
      */
     public function setRenderer($alias)
     {
-        $class = config('fluentform.renderers.'.$alias);
+        $class = $this->config('fluentform.renderers.'.$alias);
         app()->bind(BaseRenderer::class, $class);
-        $this->renderer = app()->make($class);;
+        $this->renderer = app()->make($class);
     }
 
     /**
@@ -136,5 +151,15 @@ class Handler
     public function translator()
     {
         return $this->translator;
+    }
+
+    /**
+     * @param string $key
+     * @param null $default
+     * @return string|array
+     */
+    public function config($key, $default = null)
+    {
+        return $this->config->get($key, $default);
     }
 }

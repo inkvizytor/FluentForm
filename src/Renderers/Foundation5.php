@@ -2,19 +2,19 @@
 
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Base\Field;
-use inkvizytor\FluentForm\Components\ButtonGroup;
-use inkvizytor\FluentForm\Components\InputGroup;
-use inkvizytor\FluentForm\Components\Panel;
-use inkvizytor\FluentForm\Controls\Elements\Footer;
-use inkvizytor\FluentForm\Controls\Elements\Group;
-use inkvizytor\FluentForm\Components\TabStrip;
+use inkvizytor\FluentForm\Components\Custom\ButtonGroup;
+use inkvizytor\FluentForm\Components\Custom\InputGroup;
+use inkvizytor\FluentForm\Components\Custom\Panel;
+use inkvizytor\FluentForm\Components\Custom\Footer;
+use inkvizytor\FluentForm\Components\Custom\Group;
+use inkvizytor\FluentForm\Components\Custom\TabStrip;
 use inkvizytor\FluentForm\Controls\Button;
 use inkvizytor\FluentForm\Controls\Checkable;
 use inkvizytor\FluentForm\Controls\CheckableList;
 use inkvizytor\FluentForm\Controls\Content;
 use inkvizytor\FluentForm\Controls\Input;
-use inkvizytor\FluentForm\Components\LinkButton;
-use inkvizytor\FluentForm\Controls\Exclusive\DateTime;
+use inkvizytor\FluentForm\Components\Custom\LinkButton;
+use inkvizytor\FluentForm\Components\Complex\DateTime;
 use Illuminate\Support\Str;
 
 /**
@@ -38,7 +38,7 @@ class Foundation5 extends Base
 
     /**
      * @param Field $control
-     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
+     * @param \inkvizytor\FluentForm\Components\Custom\Group $group
      */
     protected function extendFieldInline(Field $control, Group $group = null)
     {
@@ -101,7 +101,7 @@ class Foundation5 extends Base
 
     /**
      * @param Field $control
-     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
+     * @param \inkvizytor\FluentForm\Components\Custom\Group $group
      * @return string
      */
     protected function renderFieldInline(Field $control, Group $group)
@@ -166,7 +166,7 @@ class Foundation5 extends Base
 
     /**
      * @param Control $control
-     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
+     * @param \inkvizytor\FluentForm\Components\Custom\Group $group
      * @return string
      */
     protected function renderGroupInline(Control $control = null, Group $group)
@@ -240,7 +240,7 @@ class Foundation5 extends Base
 
     /**
      * @param Checkable $control
-     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
+     * @param \inkvizytor\FluentForm\Components\Custom\Group $group
      * @return string
      */
     protected function renderCheckableHorizontal(Checkable $control, Group $group)
@@ -355,7 +355,7 @@ class Foundation5 extends Base
 
     /**
      * @param CheckableList $control
-     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
+     * @param \inkvizytor\FluentForm\Components\Custom\Group $group
      * @return string
      */
     protected function renderCheckableListInline(CheckableList $control, Group $group)
@@ -374,8 +374,8 @@ class Foundation5 extends Base
     // --------------------------------------------------
 
     /**
-     * @param \inkvizytor\FluentForm\Components\ButtonGroup $control
-     * @param \inkvizytor\FluentForm\Controls\Elements\Group|null $group
+     * @param \inkvizytor\FluentForm\Components\Custom\ButtonGroup $control
+     * @param \inkvizytor\FluentForm\Components\Custom\Group|null $group
      */
     protected function extendButtonGroup(ButtonGroup $control, Group $group = null)
     {
@@ -389,7 +389,7 @@ class Foundation5 extends Base
 
     /**
      * @param Content $control
-     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
+     * @param \inkvizytor\FluentForm\Components\Custom\Group $group
      */
     protected function extendContent(Content $control, Group $group = null)
     {
@@ -410,7 +410,7 @@ class Foundation5 extends Base
 
     /**
      * @param Button $control
-     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
+     * @param \inkvizytor\FluentForm\Components\Custom\Group $group
      */
     protected function extendButton(Button $control, Group $group = null)
     {
@@ -433,7 +433,7 @@ class Foundation5 extends Base
     }
 
     /**
-     * @param \inkvizytor\FluentForm\Components\LinkButton $control
+     * @param \inkvizytor\FluentForm\Components\Custom\LinkButton $control
      * @param Group $group
      */
     protected function extendLinkButton(LinkButton $control, Group $group = null)

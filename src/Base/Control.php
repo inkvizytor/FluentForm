@@ -1,5 +1,6 @@
 <?php namespace inkvizytor\FluentForm\Base;
 
+use inkvizytor\FluentForm\Contracts\IComponent;
 use inkvizytor\FluentForm\Traits\AttrContract;
 use inkvizytor\FluentForm\Traits\HandlerContract;
 
@@ -16,11 +17,13 @@ abstract class Control
     protected $guarded = [];
 
     /**
-     * @param \inkvizytor\FluentForm\Base\Handler $handler
+     * Control constructor.
+     *
+     * @param \inkvizytor\FluentForm\Contracts\IComponent $component
      */
-    public function __construct(Handler $handler)
+    public function __construct(IComponent $component)
     {
-        $this->setHandler($handler);
+        $this->setHandler($component->root());
 
         if (method_exists($this, 'backupRenderer'))
         {
@@ -76,7 +79,7 @@ abstract class Control
     /**
      * @return string
      */
-    public abstract function render();
+    abstract public function render();
 
     /**
      * @return string
@@ -95,4 +98,4 @@ abstract class Control
     {
         return $this->display();
     }
-} 
+}

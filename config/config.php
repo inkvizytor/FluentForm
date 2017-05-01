@@ -31,7 +31,7 @@ return [
 
     // Custom controls registration
     'controls' => [
-        'timezones' => inkvizytor\FluentForm\Controls\Custom\TimeZones::class
+        'timezones' => inkvizytor\FluentForm\Components\Custom\TimeZones::class
     ],
     
     // CDN support

@@ -1,6 +1,6 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
-use inkvizytor\FluentForm\Base\Field;
+use inkvizytor\FluentForm\Base\ViewComponent;
 use inkvizytor\FluentForm\Traits\AddonsContract;
 
 /**
@@ -8,7 +8,7 @@ use inkvizytor\FluentForm\Traits\AddonsContract;
  *
  * @package inkvizytor\FluentForm
  */
-class Select extends Field
+class Select extends ViewComponent
 {
     use AddonsContract;
     
@@ -46,7 +46,7 @@ class Select extends Field
     /**
      * @return string
      */
-    public function render()
+    public function renderComponent()
     {
         $items = $this->items;
 
@@ -55,10 +55,10 @@ class Select extends Field
             $items = ['' => $this->placeholder] + $items;
         }
 
-        $selected = $this->binder()->value($this->key($this->name), $this->selected);
+        $selected = $this->root()->binder()->value($this->getKey(), $this->selected);
         $options = $this->options($items, $selected);
 
-        return $this->html()->tag('select', array_merge($this->getOptions(), ['name' => $this->name]), $options);
+        return $this->root()->html()->tag('select', array_merge($this->getAttr(), $this->getDataAttr(), ['class' => $this->getCssAttr()], ['name' => $this->getName()]), $options);
     }
 
     /**
@@ -89,7 +89,7 @@ class Select extends Field
                     $text = array_get($text, 'text');
                 }
 
-                $options[] = $this->html()->tag('option', $attributes, $this->html()->encode($text));
+                $options[] = $this->root()->html()->tag('option', $attributes, $this->root()->html()->encode($text));
             }
         }
 
@@ -104,8 +104,8 @@ class Select extends Field
      */
     private function optgroup(array $items, $text, $selected = null)
     {
-        return $this->html()->tag('optgroup', [
-            'label' => $this->html()->encode($text)
+        return $this->root()->html()->tag('optgroup', [
+            'label' => $this->root()->html()->encode($text)
         ], $this->options($items, $selected));
     }
-} 
+}

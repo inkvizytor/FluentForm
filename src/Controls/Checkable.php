@@ -1,14 +1,14 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
-use inkvizytor\FluentForm\Base\Field;
-use inkvizytor\FluentForm\Base\Handler;
+use inkvizytor\FluentForm\Base\ViewComponent;
+use inkvizytor\FluentForm\Contracts\IRootComponent;
 
 /**
  * Class Checkable
  *
  * @package inkvizytor\FluentForm
  */
-class Checkable extends Field
+class Checkable extends ViewComponent
 {
     /** @var array */
     protected $guarded = ['type', 'value', 'checked', 'placeholder', 'always'];
@@ -26,12 +26,14 @@ class Checkable extends Field
     protected $always = false;
 
     /**
-     * @param \inkvizytor\FluentForm\Base\Handler $handler
+     * Checkable constructor.
+     *
+     * @param \inkvizytor\FluentForm\Contracts\IRootComponent $component
      * @param string $type
      */
-    public function __construct(Handler $handler, $type = 'checkbox')
+    public function __construct(IRootComponent $component, $type = 'checkbox')
     {
-        parent::__construct($handler);
+        parent::__construct($component);
 
         $this->type = $type;
     }
@@ -80,42 +82,42 @@ class Checkable extends Field
     /**
      * @return string
      */
-    public function render()
+    public function renderComponent()
     {
         $content = null;
-        $options = $this->getOptions();
+        $options = array_merge($this->getAttr(), $this->getDataAttr(), ['class' => $this->getCssAttr()]);
         $attributes = array_only($options, 'class');
         
         if ($this->getType() == 'checkbox')
         {
-            $content  = $this->always ? $this->html()->tag('input', [
+            $content  = $this->always ? $this->root()->html()->tag('input', [
                 'type' => 'hidden', 
-                'name' => $this->name, 
+                'name' => $this->getName(), 
                 'value' => false
             ]) : '';
             
-            $content .= $this->html()->tag('input', array_merge(array_except($options, 'class'), [
+            $content .= $this->root()->html()->tag('input', array_merge(array_except($options, 'class'), [
                 'type' => 'checkbox', 
-                'name' => $this->name, 
+                'name' => $this->getName(), 
                 'value' => $this->value !== null ? $this->value : 1, 
-                'checked' => $this->binder()->checked($this->key($this->name), $this->value, $this->checked)
+                'checked' => $this->root()->binder()->checked($this->getKey(), $this->value, $this->checked)
             ]));
         }
         else
         {
-            $content = $this->html()->tag('input', array_merge(array_except($options, 'class'), [
+            $content = $this->root()->html()->tag('input', array_merge(array_except($options, 'class'), [
                 'type' => 'radio',
-                'name' => $this->name,
-                'value' => $this->value !== null ? $this->value : $this->name,
-                'checked' => $this->binder()->checked($this->key($this->name), $this->value, $this->checked)
+                'name' => $this->getName(),
+                'value' => $this->value !== null ? $this->value : $this->getName(),
+                'checked' => $this->root()->binder()->checked($this->getKey(), $this->value, $this->checked)
             ]));
         }
         
         if (!empty($this->getLabel()))
         {
-            return $this->html()->tag('label', $attributes, $content.' '.$this->getLabel());
+            return $this->root()->html()->tag('label', $attributes, $content.' '.$this->getLabel());
         }
         
         return $content;
     }
-} 
+}

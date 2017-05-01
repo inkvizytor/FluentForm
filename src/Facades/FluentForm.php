@@ -11,4 +11,4 @@ class FluentForm extends Facade
     {
         return 'FluentForm';
     }
-} 
+}

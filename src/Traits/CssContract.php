@@ -89,4 +89,4 @@ trait CssContract
             $options['class'] = implode(' ', $this->css);
         }
     }
-} 
+}

@@ -1,8 +1,12 @@
 <?php namespace inkvizytor\FluentForm\Renderers;
 
+use inkvizytor\FluentForm\Base\Component;
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Base\Field;
-use inkvizytor\FluentForm\Controls\Elements\Group;
+use inkvizytor\FluentForm\Base\RootComponent;
+use inkvizytor\FluentForm\Contracts\IComponent;
+use inkvizytor\FluentForm\Controls\Elements\Form;
+use inkvizytor\FluentForm\Components\Custom\Group;
 use inkvizytor\FluentForm\Validation\Base as BaseValidation;
 use inkvizytor\FluentForm\Html\Builder;
 use inkvizytor\FluentForm\Traits\SizeContract;
@@ -23,7 +27,7 @@ abstract class Base
     /** @var \inkvizytor\FluentForm\Base\Control */
     protected $control;
 
-    /** @var \inkvizytor\FluentForm\Controls\Elements\Group */
+    /** @var \inkvizytor\FluentForm\Components\Custom\Group */
     protected $group;
 
     /** @var string */
@@ -81,7 +85,7 @@ abstract class Base
     }
 
     /**
-     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
+     * @param \inkvizytor\FluentForm\Components\Custom\Group $group
      * @return $this
      */
     public function bindGroup(Group $group)
@@ -165,7 +169,9 @@ abstract class Base
     {
         $rules = array_get($this->rules, $control->getName(), []);
 
-        return $control->isRequired() || (is_array($rules) ? array_has($rules, 'required') : str_contains($rules, 'required'));
+        return $control->isRequired() || (is_array($rules) ? 
+            array_has($rules, 'required') : 
+            str_contains($rules, 'required'));
     }
 
     /**
@@ -199,7 +205,7 @@ abstract class Base
         $type = get_class($control);
         
         return array_map(
-            function($type) { return class_basename($type); },
+            function ($type) { return class_basename($type); },
             array_merge([$type => $type], class_parents($control))
         );
     }
@@ -227,7 +233,7 @@ abstract class Base
                 $settings[$prefix . $class] = 'control';
             }
         }
-        else if ($layout !== null)
+        elseif ($layout !== null)
         {
             $settings[$prefix.'Group'.$layout] = 'group';
             $settings[$prefix.'Group'] = 'group';
@@ -239,7 +245,7 @@ abstract class Base
     /**
      * @param string $layout
      * @param Control $control
-     * @param \inkvizytor\FluentForm\Controls\Elements\Group $group
+     * @param \inkvizytor\FluentForm\Components\Custom\Group $group
      */
     public function extend($layout, Control $control = null, Group $group = null)
     {
@@ -334,4 +340,39 @@ abstract class Base
 
         return [];
     }
-} 
+
+    /**
+     * @param \inkvizytor\FluentForm\Base\Component $component
+     * @return string
+     */
+    public function renderComponent(Component $component)
+    {
+        $methods = [];
+        $type = get_class($component);
+        $layout = ucfirst($this->layout);
+        
+        $classes = array_map(
+            function ($type) { return class_basename($type); },
+            array_merge([$type => $type], class_parents($component))
+        );
+
+        foreach ($classes as $type => $class)
+        {
+            if ($layout !== null)
+            {
+                $methods[] = 'render' . $class . $layout;
+            }
+            $methods[] = 'render' . $class;
+        }
+        
+        foreach (array_unique($methods) as $method)
+        {
+            if (method_exists($this, $method) && $method != 'renderComponent')
+            {
+                return $this->{$method}($component);
+            }
+        }
+        
+        return $component->renderComponent();
+    }
+}

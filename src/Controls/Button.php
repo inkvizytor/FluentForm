@@ -1,6 +1,6 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
-use inkvizytor\FluentForm\Base\Control;
+use inkvizytor\FluentForm\Base\Component;
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\DataContract;
 
@@ -9,7 +9,7 @@ use inkvizytor\FluentForm\Traits\DataContract;
  *
  * @package inkvizytor\FluentForm
  */
-class Button extends Control
+class Button extends Component
 {
     use CssContract, DataContract;
     
@@ -46,7 +46,7 @@ class Button extends Control
      */
     public function label($label, array $parameters = [], $domain = 'messages', $locale = null)
     {
-        $this->label = $this->translator()->trans($label, $parameters, $domain, $locale);
+        $this->label = $this->root()->translator()->trans($label, $parameters, $domain, $locale);
 
         return $this;
     }
@@ -112,7 +112,7 @@ class Button extends Control
      */
     public function title($label, array $parameters = [], $domain = 'messages', $locale = null)
     {
-        $this->title = $this->translator()->trans($label, $parameters, $domain, $locale);
+        $this->title = $this->root()->translator()->trans($label, $parameters, $domain, $locale);
 
         return $this;
     }
@@ -131,13 +131,13 @@ class Button extends Control
     /**
      * @return string
      */
-    public function render()
+    public function renderComponent()
     {
         if ($this->type == 'submit' && $this->value === null)
         {
             $this->attr('value', true);
         }
 
-        return $this->html()->tag('button', $this->getOptions(), $this->icon.$this->html()->encode($this->label));
+        return $this->root()->html()->tag('button', array_merge($this->getAttr(), $this->getDataAttr()), $this->icon.$this->root()->html()->encode($this->label));
     }
-} 
+}

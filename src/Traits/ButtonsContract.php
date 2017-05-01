@@ -1,12 +1,12 @@
 <?php namespace inkvizytor\FluentForm\Traits;
 
 use inkvizytor\FluentForm\Controls\Button;
-use inkvizytor\FluentForm\Components\LinkButton;
 
 /**
  * Class ButtonsContract
  *
  * @package inkvizytor\FluentForm
+ * @method \inkvizytor\FluentForm\Contracts\IComponent parent()
  */
 trait ButtonsContract
 {
@@ -19,7 +19,7 @@ trait ButtonsContract
      */
     private function pushable($type, $name, $label, $value = null)
     {
-        return (new Button($this->handler()))->type($type)->name($name)->label($label)->value($value);
+        return (new Button($this->parent()))->type($type)->name($name)->label($label)->value($value);
     }
 
     /**

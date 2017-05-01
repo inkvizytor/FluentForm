@@ -42,7 +42,11 @@ class Nag extends Base
 
         if ($name == '__FORM')
         {
-            return array_map(function($value) { return (string)$value; }, $this->converter->formOptions);
+            return array_map(function($value)
+            {
+                return (string)$value;
+            },
+            $this->converter->formOptions);
         }
         
         if ($this->ruleExist($name))
@@ -72,4 +76,4 @@ class Nag extends Base
         
         return is_array($rules) ? $rules : explode('|', $rules);
     }
-} 
+}

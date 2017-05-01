@@ -13,4 +13,4 @@ class FluentHtml extends Facade implements GlyphIcons, FontAwesome
     {
         return 'FluentHtml';
     }
-} 
+}

@@ -41,16 +41,31 @@ class Builder
     /**
      * @param string $name
      * @param array $attributes
-     * @param string $content
+     * @param null|string|array|\Closure $content
+     * @param bool $autoClose
      * @return string
      */
-    public function tag($name, array $attributes = [], $content = null)
+    public function tag($name, array $attributes = [], $content = null, $autoClose = true)
     {
         $tag = $this->nl($name, true)."<{$name}{$this->attr($attributes)}{$this->end($name)}>";
 
-        if (!in_array($name, $this->selfClosing) && $content !== null)
+        if ($content !== null)
         {
-            $tag .= $this->nl($name).trim($content).$this->close($name);
+            if ($content instanceof \Closure)
+            {
+                $content = $content();
+            }
+            if (is_array($content))
+            {
+                $content = implode("\n", $content);
+            }
+            
+            $tag .= $this->nl($name).trim($content);
+            
+            if (!in_array($name, $this->selfClosing) && $autoClose == true)
+            {
+                $tag .= $this->close($name);
+            }
         }
 
         return $tag;
@@ -129,5 +144,14 @@ class Builder
     public function decode($value)
     {
         return html_entity_decode($value, ENT_QUOTES, 'UTF-8');
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    public function key($name)
+    {
+        return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $name);
     }
 }

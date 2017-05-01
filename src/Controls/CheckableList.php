@@ -1,14 +1,14 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
-use inkvizytor\FluentForm\Base\Field;
-use inkvizytor\FluentForm\Base\Handler;
+use inkvizytor\FluentForm\Base\ViewComponent;
+use inkvizytor\FluentForm\Contracts\IRootComponent;
 
 /**
  * Class CheckableList
  *
  * @package inkvizytor\FluentForm
  */
-class CheckableList extends Field
+class CheckableList extends ViewComponent 
 {
     /** @var array */
     protected $guarded = ['items', 'selected', 'inline', 'placeholder'];
@@ -26,14 +26,16 @@ class CheckableList extends Field
     protected $inline = false;
 
     /**
-     * @param \inkvizytor\FluentForm\Base\Handler $handler
+     * CheckableList constructor.
+     *
+     * @param \inkvizytor\FluentForm\Contracts\IRootComponent $component
      * @param string $type
      */
-    public function __construct(Handler $handler, $type = 'checkbox')
+    public function __construct(IRootComponent $component, $type = 'checkbox')
     {
         $this->type = $type;
 
-        parent::__construct($handler);
+        parent::__construct($component);
     }
 
     /**
@@ -88,13 +90,13 @@ class CheckableList extends Field
     /**
      * @return string
      */
-    public function render()
+    public function renderComponent()
     {
         $checkables = [];
 
         foreach ($this->items as $value => $label)
         {
-            $checkables[] = (new Checkable($this->handler(), $this->getType()))
+            $checkables[] = (new Checkable($this->root(), $this->getType()))
                 ->name($this->getName().($this->type == 'checkbox' ? '[]' : ''))
                 ->label($label)
                 ->value($value)
@@ -109,9 +111,9 @@ class CheckableList extends Field
 
         foreach ($checkables as $i => $checkable)
         {
-            $checkables[$i] = $this->html()->tag('li', [], $checkable);
+            $checkables[$i] = $this->root()->html()->tag('li', [], $checkable);
         }
 
-        return $this->html()->tag('ul', $this->getOptions(), implode("\n", $checkables));
+        return $this->root()->html()->tag('ul', array_merge($this->getAttr(), $this->getDataAttr(), ['class' => $this->getCssAttr()]), implode("\n", $checkables));
     }
-} 
+}

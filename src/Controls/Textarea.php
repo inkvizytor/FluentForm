@@ -1,13 +1,13 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
-use inkvizytor\FluentForm\Base\Field;
+use inkvizytor\FluentForm\Base\ViewComponent;
 
 /**
  * Class Textarea
  *
  * @package inkvizytor\FluentForm
  */
-class Textarea extends Field
+class Textarea extends ViewComponent 
 {
     /** @var array */
     protected $guarded = ['value'];
@@ -43,11 +43,11 @@ class Textarea extends Field
     /**
      * @return string
      */
-    public function render()
+    public function renderComponent()
     {
-        $attributes = array_merge($this->getOptions(), ['name' => $this->name]);
-        $value = $this->binder()->value($this->key($this->name), $this->value);
+        $attributes = array_merge($this->getAttr(), $this->getDataAttr(), ['name' => $this->getName()]);
+        $value = $this->root()->binder()->value($this->getKey(), $this->value);
 
-        return $this->html()->tag('textarea', $attributes, $this->html()->encode($value));
+        return $this->root()->html()->tag('textarea', $attributes, $this->root()->html()->encode($value));
     }
-} 
+}

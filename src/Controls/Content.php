@@ -1,13 +1,14 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
 use inkvizytor\FluentForm\Base\Field;
+use inkvizytor\FluentForm\Base\ViewComponent;
 
 /**
  * Class Content
  *
  * @package inkvizytor\FluentForm
  */
-class Content extends Field
+class Content extends ViewComponent
 {
     /** @var array */
     protected $guarded = ['content'];
@@ -29,8 +30,8 @@ class Content extends Field
     /**
      * @return string
      */
-    public function render()
+    public function renderComponent()
     {
-        return $this->html()->tag('p', $this->getOptions(), $this->content);
+        return $this->root()->html()->tag('p', array_merge($this->getAttr(), $this->getDataAttr(), ['class' => $this->getCssAttr()]), $this->content);
     }
-} 
+}

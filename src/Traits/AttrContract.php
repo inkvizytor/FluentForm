@@ -59,4 +59,4 @@ trait AttrContract
             $options[$key] = is_array($value) ? json_encode($value) : $value;
         }
     }
-} 
+}

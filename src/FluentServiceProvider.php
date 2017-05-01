@@ -2,6 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 use inkvizytor\FluentForm\Base\Handler;
+use inkvizytor\FluentForm\Base\RootComponent;
 use inkvizytor\FluentForm\Renderers\Base as BaseRenderer;
 use inkvizytor\FluentForm\Validation\Base as BaseValidation;
 
@@ -48,21 +49,22 @@ class FluentServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'fluentform');
 
-        $renderer = config('fluentform.renderer');
-        $validation = config('fluentform.validation');
+        $renderer = $this->app['config']->get('fluentform.renderer');
+        $validation = $this->app['config']->get('fluentform.validation');
 
+        $this->app->singleton(RootComponent::class, RootComponent::class);
         $this->app->singleton(Handler::class, Handler::class);
         $this->app->bind(BaseRenderer::class, config('fluentform.renderers.'.$renderer));
         $this->app->bind(BaseValidation::class, config('fluentform.validators.'.$validation));
         
         $this->app->bind('FluentForm', function ($app)
         {
-            return app()->make(config('fluentform.form'));
+            return $app->make($app['config']->get('fluentform.form'));
         });
 
         $this->app->bind('FluentHtml', function ($app)
         {
-            return app()->make(config('fluentform.html'));
+            return $app->make($app['config']->get('fluentform.html'));
         });
     }
 
@@ -75,4 +77,4 @@ class FluentServiceProvider extends ServiceProvider
     {
         return ['FluentForm', 'FluentHtml'];
     }
-} 
+}

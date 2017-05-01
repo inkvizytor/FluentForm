@@ -1,6 +1,6 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
-use inkvizytor\FluentForm\Base\Field;
+use inkvizytor\FluentForm\Base\ViewComponent;
 use inkvizytor\FluentForm\Traits\AddonsContract;
 
 /**
@@ -8,7 +8,7 @@ use inkvizytor\FluentForm\Traits\AddonsContract;
  *
  * @package inkvizytor\FluentForm
  */
-class Input extends Field
+class Input extends ViewComponent
 {
     use AddonsContract;
     
@@ -124,14 +124,14 @@ class Input extends Field
     /**
      * @return string
      */
-    public function render()
+    public function renderComponent()
     {
-        return $this->html()->tag('input', array_merge($this->getOptions(), [
+        return $this->root()->html()->tag('input', array_merge($this->getAttr(), $this->getDataAttr(), ['class' => $this->getCssAttr()], [
             'type' => $this->type,
-            'name' => $this->name,
+            'name' => $this->getName(),
             'value' => !in_array($this->type, ['password', 'file']) ? 
-                $this->binder()->value($this->key($this->name), $this->value) : 
+                $this->root()->binder()->value($this->getKey(), $this->value) : 
                 null
         ]));
     }
-} 
+}

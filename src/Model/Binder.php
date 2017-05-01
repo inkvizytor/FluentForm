@@ -124,7 +124,7 @@ class Binder
         {
             return in_array($value, $data);
         }
-        else if ($data instanceof Collection)
+        elseif ($data instanceof Collection)
         {
             return $data->contains('id', $value);
         }

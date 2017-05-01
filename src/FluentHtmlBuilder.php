@@ -1,11 +1,10 @@
 <?php namespace inkvizytor\FluentForm;
 
-use inkvizytor\FluentForm\Components\ButtonGroup;
-use inkvizytor\FluentForm\Components\Icon;
-use inkvizytor\FluentForm\Components\LinkButton;
-use inkvizytor\FluentForm\Components\Panel;
-use inkvizytor\FluentForm\Components\TabStrip;
-use inkvizytor\FluentForm\Renderers\Base as BaseRenderer;
+use inkvizytor\FluentForm\Components\Custom\ButtonGroup;
+use inkvizytor\FluentForm\Components\Custom\Icon;
+use inkvizytor\FluentForm\Components\Custom\LinkButton;
+use inkvizytor\FluentForm\Components\Custom\Panel;
+use inkvizytor\FluentForm\Components\Custom\TabStrip;
 
 /**
  * Class FluentHtmlBuilder
@@ -36,61 +35,61 @@ class FluentHtmlBuilder extends FluentBuilder
      */
     public function renderer($renderer)
     {
-        $this->handler()->setRenderer($renderer);
+        $this->root()->setRenderer($renderer);
     }
 
     /**
-     * @return \inkvizytor\FluentForm\Components\TabStrip
+     * @return \inkvizytor\FluentForm\Components\Custom\TabStrip
      */
     public function tabs()
     {
-        return (new TabStrip($this->handler()));
+        return (new TabStrip($this->root()));
     }
 
     /**
-     * @return \inkvizytor\FluentForm\Components\Panel
+     * @return \inkvizytor\FluentForm\Components\Custom\Panel
      */
     public function panel()
     {
-        return (new Panel($this->handler()));
+        return (new Panel($this->root()));
     }
     
     /**
      * @param array $buttons
-     * @return \inkvizytor\FluentForm\Components\ButtonGroup
+     * @return \inkvizytor\FluentForm\Components\Custom\ButtonGroup
      */
     public function buttons(array $buttons)
     {
-        return (new ButtonGroup($this->handler()))->buttons($buttons);
+        return (new ButtonGroup($this->root()))->buttons($buttons);
     }
 
     /**
      * @param string $url
      * @param string $label
-     * @return \inkvizytor\FluentForm\Components\LinkButton
+     * @return \inkvizytor\FluentForm\Components\Custom\LinkButton
      */
     public function link($url, $label)
     {
-        return (new LinkButton($this->handler()))->href($url)->label($label);
+        return (new LinkButton($this->root()))->href($url)->label($label);
     }
 
     /**
      * @param string|array $icons
-     * @return \inkvizytor\FluentForm\Components\Icon
+     * @return \inkvizytor\FluentForm\Components\Custom\Icon
      */
     public function icon($icons)
     {
-        return (new Icon($this->handler()))->css(is_array($icons) ? $icons : func_get_args());
+        return (new Icon($this->root()))->css(is_array($icons) ? $icons : func_get_args());
     }
 
     /**
      * @param $icon
      * @param string $url
      * @param string $label
-     * @return \inkvizytor\FluentForm\Components\LinkButton
+     * @return \inkvizytor\FluentForm\Components\Custom\LinkButton
      */
     public function iconlink($icon, $url, $label)
     {
         return $this->link($url, '')->icon($icon)->title($label);
     }
-} 
+}

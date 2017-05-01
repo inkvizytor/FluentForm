@@ -1,6 +1,7 @@
 <?php namespace inkvizytor\FluentForm\Controls;
 
 use inkvizytor\FluentForm\Base\Handler;
+use inkvizytor\FluentForm\Contracts\IRootComponent;
 
 /**
  * Class File
@@ -10,13 +11,15 @@ use inkvizytor\FluentForm\Base\Handler;
 class File extends Input
 {
     /**
-     * @param \inkvizytor\FluentForm\Base\Handler $handler
+     * File constructor.
+     *
+     * @param \inkvizytor\FluentForm\Contracts\IRootComponent $component
      */
-    public function __construct(Handler $handler)
+    public function __construct(IRootComponent $component)
     {
         $this->type = 'file';
         
-        parent::__construct($handler);
+        parent::__construct($component);
     }
 
     /**
@@ -36,11 +39,11 @@ class File extends Input
     public function render()
     {
         $content = parent::render();
-        $value = $this->binder()->value($this->key($this->name), $this->value);
+        $value = $this->root()->binder()->value($this->getKey(), $this->value);
         
         if (!empty($value) && is_string($value))
         {
-            $name = $this->key($this->name).'_delete';
+            $name = $this->getKey().'_delete';
             
             if (($index = strpos($name, '.')) !== false)
             {
@@ -49,12 +52,12 @@ class File extends Input
             }
             
             $content .= '<div>';
-            $content .= $this->html()->tag('input', array_merge($this->getOptions(), [
+            $content .= $this->root()->html()->tag('input', array_merge($this->getAttr(), $this->getDataAttr(), ['class' => $this->getCssAttr()], [
                 'type' => 'checkbox', 
                 'name' => $name, 
                 'value' => '1',
-                'checked' => $this->binder()->checked($this->key($name), '1', null),
-                'title' => trans('fluentform::controls.file.delete')
+                'checked' => $this->root()->binder()->checked($this->key($name), '1', null),
+                'title' => $this->root()->translator()->trans('fluentform::controls.file.delete')
             ]));
             $content .= ' ';
             $content .= '<a href="'.$value.'" target="_blank">'.basename($value).'</a>';

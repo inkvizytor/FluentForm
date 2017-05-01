@@ -1,10 +1,10 @@
 <?php namespace inkvizytor\FluentForm\Traits;
 
-use inkvizytor\FluentForm\Components\InputGroup;
+use inkvizytor\FluentForm\Components\Custom\InputGroup;
 
 trait AddonsContract
 {
-    /** @var \inkvizytor\FluentForm\Components\InputGroup */
+    /** @var \inkvizytor\FluentForm\Components\Custom\InputGroup */
     protected $inputGroup;
 
     /** @var \inkvizytor\FluentForm\Renderers\Base */
@@ -19,7 +19,7 @@ trait AddonsContract
     }
     
     /**
-     * @return \inkvizytor\FluentForm\Components\InputGroup
+     * @return \inkvizytor\FluentForm\Components\Custom\InputGroup
      */
     protected function inputGroup()
     {

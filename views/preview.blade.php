@@ -24,22 +24,28 @@
         
         {!! Fluent::tabs()->panel('horizontal') !!}
             <h2>Horizontal form</h2>
-            {!! Form::horizontal(['select' => 2], 'horizontal')->errors($errors)->rules(['text' => 'required']) !!}
+            {!! Form::horizontal(['select' => 2], 'horizontal')->errors($errors)->rules(['text' => 'required'])->display() !!}
+            {{--
             @include('fluentform::controls', ['form' => 'horizontal'])
+            --}}
             {!! Form::close() !!}
         {!! Fluent::tabs()->end() !!}
 
         {!! Fluent::tabs()->panel('standard') !!}
             <h2>Standard form</h2>
             {!! Form::standard(['text' => 'some text...', 'select' => 2], 'standard')->errors($errors)->rules(['text' => 'required'])->method("put") !!}
+            {{--
             @include('fluentform::controls', ['form' => 'standard'])
+            --}}
             {!! Form::close() !!}
         {!! Fluent::tabs()->end() !!}
         
         {!! Fluent::tabs()->panel('inline') !!}
             <h2>Inline form</h2>
             {!! Form::inline(['select' => 2], 'inline')->errors($errors)->rules(['text' => 'required']) !!}
+            {{--
             @include('fluentform::controls', ['form' => 'inline'])
+            --}}
             {!! Form::close() !!}
         {!! Fluent::tabs()->end() !!}
 
@@ -60,8 +66,8 @@
                 fringilla, magna massa suscipit ipsum, pretium varius enim mi 
                 eget magna. Mauris aliquet turpis a tempor pellentesque.
             {!! Fluent::panel()->close([
-                Form::submit('save', 'Save'),
-                Form::button('disabled', 'Disabled')->disabled(),
+                //Form::submit('save', 'Save'),
+                //Form::button('disabled', 'Disabled')->disabled(),
             ]) !!}
             {!! Fluent::panel()->open('Panel title')->css(['panel-success']) !!}
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -81,6 +87,7 @@
         {!! Fluent::tabs()->end() !!}
         
         {!! Fluent::tabs()->close() !!}
+        
     </div>
 </div>
 {!! Fluent::scripts() !!}
