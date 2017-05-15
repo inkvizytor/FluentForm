@@ -91,11 +91,11 @@ class CheckableList extends Field
     public function render()
     {
         $checkables = [];
-
+        
         foreach ($this->items as $value => $label)
         {
             $checkables[] = (new Checkable($this->handler(), $this->getType()))
-                ->name($this->getName().($this->type == 'checkbox' ? '[]' : ''))
+                ->name($this->getName().($this->type == 'checkbox' && !ends_with($this->getName(), ']') ? '[]' : ''))
                 ->label($label)
                 ->value($value)
                 ->checked(in_array($value, $this->checked))

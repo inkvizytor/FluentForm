@@ -70,7 +70,10 @@ abstract class Control
      */
     protected function key($name)
     {
-        return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $name);
+        if (ends_with($name, '[]'))
+            $name = str_replace_last('[]', '', $name);
+        
+        return str_replace(['.', '[]', '[', ']'], ['_', '.*', '.', ''], $name);
     }
 
     /**
