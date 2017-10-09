@@ -1,9 +1,9 @@
-#Fluent Form
+# Fluent Form
 
-##Form builder for Laravel 5
+## Form builder for Laravel 5
 Main purpose of this package is to provide intuitive form creation with code autocompletion, validation and markup for **Bootstrap 3** CSS framework. I strongly recommend using **[Laravel 5 IDE Helper Generator](https://github.com/barryvdh/laravel-ide-helper)** for autocompletion.
 
-##Installation
+## Installation
 Require this package with composer using the following command:
 ```
 composer require inkvizytor/fluentform
@@ -36,9 +36,9 @@ And publish `fluentform.php` config file:
 php artisan vendor:publish --provider="inkvizytor\FluentForm\FluentServiceProvider"
 ```
 
-##Getting Started
+## Getting Started
 
-###Example
+### Example
 UserController.php
 ```php
     public function edit(User $user)
@@ -87,7 +87,7 @@ edit.blade.php
 @endsection
 ```
 
-###Extended example
+### Extended example
 You can preview all controls by executing `Form::preview()` in your controller action:
 ```php
     public function preview()
@@ -96,7 +96,7 @@ You can preview all controls by executing `Form::preview()` in your controller a
     }
 ```
 
-###Form layouts
+### Form layouts
 ```php
 Form::standard($model = null, $formName = 'default');
 Form::horizontal($model = null, $formName = 'default');
@@ -104,14 +104,14 @@ Form::inline($model = null, $formName = 'default');
 Form::open($model = null, $formName = 'default', $layout = 'standard')
 ```
 
-###Form navigation
+### Form navigation
 ```php
 Form::standard($model)->url('users/edit', ['id' => 1]);
 Form::standard($model)->route('edit_user_route_name', ['id' => 1]);
 Form::standard($model)->action('UsersController@edit', ['id' => 1]);
 ```
 
-###Controls
+### Controls
 ```php
 Form:: or Form::group()->
 
@@ -132,7 +132,7 @@ Form::group()->radios($name, array $items, $checked = null);
 Form::group()->content($html);
 ```
 
-###Buttons
+### Buttons
 ```php
 Form::button($name, $label, $value = null);
 Form::submit($name, $label, $value = null);
@@ -149,7 +149,7 @@ Fluent::buttons([
 ])
 ```
 
-###Tabs
+### Tabs
 ```php
 @section('content')
     {!! Fluent::tabs()
@@ -174,7 +174,7 @@ Fluent::buttons([
 @endsection
 ```
 
-###Panel
+### Panel
 ```php
 @section('content')
     {!! Fluent::panel()->open('Panel title')->css(['panel-primary']) !!}
@@ -190,7 +190,7 @@ Fluent::buttons([
 @endsection
 ```
 
-###Icons
+### Icons
 Autocomplete for icons. Supported icon sets: FontAwesome, GlyphIcons.
 ```php
 Fluent::FA_*
@@ -199,7 +199,7 @@ Fluent::GI_*
 {!! Fluent::icon(Fluent::FA_SPINNER, Fluent::FA_SPIN, Fluent::FA_5X) !!}
 ```
 
-###Other
+### Other
 ```php
 Form::hidden($name, $value = null)
 Form::radio($name, $value = true, $checked = null)
@@ -215,8 +215,8 @@ Form::footer([
 ]);
 ```
 
-###Something more
-####CDN support
+### Something more
+#### CDN support
 In `fluentform.php` config file you can enable or disable CDN support for Bootstrap and various other elements.
 ```php
 	'cdn' => [
@@ -281,7 +281,7 @@ If you don't like the idea of CDN you can link to your local style/script files.
 </html>
 ```
 
-####Datetime picker
+#### Datetime picker
 [Bootstrap 3 Date/Time Picker](https://github.com/Eonasdan/bootstrap-datetimepicker)
 ```php
 Form::group()->datetime($name, $value = null);
@@ -295,7 +295,7 @@ You can also change some default settings for this control in `fluentform.php` c
     ]
 ```
 
-####Date range picker
+#### Date range picker
 [Date Range Picker for Bootstrap](https://github.com/dangrossman/bootstrap-daterangepicker)
 ```php
 Form::group()->datetimerange($name, $value = null);
@@ -315,7 +315,7 @@ And default settings in `fluentform.php` config file.
     ]
 ```
 
-####Editor
+#### Editor
 This method renders textarea replaced with [TinyMCE](http://www.tinymce.com/).
 ```php
 Form::group()->editor($name, $value = null);
@@ -341,7 +341,7 @@ In `fluentform.php` config file you can change some default settings for TinyMCE
     ],
 ```
 
-####Localization
+#### Localization
 Methods that add texts to controls can use translations. Those methods accept the same params as Laravel's `trans()` helper.
 ```php
 $label = 'fluentform::preview.timezones.label';
@@ -352,7 +352,7 @@ Form::group()->textarea(...)->help($label, array $parameters = [], $domain = 'me
 Form::group()->icon(...)->title($label, array $parameters = [], $domain = 'messages', $locale = null);
 ```
 
-####Validation
+#### Validation
 By default, for client side validation FluentForm use [jQuery Validation Plugin](http://jqueryvalidation.org/) and [jQuery Unobtrusive Validation](https://github.com/aspnet/jquery-validation-unobtrusive).
 If you prefer [Parsley](http://parsleyjs.org/) or [formvalidation.io](http://formvalidation.io/) enable [Nag](https://github.com/dragonFlyAdmin/nag) validation rules converter in `fluentform.php` config file.
 ```php
@@ -365,7 +365,7 @@ If you prefer [Parsley](http://parsleyjs.org/) or [formvalidation.io](http://for
     ],
 ```
 
-####Custom controls
+#### Custom controls
 If you wish to make your own custom control, you can. First create a new class that extends abstract `Field` class. Example TimeZone custom class (it extends Select but Select extends Field):
 ```php
 <?php namespace inkvizytor\FluentForm\Controls\Custom;
@@ -426,5 +426,5 @@ And then call it by it's alias name:
 ```
 All arguments of this magic method are passed to constructor after `$handler`. Sadly no autocomplete is available for custom controls.
 
-##License
+## License
 The **Fluent Form** is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
