@@ -52,6 +52,16 @@ abstract class Control
 
         return array_filter($options, function($item)
         {
+            if (is_string($item))
+            {
+                return mb_strlen($item) > 0;
+            }
+
+            if (is_int($item))
+            {
+                return strlen($item) === strlen((int)$item);
+            }
+
             return !empty($item) && !is_array($item) && !is_object($item);
         });
     }
