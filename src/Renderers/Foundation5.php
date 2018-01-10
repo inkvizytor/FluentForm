@@ -251,7 +251,7 @@ class Foundation5 extends Base
 
         return '
     <div class="'.implode(' ', $groupCss).'">
-        <div class="'.$this->getLabelColumnClass($group).'"></div>
+        <div class="'.$this->getLabelColumnClass($group).'">&nbsp;</div>
         <div class="'.$this->getFieldColumnClass($group).'">
             <div class="'.$labelCss.'">'.$label.'</div>
             '.$this->renderErrors($control).'
