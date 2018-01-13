@@ -110,6 +110,8 @@ class Checkable extends Field
                 'checked' => $this->binder()->checked($this->key($this->name), $this->value, $this->checked)
             ]));
         }
+
+        $content .= config('fluentform.checkable.span') ? $this->html()->tag('span') : '';
         
         if (!empty($this->getLabel()))
         {

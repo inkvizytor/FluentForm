@@ -69,6 +69,11 @@ return [
             'tinymce' => '//tinymce.cachefly.net/4.2/tinymce.min.js',
         ]
     ],
+
+    // Checkable
+    'checkable' => [
+        'span' => true
+    ],
     
     // TinyMCE configuration
     'tinymce' => [
