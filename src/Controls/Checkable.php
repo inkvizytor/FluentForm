@@ -111,7 +111,7 @@ class Checkable extends Field
             ]));
         }
 
-        $content .= config('fluentform.checkable.span') ? $this->html()->tag('span') : '';
+        $content .= config('fluentform.checkable.span') ? $this->html()->tag('span', [], '') : '';
         
         if (!empty($this->getLabel()))
         {
