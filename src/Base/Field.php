@@ -71,13 +71,12 @@ abstract class Field extends Control
     /**
      * @param string $label
      * @param array $parameters
-     * @param string $domain
      * @param string|null $locale
      * @return $this
      */
-    public function help($label, array $parameters = [], $domain = 'messages', $locale = null)
+    public function help($label, array $parameters = [], $locale = null)
     {
-        $this->help = $this->translator()->trans($label, $parameters, $domain, $locale);
+        $this->help = $this->translator()->get($label, $parameters, $locale);
 
         return $this;
     }
@@ -202,13 +201,12 @@ abstract class Field extends Control
     /**
      * @param string $label
      * @param array $parameters
-     * @param string $domain
      * @param string|null $locale
      * @return $this
      */
-    public function placeholder($label, array $parameters = [], $domain = 'messages', $locale = null)
+    public function placeholder($label, array $parameters = [], $locale = null)
     {
-        $this->placeholder = $this->translator()->trans($label, $parameters, $domain, $locale);
+        $this->placeholder = $this->translator()->get($label, $parameters, $locale);
         
         return $this;
     }

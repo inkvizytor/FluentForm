@@ -1,7 +1,7 @@
 # Fluent Form
 
-## Form builder for Laravel 5
-Main purpose of this package is to provide intuitive form creation with code autocompletion, validation and markup for **Bootstrap 3** CSS framework. I strongly recommend using **[Laravel 5 IDE Helper Generator](https://github.com/barryvdh/laravel-ide-helper)** for autocompletion.
+## Form builder for Laravel 6
+Main purpose of this package is to provide intuitive form creation with code autocompletion, validation and markup for **Bootstrap 3** CSS framework. I strongly recommend using **[Laravel IDE Helper Generator](https://github.com/barryvdh/laravel-ide-helper)** for autocompletion.
 
 ## Installation
 Require this package with composer using the following command:
@@ -346,10 +346,10 @@ Methods that add texts to controls can use translations. Those methods accept th
 ```php
 $label = 'fluentform::preview.timezones.label';
 
-Form::group()->text(...)->label($label, array $parameters = [], $domain = 'messages', $locale = null);
-Form::group()->text(...)->placeholder($label, array $parameters = [], $domain = 'messages', $locale = null);
-Form::group()->textarea(...)->help($label, array $parameters = [], $domain = 'messages', $locale = null);
-Form::group()->icon(...)->title($label, array $parameters = [], $domain = 'messages', $locale = null);
+Form::group()->text(...)->label($label, array $parameters = [], $locale = null);
+Form::group()->text(...)->placeholder($label, array $parameters = [], $locale = null);
+Form::group()->textarea(...)->help($label, array $parameters = [], $locale = null);
+Form::group()->icon(...)->title($label, array $parameters = [], $locale = null);
 ```
 
 #### Validation

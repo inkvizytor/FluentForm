@@ -37,6 +37,10 @@ class FluentServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../lang' => base_path('resources/lang/vendor/fluentform'),
         ], 'lang');
+
+        $this->publishes([
+            __DIR__.'/../views/forms' => base_path('resources/views/forms'),
+        ], 'views');
     }
 
     /**

@@ -19,13 +19,12 @@ trait GroupContract
     /**
      * @param string $label
      * @param array $parameters
-     * @param string $domain
      * @param string|null $locale
      * @return $this
      */
-    public function label($label, array $parameters = [], $domain = 'messages', $locale = null)
+    public function label($label, array $parameters = [], $locale = null)
     {
-        $this->label = $this->translator()->trans($label, $parameters, $domain, $locale);
+        $this->label = $this->translator()->get($label, $parameters, $locale);
 
         return $this;
     }
