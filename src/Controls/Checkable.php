@@ -2,6 +2,7 @@
 
 use inkvizytor\FluentForm\Base\Field;
 use inkvizytor\FluentForm\Base\Handler;
+use Illuminate\Support\Arr;
 
 /**
  * Class Checkable
@@ -84,7 +85,7 @@ class Checkable extends Field
     {
         $content = null;
         $options = $this->getOptions();
-        $attributes = array_only($options, 'class');
+        $attributes = Arr::only($options, 'class');
         
         if ($this->getType() == 'checkbox')
         {
@@ -94,7 +95,7 @@ class Checkable extends Field
                 'value' => false
             ]) : '';
             
-            $content .= $this->html()->tag('input', array_merge(array_except($options, 'class'), [
+            $content .= $this->html()->tag('input', array_merge(Arr::except($options, 'class'), [
                 'type' => 'checkbox', 
                 'name' => $this->name, 
                 'value' => $this->value !== null ? $this->value : 1, 
@@ -103,7 +104,7 @@ class Checkable extends Field
         }
         else
         {
-            $content = $this->html()->tag('input', array_merge(array_except($options, 'class'), [
+            $content = $this->html()->tag('input', array_merge(Arr::except($options, 'class'), [
                 'type' => 'radio',
                 'name' => $this->name,
                 'value' => $this->value !== null ? $this->value : $this->name,

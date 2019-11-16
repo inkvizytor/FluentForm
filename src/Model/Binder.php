@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Session\Store as Session;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Arr;
 
 /**
  * Class Binder
@@ -82,7 +83,7 @@ class Binder
      */
     private function post($key, $default = null)
     {
-        return array_get($this->request()->request->all(), $key, $default);
+        return Arr::get($this->request()->request->all(), $key, $default);
     }
 
     /**

@@ -1,4 +1,8 @@
-<?php namespace inkvizytor\FluentForm\Traits;
+<?php
+
+namespace inkvizytor\FluentForm\Traits;
+
+use Illuminate\Support\Arr;
 
 /**
  * Class SizeContract
@@ -66,7 +70,7 @@ trait SizeContract
      */
     public function getFieldSize($screen)
     {
-        return (int)array_get($this->fieldSize, $screen, 0);
+        return (int)Arr::get($this->fieldSize, $screen, 0);
     }
 
     /**
@@ -108,7 +112,7 @@ trait SizeContract
      */
     public function getLabelSize($screen)
     {
-        return (int)array_get($this->labelSize, $screen, 0);
+        return (int)Arr::get($this->labelSize, $screen, 0);
     }
 
     /**

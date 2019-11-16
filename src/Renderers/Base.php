@@ -1,4 +1,6 @@
-<?php namespace inkvizytor\FluentForm\Renderers;
+<?php 
+
+namespace inkvizytor\FluentForm\Renderers;
 
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Base\Field;
@@ -6,6 +8,8 @@ use inkvizytor\FluentForm\Controls\Elements\Group;
 use inkvizytor\FluentForm\Validation\Base as BaseValidation;
 use inkvizytor\FluentForm\Html\Builder;
 use inkvizytor\FluentForm\Traits\SizeContract;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 abstract class Base
 {
@@ -163,9 +167,9 @@ abstract class Base
      */
     public function isRequired(Field $control)
     {
-        $rules = array_get($this->rules, $control->getName(), []);
+        $rules = Arr::get($this->rules, $control->getName(), []);
 
-        return $control->isRequired() || (is_array($rules) ? array_has($rules, 'required') : str_contains($rules, 'required'));
+        return $control->isRequired() || (is_array($rules) ? Arr::has($rules, 'required') : Str::contains($rules, 'required'));
     }
 
     /**

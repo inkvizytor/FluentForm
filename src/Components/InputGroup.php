@@ -2,6 +2,7 @@
 
 use inkvizytor\FluentForm\Base\Field;
 use inkvizytor\FluentForm\Renderers\Base;
+use Illuminate\Support\Arr;
 
 /**
  * Class InputGroup
@@ -38,10 +39,10 @@ class InputGroup extends Field
         
         $width = $control->getWidth();
         $this->width(
-            array_get($width, 'lg'), 
-            array_get($width, 'md'), 
-            array_get($width, 'sm'), 
-            array_get($width, 'xs')
+            Arr::get($width, 'lg'),
+            Arr::get($width, 'md'),
+            Arr::get($width, 'sm'),
+            Arr::get($width, 'xs')
         );
 
         $this->control = $control;
