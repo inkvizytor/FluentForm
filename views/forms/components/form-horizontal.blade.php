@@ -1,5 +1,5 @@
 @php
-    $groupCss = array_merge(['row', take($class)], $group->getCss());
+    $groupCss = array_merge(['row', $class], $group->getCss());
     $labelCss = [
         'column',
         'large-'.($group->getLabelSize('lg') ?: $renderer->getLabelSize('lg')),

@@ -1,5 +1,5 @@
 @php
-    $groupCss = array_merge(['row', take($class)], $group->getCss());
+    $groupCss = array_merge(['row', $class], $group->getCss());
 @endphp
 
 <div class="{!! implode(' ', $groupCss) !!}">
