@@ -2,6 +2,7 @@
 
 use inkvizytor\FluentForm\Base\Field;
 use inkvizytor\FluentForm\Traits\AddonsContract;
+use Illuminate\Support\Arr;
 
 /**
  * Class Select
@@ -85,8 +86,8 @@ class Select extends Field
 
                 if (is_array($text))
                 {
-                    $attributes = array_merge($attributes, array_except($text, 'text'));
-                    $text = array_get($text, 'text');
+                    $attributes = array_merge($attributes, Arr::except($text, 'text'));
+                    $text = Arr::get($text, 'text');
                 }
 
                 $options[] = $this->html()->tag('option', $attributes, $this->html()->encode($text));

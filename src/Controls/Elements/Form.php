@@ -1,8 +1,11 @@
-<?php namespace inkvizytor\FluentForm\Controls\Elements;
+<?php
+
+namespace inkvizytor\FluentForm\Controls\Elements;
 
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
 use inkvizytor\FluentForm\Traits\DataContract;
+use Illuminate\Support\Arr;
 
 /**
  * Class Form
@@ -231,7 +234,7 @@ class Form extends Control
         {
             $live = $this->renderer()->validation()->getOptions('__FORM', '');
             $options = array_merge($live, $this->getOptions());
-            $method = strtoupper(array_get($options, 'method', 'POST'));
+            $method = strtoupper(Arr::get($options, 'method', 'POST'));
             
             $options['method'] = $method != 'GET' ? 'POST' : $method;
             $options['action'] = $this->getFormAction();

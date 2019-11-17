@@ -2,6 +2,8 @@
 
 use inkvizytor\FluentForm\Traits\AttrContract;
 use inkvizytor\FluentForm\Traits\HandlerContract;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 /**
  * Class Control
@@ -33,7 +35,7 @@ abstract class Control
      */
     protected function getOptions()
     {
-        $options = array_except(get_object_vars($this), $this->getGuarded());
+        $options = Arr::except(get_object_vars($this), $this->getGuarded());
 
         if (method_exists($this, 'appendAttributes'))
         {
@@ -80,8 +82,8 @@ abstract class Control
      */
     protected function key($name)
     {
-        if (ends_with($name, '[]'))
-            $name = str_replace_last('[]', '', $name);
+        if (Str::endsWith($name, '[]'))
+            $name = Str::replaceLast('[]', '', $name);
         
         return str_replace(['.', '[]', '[', ']'], ['_', '.*', '.', ''], $name);
     }

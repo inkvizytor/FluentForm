@@ -2,6 +2,7 @@
 
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
+use Illuminate\Support\Arr;
 
 /**
  * Class TabStrip
@@ -79,7 +80,7 @@ class Panel extends Control
      */
     private function renderPanelBegin()
     {
-        $attributes = array_except($this->getOptions(), ['heading', 'body', 'footer']);
+        $attributes = Arr::except($this->getOptions(), ['heading', 'body', 'footer']);
         
         $header = '';
 

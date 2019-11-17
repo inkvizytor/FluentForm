@@ -1,4 +1,8 @@
-<?php namespace inkvizytor\FluentForm\Traits;
+<?php
+
+namespace inkvizytor\FluentForm\Traits;
+
+use Illuminate\Support\Arr;
 
 /**
  * Class DataContract
@@ -31,7 +35,7 @@ trait DataContract
     {
         if ($key !== null)
         {
-            return array_get($this->data, $key, $default);
+            return Arr::get($this->data, $key, $default);
         }
         else
         {

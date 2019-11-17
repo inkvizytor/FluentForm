@@ -1,4 +1,8 @@
-<?php namespace inkvizytor\FluentForm\Validation;
+<?php 
+
+namespace inkvizytor\FluentForm\Validation;
+
+use Illuminate\Support\Arr;
 
 /**
  * Class Nag
@@ -68,7 +72,7 @@ class Nag extends Base
      */
     protected function getRules($name)
     {
-        $rules = array_get($this->rules, $name, []);
+        $rules = Arr::get($this->rules, $name, []);
         
         return is_array($rules) ? $rules : explode('|', $rules);
     }

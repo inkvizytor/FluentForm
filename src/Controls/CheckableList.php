@@ -2,6 +2,7 @@
 
 use inkvizytor\FluentForm\Base\Field;
 use inkvizytor\FluentForm\Base\Handler;
+use Illuminate\Support\Str;
 
 /**
  * Class CheckableList
@@ -95,7 +96,7 @@ class CheckableList extends Field
         foreach ($this->items as $value => $label)
         {
             $checkables[] = (new Checkable($this->handler(), $this->getType()))
-                ->name($this->getName().($this->type == 'checkbox' && !ends_with($this->getName(), ']') ? '[]' : ''))
+                ->name($this->getName().($this->type == 'checkbox' && !Str::endsWith($this->getName(), ']') ? '[]' : ''))
                 ->label($label)
                 ->value($value)
                 ->checked(in_array($value, $this->checked))

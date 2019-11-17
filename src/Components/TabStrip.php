@@ -1,7 +1,10 @@
-<?php namespace inkvizytor\FluentForm\Components;
+<?php
+
+namespace inkvizytor\FluentForm\Components;
 
 use inkvizytor\FluentForm\Base\Control;
 use inkvizytor\FluentForm\Traits\CssContract;
+use Illuminate\Support\Arr;
 
 /**
  * Class TabStrip
@@ -200,7 +203,7 @@ class TabStrip extends Control
         {
             $li = $this->getAttr('tab');
             $active = self::$active == $key ? $this->getAttr('active') : '';
-            array_set($li, 'class', trim(array_get($li, 'class', '').' '.$active));
+            Arr::set($li, 'class', trim(Arr::get($li, 'class', '').' '.$active));
 
             if (empty($li['class'])) unset($li['class']);
 
@@ -233,7 +236,7 @@ class TabStrip extends Control
     {
         $div = $this->getAttr('panel');
         $active = self::$active == $this->name ? $this->getAttr('active') : '';
-        array_set($div, 'class', trim(array_get($div, 'class', '').' '.$active));
+        Arr::set($div, 'class', trim(Arr::get($div, 'class', '').' '.$active));
 
         if (empty($div['class'])) unset($div['class']);
         
