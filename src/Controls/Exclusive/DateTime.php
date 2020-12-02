@@ -98,7 +98,7 @@ class DateTime extends Field
         ], $this->config));
 
         return $this->html()->tag('input', array_merge($this->getOptions(), [
-            'type' => $this->timeOnly ? 'time' : $this->withTime() ? 'datetime' : 'date',
+            'type' => $this->timeOnly ? 'time' : ($this->withTime() ? 'datetime' : 'date'),
             'name' => $this->name,
             'value' => $this->binder()->value($this->key($this->name), $this->value)
         ]));
