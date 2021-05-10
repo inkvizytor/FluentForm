@@ -57,7 +57,7 @@ class File extends Input
                 'title' => trans('fluentform::controls.file.delete')
             ]));
             $content .= ' ';
-            $content .= '<a href="'.$value.'" target="_blank">'.basename($value).'</a>';
+            $content .= '<a href="'.$this->html()->encode($value).'" target="_blank">'.basename($this->html()->encode($value)).'</a>';
             $content .= '</div>';
         }
             
